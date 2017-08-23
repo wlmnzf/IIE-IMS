@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="weiboProxy">
+    <output-path>$PROJECT_DIR$/classes/artifacts/weiboProxy</output-path>
+    <root id="archive" name="weiboProxy.war">
+      <element id="artifact" artifact-name="weiboProxy:war exploded" />
+    </root>
+  </artifact>
+</component>
