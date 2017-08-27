@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 此文件专用于开发环境中定义编译路径中的jar文件，在开发中如果需要用到新的jar包，可以在此文件中添加并对新包进行测试。 当确定需要加入最终发布包的时候，就可以将新增的jar包添加到打包脚本中。 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.iie</groupId>
+	<artifactId>iie-icm</artifactId>
+	<version>main</version>
+	<description>http://www.iie.ac.cn</description>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<packaging>war</packaging>
+	<properties>
+		<junit-version>4.8.2</junit-version>
+		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20160212</version>
+		</dependency>
+			<!-- https://mvnrepository.com/artifact/aspectj/aspectjrt -->
+		<dependency>
+		    <groupId>aspectj</groupId>
+		    <artifactId>aspectjrt</artifactId>
+		    <version>1.5.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <version>3.2.3.RELEASE</version>
+		</dependency>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>3.2.3.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>1.3.1</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.eclipse.birt.runtime.3_7_1</groupId>
+		<artifactId>org.mozilla.javascript</artifactId>
+		<version>1.7.2</version>
+	</dependency>
+		
+		<dependency>	
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.9</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>3.9</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.jgroups</groupId>
+		    <artifactId>jgroups</artifactId>
+		    <version>2.6.20.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.2.2</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.28</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+<!-- 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+           <version>2.5</version>
+       </dependency> -->
+		<!-- Mybatis jar包 -->
+  		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.1.0</version>
+		</dependency>  
+			<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>1.2.2</version>
+		</dependency>
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>5.1.8</version>
+		</dependency>
+	<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.2.1</version>
+		</dependency>
+			<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>1.6.10</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.3</version>
+		</dependency>  
+		<!-- 测试工具包 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- ajax、json相关包 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.9</version>
+		</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-core</artifactId>
+		    <version>3.2.3.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>
+		    <version>3.2.3.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context</artifactId>
+		    <version>3.2.3.RELEASE</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+		    <groupId>dom4j</groupId>
+		    <artifactId>dom4j</artifactId>
+		    <version>1.6</version>
+		</dependency>
+				<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>3.2.3.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.xmlrpc</groupId>
+		    <artifactId>xmlrpc-client</artifactId>
+		    <version>3.1.3</version>
+		</dependency>
+		
+		
+		<!-- local lib -->
+		<dependency>  
+            <groupId>com.esen</groupId>  
+            <artifactId>esenutil</artifactId>  
+            <version>2.0</version>  
+            <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/util.jar</systemPath>  
+        </dependency>  
+
+		<dependency>
+		    <groupId>com.key</groupId>
+		    <artifactId>kewordutil</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/KeywordsExtension.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>auditserver</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/auditserver.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>autoProxy</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/autoProxy.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>cert</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/cert.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>dispsvr</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/dispsvr.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>jdom</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/jdom.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>klib-common</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/klib-common.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>PrivilegeAuthAPI</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/PrivilegeAuthAPI.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>tcpmod</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/tcpmod.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>tcpsvr</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/tcpsvr.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>ticket</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/ticket.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>xalan</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/xalan.jar</systemPath>  
+		</dependency>
+		<!-- for datagroup api contain -->
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/gson-2.5.jar</systemPath>  
+		</dependency>
+		<!--for datagroup api -->
+		<dependency>
+		    <groupId>com.guorui</groupId>
+		    <artifactId>wsClient</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/wsClient-1.3.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.yzlj</groupId>
+		    <artifactId>iReport</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/iReport.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.yzlj</groupId>
+		    <artifactId>itxt-rtf</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/iText-rtf-2.1.7.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.yzlj</groupId>
+		    <artifactId>itextAsian</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/iTextAsian.jar</systemPath>  
+		</dependency>
+		<dependency>
+		    <groupId>com.yzlj</groupId>
+		    <artifactId>ZHConverter</artifactId>
+		    <version>6</version>
+		    <scope>system</scope>  
+            <systemPath>${project.basedir}/web/WEB-INF/lib/ZHConverter.jar</systemPath>  
+		</dependency>
+	   <!-- shironeed-->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-quartz</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+		<dependency>
+		    <groupId>com.lowagie</groupId>
+		    <artifactId>itext</artifactId>
+		    <version>2.1.7</version>
+		</dependency>
+		<!--远程调用jar包-->
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+            <version>4.0.38</version>
+        </dependency>
+		 <!-- https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl -->
+        <dependency>
+            <groupId>net.sourceforge.jexcelapi</groupId>
+            <artifactId>jxl</artifactId>
+            <version>2.6.12</version>
+        </dependency>
+		<dependency>
+		<!-- yzlj制表包 -->
+  		<groupId>org.freemarker</groupId>
+  			<artifactId>freemarker</artifactId>
+ 			 <version>2.3.25-incubating</version>
+		</dependency>
+
+		<!--&lt;!&ndash; https://mvnrepository.com/artifact/log4j/log4j &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>log4j</groupId>-->
+			<!--<artifactId>log4j</artifactId>-->
+			<!--<version>1.2.12</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.slf4j</groupId>-->
+			<!--<artifactId>slf4j-log4j12</artifactId>-->
+			<!--<version>1.6.4</version>-->
+		<!--</dependency>-->
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+			<version>1.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.13</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.log4jdbc</groupId>
+			<artifactId>log4jdbc</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+	</dependencies>
+
+</project>
