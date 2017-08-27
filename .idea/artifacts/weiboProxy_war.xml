@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="weiboProxy:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="iie-icm-main.war">
-      <element id="artifact" artifact-name="weiboProxy:war exploded" />
-    </root>
-  </artifact>
-</component>
