@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
-<web-app>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
     <!-- 在websphere中，各标签应该按照比较严格的顺序来配置，否则部署时会报错
                具体的顺序参考：icon?,display-name?,description?,distributable?,context-param*,filter*,filter-mapping*,listener*,
                servlet*,servlet-mapping*,session-config?,mime-mapping*,welcome-file-list?,error-page*,taglib*,resource-env-ref*,
@@ -86,17 +89,17 @@
 
     <!--&lt;!&ndash; shironeed&ndash;&gt;-->
     <!--<filter>-->
-        <!--<filter-name>shiroFilter</filter-name>-->
-        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
-        <!--&lt;!&ndash;设置为true有servlet容器控制filter声明周期&ndash;&gt;-->
-        <!--<init-param>-->
-            <!--<param-name>targetFilterLifecycle</param-name>-->
-            <!--<param-value>true</param-value>-->
-        <!--</init-param>-->
+    <!--<filter-name>shiroFilter</filter-name>-->
+    <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+    <!--&lt;!&ndash;设置为true有servlet容器控制filter声明周期&ndash;&gt;-->
+    <!--<init-param>-->
+    <!--<param-name>targetFilterLifecycle</param-name>-->
+    <!--<param-value>true</param-value>-->
+    <!--</init-param>-->
     <!--</filter>-->
     <!--<filter-mapping>-->
-        <!--<filter-name>shiroFilter</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
+    <!--<filter-name>shiroFilter</filter-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
     <session-config>
@@ -193,7 +196,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>css</extension>
-        <mime-type>text/css</mime-type>
+        <mime-type>text/css;charset=UTF-8</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>cssgz</extension>
@@ -259,11 +262,11 @@
     </mime-mapping>
     <mime-mapping>
         <extension>htm</extension>
-        <mime-type>text/html</mime-type>
+        <mime-type>text/html;charset=UTF-8</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>html</extension>
-        <mime-type>text/html</mime-type>
+        <mime-type>text/html;charset=UTF-8</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>mht</extension>
@@ -308,6 +311,10 @@
     <mime-mapping>
         <extension>jpg</extension>
         <mime-type>image/jpeg</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+    <extension>js</extension>
+    <mime-type>text/javascript;charset=UTF-8</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>jsf</extension>
@@ -715,22 +722,22 @@
         <welcome-file>indexpage_ysp.do</welcome-file>
         <welcome-file>indexpage_zhibo.do</welcome-file>
 </welcome-file-list>-->
-        <!-- Account self -->
-        <!--<welcome-file-list>
-            <welcome-file>indexpageAccount.do</welcome-file>
-        </welcome-file-list>-->
-        <!--<welcome-file-list>
-            <welcome-file>indexpage_zhibo.do</welcome-file>
-        </welcome-file-list>-->
-        <!-- yzlj self -->
-<welcome-file-list>
-<welcome-file>indexpage.do</welcome-file>
-</welcome-file-list>
+    <!-- Account self -->
+    <!--<welcome-file-list>
+        <welcome-file>indexpageAccount.do</welcome-file>
+    </welcome-file-list>-->
+    <!--<welcome-file-list>
+        <welcome-file>indexpage_zhibo.do</welcome-file>
+    </welcome-file-list>-->
+    <!-- yzlj self -->
+    <welcome-file-list>
+        <welcome-file>indexpage.do</welcome-file>
+    </welcome-file-list>
 
-        <!-- guorui -->
-        <!-- <welcome-file-list>
-                <welcome-file>/ncsLogin/login.do</welcome-file>
-            </welcome-file-list> -->
+    <!-- guorui -->
+    <!-- <welcome-file-list>
+            <welcome-file>/ncsLogin/login.do</welcome-file>
+        </welcome-file-list> -->
 
 
-        </web-app>
+</web-app>

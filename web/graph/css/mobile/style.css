@@ -1,0 +1,53 @@
+body
+{
+	 background-color:#e7e8e0;
+}
+.list-block
+{
+	 background-color: white;	
+    margin-bottom: 10px;
+/*    min-height: 750px;*/
+}
+
+.view
+{
+ overflow-y: auto;	
+}
+
+.navbar
+{
+	position: fixed;
+}
+
+ .view>.toolbar
+{
+	position:static;
+}
+
+ .view>.toolbar .toolbar-inner
+{
+	position:static;
+}
+
+.checkboxR,.radioR
+{
+	display: block !important;
+}
+.checkboxR .content-block-title,.radioR .content-block-title
+{
+	margin-left:0;
+}
+
+.checkboxR ul,.radioR ul,.list-block ul ul
+{
+	padding-left:0;
+}
+.buttons-row
+{
+	width:100%;
+}
+.toolbar p
+{
+	text-align: center;
+    width: 100%;
+}

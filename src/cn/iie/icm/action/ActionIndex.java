@@ -28,6 +28,18 @@ public class ActionIndex {
 		return new ModelAndView("index");
 		}
 
+	@RequestMapping("/customForm")
+	private ModelAndView customForm(HttpServletRequest request, HttpServletResponse response,
+									String targetUrl) throws IOException {
+		return new ModelAndView("customForm");
+	}
+
+	@RequestMapping("/preview")
+	private ModelAndView preview(HttpServletRequest request, HttpServletResponse response,
+									String targetUrl) throws IOException {
+		return new ModelAndView("preview");
+	}
+
 	@RequestMapping("/transfer")
 	@ResponseBody
 	private String transfer(@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response
