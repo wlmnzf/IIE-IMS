@@ -68,7 +68,8 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>filterLoginCheck</filter-name>
-        <url-pattern>*.do</url-pattern>
+        <!--<url-pattern>*.do</url-pattern>-->
+        <url-pattern>/</url-pattern>
     </filter-mapping>
 
 
@@ -84,7 +85,7 @@
 
     <servlet-mapping>
         <servlet-name>actionServlet</servlet-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <!--&lt;!&ndash; shironeed&ndash;&gt;-->
