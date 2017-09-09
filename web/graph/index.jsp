@@ -18,6 +18,8 @@
 <body>
 </body>
 <%--<a href="<%=path%>/customForm.do">自定义表单页面a</a>--%>
-<a href="<%=path%>/customForm">自定义表单页面a</a>
+<a href="<%=path%>/customForm">自定义表单页面a</a> </br>
+<a href="<%=path%>/graph/personalManage.jsp">人员管理页面a</a> </br>
+<a href="<%=path%>/graph/groupManage.jsp">分组管理页面a</a>
 </html>
 
