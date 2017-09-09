@@ -6,9 +6,9 @@ public class DbDao
 {
 	private Connection conn;
 	private String driver="com.mysql.jdbc.Driver";
-	private String url="jdbc:mysql://localhost:3306/db_ims";
+	private String url="jdbc:mysql://db.csuncle.com:3306/db_ims";
 	private String username="root";
-	private String pass="4003";
+	private String pass="iie.ac.cn";
 	
 	public String getDriver() {
 		return (this.driver); 
