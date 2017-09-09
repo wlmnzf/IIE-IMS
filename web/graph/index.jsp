@@ -20,4 +20,3 @@
 <%--<a href="<%=path%>/customForm.do">自定义表单页面a</a>--%>
 <a href="<%=path%>/customForm">自定义表单页面a</a>
 </html>
-
