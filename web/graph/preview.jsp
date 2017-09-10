@@ -1,15 +1,18 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false"%>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <title>预览</title>
-    <link rel="stylesheet" href="graph/css/mobile/framework7.material.min.css"/>
-    <link rel="stylesheet" href="graph/css/mobile/framework7.material.colors.min.css"/>
-    <link rel="stylesheet" href="graph/css/mobile/style.css"/>
+    <link rel="stylesheet" href="<%=path%>/graph/css/mobile/framework7.material.min.css"/>
+    <link rel="stylesheet" href="<%=path%>/graph/css/mobile/framework7.material.colors.min.css"/>
+    <link rel="stylesheet" href="<%=path%>/graph/css/mobile/style.css"/>
   </head>
   <body>
     <div class="views">
@@ -47,11 +50,11 @@
     </div>
     
     
-     <script src="graph/js/jquery/jquery.min.js" type="text/javascript"></script>
+     <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript" src="graph/js/mobile/framework7.min.js"></script>
+    <script type="text/javascript" src="<%=path%>/graph/js/mobile/framework7.min.js"></script>
     <!-- Path to your app js-->
-    <script type="text/javascript" src="graph/js/mobile/my-app.js"></script>
-    <script src="graph/js/mobile/action.js"></script>
+    <script type="text/javascript" src="<%=path%>/graph/js/mobile/my-app.js"></script>
+    <script src="<%=path%>/graph/js/mobile/action.js"></script>
   </body>
 </html>

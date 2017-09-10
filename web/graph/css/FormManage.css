@@ -1,0 +1,16 @@
+.table .all
+{
+	
+}
+
+.event-title a
+{
+	color:#333;text-decoration:none;
+	cursor:pointer;
+}
+
+.event-title a:hover
+{
+    color:##599ee7;
+    text-decoration:underline;
+}

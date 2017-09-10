@@ -1,5 +1,5 @@
 var _CURRENT_SETTING_NODE
-
+var _BASE_PATH="";
 function isNull( str )
 {
 	if ( str == "" ) return true;
@@ -74,7 +74,7 @@ var alterCurSetting=function()
     var nodeType=$(node).data("type");
     if(nodeType=="t1")
     {
-    	$.getJSON ("graph/js/config.json", function (data)
+    	$.getJSON (_BASE_PATH+"/graph/js/config.json", function (data)
           {  
                var optionsSetting=data[nodeType];
                var jsonObj={};
@@ -104,7 +104,7 @@ var alterCurSetting=function()
     }
     else if(nodeType=="t2")
     {
-    	$.getJSON ("graph/js/config.json", function (data)
+    	$.getJSON (_BASE_PATH+"/graph/js/config.json", function (data)
           {  
                var optionsSetting=data[nodeType];
                var jsonObj={};
@@ -396,7 +396,7 @@ var initSetting=function(node)
 {
 //	if it's new page read config else open from db; 
 //	if($(node).data("json")==""||$(node).data("json")==null||$(node).data("json")==undefined)
-	   $.getJSON ("graph/js/config.json", function (data)
+	   $.getJSON (_BASE_PATH+"/graph/js/config.json", function (data)
           {  
            applyJson2Setting(node,data);
           });  
@@ -446,19 +446,55 @@ var getTotalJson=function()
 			totalJson[index]["data"]=JSON.parse($(element).attr("data-json"));
 		})
 	}
-	localStorage.formJson=JSON.stringify(totalJson);
+    var json=  JSON.stringify(totalJson);
+	localStorage.formJson=json;
 	console.log(localStorage.formJson);
+	return json;
 }
 
 
 
 $(document).ready(function(){
 
+	  _BASE_PATH=$("#base_path").val();
+
 	  $('[data-toggle="popover"]').popover();
-	  
-	  
+
+
 	  $("#submit").click(function(){
-	       getTotalJson();
+	       var json=getTotalJson();
+			var formToken=$("#formToken").val();
+			if(formToken)
+			{
+                var UserId="wlm";
+                var UserToken="www";
+
+                $.ajax({
+                    type:"POST",
+                    url:_BASE_PATH+"/saveForm/"+UserId+"/"+UserToken+"/",
+                    async:true,
+					data:{"formToken":formToken,"json":json},
+                    dataType:"json",
+                    success:function(data){
+                        if(data["res"]=="OK")
+                        {
+							alert("提交成功");
+                        }
+                        else
+                        {
+                          alert("新建表单失败！");
+                        }
+
+                    },
+                    error:function(msg){
+                        alert("与服务器连接断开...."+JSON.stringify(msg));
+                    }
+                })
+			}
+			else
+			{
+				alert("formToken不存在");
+			}
 	  });
 	  
 	   $("#preview").click(function(){
@@ -469,7 +505,7 @@ $(document).ready(function(){
 				  shadeClose: true,
 				  shade: 0.8,
 				  area: ['380px', '90%'],
-				  content: 'preview.do'
+				  content: _BASE_PATH+'/preview/'
 			}); 
 	  });
 });

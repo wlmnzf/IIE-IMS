@@ -1,3 +1,4 @@
+var _BASE_PATH="";
 function drag(o)
 {
 	//默认参数，传入的参数o之后会与之合并
@@ -235,7 +236,7 @@ function drag(o)
 		  	    			$(node).find(":disabled").attr("disabled",false); 
 		  	    			
 		  	    			var nodeType=$(node).data("type");
-		  	    			$.getJSON ("graph/js/config.json", function (data)
+		  	    			$.getJSON (_BASE_PATH+"/graph/js/config.json", function (data)
 					          {  
 					             $(node).attr("data-json",JSON.stringify(data[nodeType]));
 					          }); 
@@ -260,7 +261,7 @@ function drag(o)
 		  	    			$(node).find(":disabled").attr("disabled",false); 
 //		  	    			node.addEventListener("dragstart",dragStart);
 							var nodeType=$(node).data("type");
-		  	    			$.getJSON ("graph/js/config.json", function (data)
+		  	    			$.getJSON (_BASE_PATH+"/graph/js/config.json", function (data)
 					          {  
 					          $(node).attr("data-json",JSON.stringify(data[nodeType]));
 					          }); 
@@ -282,7 +283,7 @@ function drag(o)
 		  	    	$(node).find(":disabled").attr("disabled",false); 
 		  	    	target.dropArea.appendChild(node)
 		  	    	var nodeType=$(node).data("type");
-		  	    	$.getJSON ("graph/js/config.json", function (data)
+		  	    	$.getJSON (_BASE_PATH+"/graph/js/config.json", function (data)
 					      {  
 					            $(node).attr("data-json",JSON.stringify(data[nodeType]));
 					      }); 
@@ -297,6 +298,7 @@ function drag(o)
 	//  ========== 
 	var init=function()
 	{
+        _BASE_PATH=$("#base_path").val();
 	    extend(arguments)
 	    if(!empty(options.dragArea))
 	    {

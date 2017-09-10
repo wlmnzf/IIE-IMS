@@ -1,4 +1,53 @@
+var _BASE_PATH="";
+
+var initInfo=function(info)
+{
+    for(var cuKey in info )
+    {
+
+    }
+
+}
+
+var initPage=function(page)
+{
+
+
+}
+
+var init=function()
+{
+	var UserId="";
+	var Page="";
+	var UserToken="";
+
+    $.ajax({
+        type:"GET",
+        url:"Form/"+UserId+"/"+UserToken+"/"+Page+"/",
+        async:true,
+        dataType:"json",
+        success:function(data){
+        	    var info=data["info"];
+ 				var page=data["page"];
+
+				initInfo(info);
+				initPage(page);
+
+        },
+        error:function(msg){
+            alert("与服务器连接断开...."+JSON.stringfy(msg));
+        }
+    })
+
+
+
+}
+
+
+
 $(document).ready(function(){
+	_BASE_PATH==$("#base_path").val();
+
 	$("[name='preview']").click(function(){
 		layer.open({
 				  type: 2,
@@ -56,6 +105,31 @@ $(document).ready(function(){
 	
 	$("#addNew").click(function(){
 		//获取token，跳转
+		var UserId="wlm";
+		var UserToken="www";
+
+        $.ajax({
+            type:"GET",
+            url:"formToken/"+UserId+"/"+UserToken+"/",
+            async:true,
+            dataType:"json",
+            success:function(data){
+                 // if(data["res"]=="OK")
+				 // {
+				 	var formToken=data["formToken"];
+				 	console.log(formToken);
+                     window.open("customForm/"+formToken);
+                 // }
+				 // else
+				 // {
+					//  alert("新建表单失败！");
+				 // }
+
+            },
+            error:function(msg){
+                alert("与服务器连接断开...."+JSON.stringfy(msg));
+            }
+        })
 	})
 })
 

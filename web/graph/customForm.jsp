@@ -171,7 +171,8 @@
 </div>
 
 <div id="showSetting"><button  type="button" class="btn btn-lg btn-danger" data-toggle="popover"  title="请设置信息" data-content=""></button></div>
-
+<input type="hidden" id="base_path" value="<%=path%>"/>
+<input type="hidden" id="formToken" value="${formToken}"/>
 <footer>
     <p class="copyright text-center noselect">
         ©2017 中国科学院 信息工程研究所

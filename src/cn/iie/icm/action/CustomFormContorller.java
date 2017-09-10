@@ -1,6 +1,7 @@
 package cn.iie.icm.action;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,9 +24,10 @@ public class CustomFormContorller {
 //        return new ModelAndView("customForm");
 //    }
 
-    @RequestMapping("/customForm")
-    private String customForm(Map<String, Object> map)
+    @RequestMapping("/customForm/{formtoken}")
+    private String customForm(Map<String, Object> map,@PathVariable("formtoken") String formtoken)
     {
+        map.put("formToken", formtoken);
         return "customForm";
      }
 
