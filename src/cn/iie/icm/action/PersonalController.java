@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +30,7 @@ public class PersonalController {
         int total=0, i=0;
         try {
             DbDao dd = new DbDao();
-            ResultSet rs = dd.query("select tperson.id, num, tperson.name, tgroup.name from tperson inner join tgroup on group_id=tgroup.id limit ?, ?", (pageNumber - 1) * pageSize, pageSize);
+            ResultSet rs = dd.query("select tperson.id, num, tperson.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id order by id limit ?, ?", (pageNumber - 1) * pageSize, pageSize);
             while (rs.next()) {
                 person=new HashMap<String, Object>();
                 person.put("recordId",pageSize*(pageNumber-1)+(++i) );
@@ -61,7 +60,7 @@ public class PersonalController {
         DbDao dd=new DbDao();
         ResultSet rs;
         try {
-            rs = dd.query("select id, name from tgroup where room_id = ?", roomId);
+            rs = dd.query("select id, name from tgroup where troom_id = ?", roomId);
             while (rs.next()){
                 group=new HashMap<String, String>();
                 group.put("id", rs.getString("id"));
@@ -103,7 +102,7 @@ public class PersonalController {
         DbDao dd=new DbDao();
         ResultSet rs;
         try {
-            rs=dd.query("select tperson.id, tperson.name, num, troom.id, tgroup.id from tperson inner join tgroup on group_id=tgroup.id inner join troom on room_id=troom.id  where tperson.id=?", id);
+            rs=dd.query("select tperson.id, tperson.name, num, troom.id, tgroup.id from tperson inner join tgroup on tgroup_id=tgroup.id inner join troom on troom_id=troom.id  where tperson.id=?", id);
             if(rs.next()){
                 result.put("groupId", rs.getString("tgroup.id"));
                 result.put("roomId", rs.getString("troom.id"));
@@ -125,9 +124,9 @@ public class PersonalController {
         DbDao dd = new DbDao();
         try {
             if(id!=null)
-                dd.modify("update tperson set name=?, num=?, group_id=? where id=? ", name, num, groupId, id);
+                dd.modify("update tperson set name=?, num=?, tgroup_id=? where id=? ", name, num, groupId, id);
             else
-                dd.insert("insert into tperson (name, num,personType_id, password, group_id) values (?, ?, 1, 123456, ?)", name, num, groupId);
+                dd.insert("insert into tperson (name, num, tgroup_id) values (?, ?, ?)", name, num, groupId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,14 +145,19 @@ public class PersonalController {
 
     @RequestMapping("/batchDelPerson")
     @ResponseBody
-    private void batchDelPerson(@RequestParam(value="ids") String ids){
+    private Map<String, String> batchDelPerson(@RequestParam(value="ids") String ids){
         DbDao dd = new DbDao();
+        String status="success";
+        Map<String, String> result=new HashMap<String, String>();
         try {
             for(String id: ids.split(","))
-             dd.modify("delete from tperson where id=? ", id);
+                dd.modify("delete from tperson where id=? ", id);
         } catch (Exception e) {
             e.printStackTrace();
+            status="failed";
         }
+        result.put("status", status);
+        return  result;
     }
 
 }

@@ -37,24 +37,21 @@
                 pageNumber:1, //当前第几页
                 pageList: [1, 2, 3, 20, 25],  //记录数可选列表
                 search: false,  //是否启用查询
-                showColumns: true,  //显示下拉框勾选要显示的列
+                showColumns: true,  //自定义列显示
                 showRefresh: true,  //显示刷新按钮
                 sidePagination: "server", //表示服务端请求
                 showExport: true,                     //是否显示导出
-                exportDataType: "basic",
+                exportDataType: "all",
                 exportOptions:{
                     ignoreColumn: [0, 4]  //忽略某一列的索引
                 },
-                hideColumn: "id",
                 //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
                 //设置为limit可以获取limit, offset, search, sort, order
                 queryParamsType : "undefined",
                 queryParams: function queryParams(params) {   //设置查询参数
                     var param = {
                         pageNumber: params.pageNumber,
-                        pageSize: params.pageSize,
-                        sortName: params.sort,
-                        sortOrder:params.order,
+                        pageSize: params.pageSize
                     };
                     return param;
                 },
@@ -102,6 +99,7 @@
                     alert("加载失败");
                 }
             });
+            $('#personTable').bootstrapTable('hideColumn', "id");
         }
 
 
@@ -252,6 +250,7 @@
         $(document).ready(function () {
             //调用函数，初始化表格
             initTable();
+
         });
     </script>
 

@@ -13,18 +13,16 @@
 <head>
     <title>信息录入系统</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="/graph/css/admin.css">
-    <script src="/resources/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="/graph/js/bootstrap/jstree.min.js"></script>
-    <script src="/graph/js/bootstrap/jstree.style.min.css"></script>
+    <link type="text/css" rel="stylesheet" href="/graph/css/admin.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <script src="/resources/jquery-1.9.1.min.js"></script>
+    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>--%>
+    <script src="/graph/js/jstree.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#jstree_div").jstree({
                 "core" : {
-                    "themes" : {
-                        "responsive": false
-                    },
                     // so that create works
                     "check_callback" : true,
                     'data' :   function (obj, callback) {
@@ -50,18 +48,74 @@
                         callback.call(this, jsonarray);
                     }
                 },
-                "types" : {
-                    "default" : {
-                        "icon" : "fa fa-folder icon-state-warning icon-lg"
-                    },
-                    "file" : {
-                        "icon" : "fa fa-file icon-state-warning icon-lg"
-                    }
-                },
                 "state" : { "key" : "demo3" },
-                "plugins" : [ "dnd", "state", "types" ]
+                "plugins" : [ "contextmenu", "state"],
+            }).bind("create_node.jstree",function(event,data){
+                addNode(event,data);
+            }) .bind("rename_node.jstree",function(event,data){
+                renameNode(event,data);
+            }).bind("delete_node.jstree",function(event,data){
+                removeNode(event,data);
             });
+
+
         });
+
+
+
+        function addNode(event,data){
+            var parentId = data.parent.replace(/[a-z]/g,"");
+            var parentTable=data.parent.replace(/[0-9]/g,"");
+            var name = data.node.text;
+            var params = {"parentId":parentId,"name":name,"parentTable":parentTable};
+            $.ajax({
+                url:"/group/addGroup",
+                type:"get",
+                dataType:'json',
+                data:params,
+                success : function(result) {
+                    $(data.node).attr("id",result.id);
+                    $("#jstree_div").jstree().refresh(true);
+                }
+            })
+        }
+
+        function renameNode(event,data) {
+            var tempId = data.node.id;
+            var id = tempId.replace(/[a-z]/g,"");
+            var table=tempId.replace(/[0-9]/g,"");
+            var name = data.text;
+            var params = {"id":id,"name":name, "table":table};
+            $.ajax({
+                'url':'/group/editGroup',
+                'type':'get',
+                'dataType':'json',
+                'data':params,
+                success : function() {
+                    $(data.node).attr("text",name);
+                }
+            })
+        }
+
+        function removeNode(event,data) {
+            var tempId = data.node.id;
+            var id = tempId.replace(/[a-z]/g,"");
+            var table=tempId.replace(/[0-9]/g,"");
+            var params = {"id":id, "table":table};
+            $.ajax({
+                'url':"/group/delGroup",
+                'dataType':"json",
+                'data':params,
+                'timeout':1000*10
+            }).done(function(result){
+                if(result.ok==false) {
+                    alert("不能删除");
+                }
+            })
+
+        }
+
+
     </script>
 </head>
 <body>
