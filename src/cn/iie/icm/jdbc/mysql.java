@@ -14,7 +14,7 @@ public class mysql {
             Connection conn=null;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn=DriverManager.getConnection("jdbc:mysql://db.csuncle.com:3306/db_ims", "root", "iie.ac.cn");
+                conn=DriverManager.getConnection("jdbc:mysql://db.csuncle.com:3306/db_ims?useUnicode=true&characterEncoding=utf8", "root", "iie.ac.cn");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
