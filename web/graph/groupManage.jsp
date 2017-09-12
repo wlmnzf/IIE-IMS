@@ -8,16 +8,19 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false"%>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>信息录入系统</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="/graph/css/admin.css" />
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-    <script src="/resources/jquery-1.9.1.min.js"></script>
+    <script src="<%=path%>/resources/jquery-1.9.1.min.js"></script>
     <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>--%>
-    <script src="/graph/js/jstree.min.js"></script>
+    <script src="<%=path%>/graph/js/jstree.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $(document).ready(function () {

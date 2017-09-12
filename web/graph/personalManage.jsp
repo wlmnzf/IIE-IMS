@@ -8,18 +8,21 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false"%>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>信息录入系统persontest</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="/graph/css/admin.css">
-    <link href="/graph/css/bootstrap/bootstrap-table.min.css" rel="stylesheet" type="text/css">
-    <script src="/resources/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="/graph/js/bootstrap/bootstrap-table.min.js"></script>
-    <script src="/graph/js/bootstrap/bootstrap-table-export.js"></script>
-    <script src="/graph/js/bootstrap/tableExport.js"></script>
-    <script src="/graph/js/bootstrap/bootstrap-table-zh-CN.js"></script>
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css">
+    <link href="<%=path%>/graph/css/bootstrap/bootstrap-table.min.css" rel="stylesheet" type="text/css">
+    <script src="<%=path%>/resources/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="<%=path%>/graph/js/bootstrap/bootstrap-table.min.js"></script>
+    <script src="<%=path%>/graph/js/bootstrap/bootstrap-table-export.js"></script>
+    <script src="<%=path%>/graph/js/bootstrap/tableExport.js"></script>
+    <script src="<%=path%>/graph/js/bootstrap/bootstrap-table-zh-CN.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
@@ -41,7 +44,7 @@
                 showRefresh: true,  //显示刷新按钮
                 sidePagination: "server", //表示服务端请求
                 showExport: true,                     //是否显示导出
-                exportDataType: "all",
+                exportDataType: "selected",
                 exportOptions:{
                     ignoreColumn: [0, 4]  //忽略某一列的索引
                 },
@@ -85,7 +88,6 @@
                         field: 'operate',
                         title: '操作',
                         align: 'center',
-//                        events: operateEvents,
                         formatter:function(value,row,index){
                             var e = '<a href="#" onclick="personEdit(\''+ row.id + '\')">编辑</a> ';
                             var d = '<a href="#" onclick="personDel(\''+ row.id +'\')">删除</a> ';
