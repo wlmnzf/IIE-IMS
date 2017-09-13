@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,21 +18,25 @@ public class PersonalController {
 
     @RequestMapping("/list")
     @ResponseBody
-    private Map<String, Object> list(HttpServletRequest request) {
+    private Map<String, Object> list(@RequestParam(value="pageSize" ,required=false) Integer pageSize, @RequestParam(value="pageNumber" ,required=false) Integer pageNumber) {
 
-        //得到客户端传递的页码和每页记录数，并转换成int类型
-        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-        int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
         Map<String, Object> result=new HashMap<String, Object>();
         List<Map<String, Object>> persons=new ArrayList<Map<String,Object>>();
         Map<String, Object> person;
         int total=0, i=0;
         try {
             DbDao dd = new DbDao();
-            ResultSet rs = dd.query("select tperson.id, num, tperson.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id order by id limit ?, ?", (pageNumber - 1) * pageSize, pageSize);
+            ResultSet rs;
+            if(pageSize!=null)
+                rs = dd.query("select tperson.id, num, tperson.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id order by id limit ?, ?", (pageNumber - 1) * pageSize, pageSize);
+            else
+                rs = dd.query("select tperson.id, num, tperson.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id order by id");
             while (rs.next()) {
                 person=new HashMap<String, Object>();
-                person.put("recordId",pageSize*(pageNumber-1)+(++i) );
+                if(pageSize!=null)
+                    person.put("recordId",pageSize*(pageNumber-1)+(++i) );
+                else
+                    person.put("recordId", ++i);
                 person.put("id", rs.getString("tperson.id"));
                 person.put("num", rs.getString("num"));
                 person.put("name", rs.getString("tperson.name"));

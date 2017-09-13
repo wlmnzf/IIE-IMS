@@ -42,7 +42,7 @@
                                         "id":datas[i].id,
                                         "parent":datas[i].parent=="root"?"#":datas[i].parent,
                                         "text":datas[i].text
-                                    }
+                                    };
                                     jsonarray.push(arr);
                                 }
                             }

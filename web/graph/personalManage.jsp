@@ -44,7 +44,7 @@
                 showRefresh: true,  //显示刷新按钮
                 sidePagination: "server", //表示服务端请求
                 showExport: true,                     //是否显示导出
-                exportDataType: "selected",
+                exportDataType: "all",
                 exportOptions:{
                     ignoreColumn: [0, 4]  //忽略某一列的索引
                 },
