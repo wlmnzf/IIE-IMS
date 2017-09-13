@@ -33,12 +33,12 @@
             $("#personTable").bootstrapTable({
                 method: "get",  //使用get请求到服务器获取数据
                 dataType: "json",
-                url: '/personal/list.do', //获取数据的Servlet地址
+                url: '<%=path%>/personal/list.do', //获取数据的Servlet地址
                 striped: true,  //表格显示条纹
                 pagination: true, //启动分页
-                pageSize: 2,  //每页显示的记录数
+                pageSize: 10,  //每页显示的记录数
                 pageNumber:1, //当前第几页
-                pageList: [1, 2, 3, 20, 25],  //记录数可选列表
+//                pageList: [10, 15, 20, 25],  //记录数可选列表
                 search: false,  //是否启用查询
                 showColumns: true,  //自定义列显示
                 showRefresh: true,  //显示刷新按钮
@@ -137,7 +137,7 @@
             });
             $.ajax({
                 type : "get",
-                url : "/personal/batchDelPerson.do?ids="+ids,
+                url : "<%=path%>/personal/batchDelPerson.do?ids="+ids,
                 success : function(data) {
                     if (data.status == "success")
                         alert("删除成功");
@@ -230,7 +230,7 @@
             var num=$("#num").val();
             var groupId=$("#group").val();
             var roomId=$("#room").val();
-            var url="/personal/editPerson.do?num="+num+"&name="+name+"&groupId="+groupId;
+            var url="<%=path%>/personal/editPerson.do?num="+num+"&name="+name+"&groupId="+groupId;
             if($("#id").val()){
                 url=url+"&id="+id;
             }
@@ -289,7 +289,7 @@
 
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="brand" src="/graph/img/logo.png" alt="">
+            <img class="brand" src="<%=path%>/graph/img/logo.png" alt="">
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right login-ul">
@@ -297,7 +297,7 @@
                     <div class="login-info">
                         <div class="media-left media-top">
                             <a href="#">
-                                <img class="media-object" src="/graph/img/head.jpg" alt="...">
+                                <img class="media-object" src="<%=path%>/graph/img/head.jpg" alt="...">
                             </a>
                         </div>
                         <div class="media-body">

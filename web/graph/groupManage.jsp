@@ -33,7 +33,7 @@
                         var jsonarray = eval('('+jsonstr+')');
                         $.ajax({
                             type: "get",
-                            url:"/group/list.do",
+                            url:"<%=path%>/group/list.do",
                             dataType:"json",
                             async: false,
                             success:function(datas) {
@@ -72,7 +72,7 @@
             var name = data.node.text;
             var params = {"parentId":parentId,"name":name,"parentTable":parentTable};
             $.ajax({
-                url:"/group/addGroup",
+                url:"<%=path%>/group/addGroup",
                 type:"get",
                 dataType:'json',
                 data:params,
@@ -90,7 +90,7 @@
             var name = data.text;
             var params = {"id":id,"name":name, "table":table};
             $.ajax({
-                'url':'/group/editGroup',
+                'url':'<%=path%>/group/editGroup',
                 'type':'get',
                 'dataType':'json',
                 'data':params,
@@ -106,7 +106,7 @@
             var table=tempId.replace(/[0-9]/g,"");
             var params = {"id":id, "table":table};
             $.ajax({
-                'url':"/group/delGroup",
+                'url':"<%=path%>/group/delGroup",
                 'dataType':"json",
                 'data':params,
                 'timeout':1000*10
@@ -125,7 +125,7 @@
 <header>
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="brand" src="/graph/img/logo.png" alt="">
+            <img class="brand" src="<%=path%>/graph/img/logo.png" alt="">
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right login-ul">
@@ -133,7 +133,7 @@
                     <div class="login-info">
                         <div class="media-left media-top">
                             <a href="#">
-                                <img class="media-object" src="/graph/img/head.jpg" alt="...">
+                                <img class="media-object" src="<%=path%>/graph/img/head.jpg" alt="...">
                             </a>
                         </div>
                         <div class="media-body">
