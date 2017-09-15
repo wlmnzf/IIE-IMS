@@ -1,0 +1,98 @@
+/*此文件为用户端应用的统一样式*/
+body{
+    font-size: 16px;
+    background-color:#e7e8e0;
+    font-family: "微软雅黑";
+    overflow-x: hidden;
+}
+@media screen and (max-width:360px){
+    body{
+        font-size: 14px;
+    }
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+h1,h2,h3,h4,h5,h6{margin:0;padding:0;font-weight: normal;}
+p{
+    margin: 0;
+}
+a{
+    color: #599ee7;
+}
+a:hover{
+    text-decoration: none;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+    background-color: #599ee7;
+    border-color: #599ee7;
+}
+.label-primary {
+    background-color: #599ee7;
+}
+.wrap{
+    position: relative;
+    margin: 0 auto;
+    padding: 1px;
+    width:1200px;
+    height: 100%;
+}
+input{
+    border-radius: 5px;
+    border: none;
+}
+.clear-float:after {display:block;clear:both;content:"";overflow:hidden;height:0}
+.clear-float{zoom:1}
+
+/*nav*/
+.navbar{
+    padding: 12px 0px;
+    height: 79px;
+    background-color: rgba(0,0,0,0.3);
+}
+.navbar-default{
+    border-color: transparent;
+}
+.navbar-static-top{
+    background-color: rgba(0,0,0,0.5);
+}
+.navbar-default .navbar-brand{font-size: 1.7em;}
+.navbar-default .navbar-brand,.navbar-default .navbar-brand:hover,.navbar-default .navbar-brand:focus{
+    color: #fff;
+}
+.navbar-default .navbar-nav>li>a,.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #fff;
+}
+/*footer*/
+footer{
+    padding: 30px;
+    background-color: #fff;
+}
+@media screen and (max-width:360px){
+    footer{
+        padding: 20px;
+    }
+}
+footer .copyright{
+    padding: 20px;
+    color: #616161;
+}
+
+/*header*/
+header{
+    background-color: #fff;
+}
+header img.brand{
+    height: 35px;
+    margin: 25px 25px;
+    box-sizing: content-box;
+}
+@media screen and (min-width: 960px){
+    header img.brand{
+        height: 70px;
+        margin: 25px 25px;
+        box-sizing: content-box;
+    }
+}
