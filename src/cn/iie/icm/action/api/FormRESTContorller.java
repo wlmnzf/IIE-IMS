@@ -148,4 +148,48 @@ public class FormRESTContorller {
 
 
 
+//    @RequestMapping(value="formResult/{formid}/{page}/")
+//    public String formResult(Map<String, Object> map, @PathVariable("formid") String formid, @PathVariable("page") String page,  HttpServletRequest request)
+//    {
+//        FormPojo fp=new FormPojo();
+//        formDao fd=new formDao();
+//        JSONObject  jsonObj = new JSONObject();
+//
+//        return "api";
+//    }
+
+//    @RequestMapping(value="formTitle/{formtoken}/{page}/")
+//    public String formTitle(Map<String, Object> map, @PathVariable("formtoken") String formToken, @PathVariable("page") String page,  HttpServletRequest request)
+//    {
+//        String userid=request.getParameter("UserId");
+//        String usertoken=request.getParameter("UserToken");
+//        FormPojo fp=new FormPojo();
+//        TypePojo tp=new TypePojo();
+//        typeDao td=new typeDao();
+//        formDao fd=new formDao();
+//
+//        JSONObject  jsonObj = new JSONObject();
+//
+//        try {
+//            fp = fd.getFormById(formToken);
+//            jsonObj.put("title",fp.getTitle());
+//            jsonObj.put("json",fp.getJson());
+//            jsonObj.put("type",fp.getType());
+//            jsonObj.put("types",td.getAllType());
+//            jsonObj.put("res","OK");
+//        }
+//        catch(Exception e)
+//        {
+//            jsonObj.put("res",e);
+//        }
+//        finally
+//        {
+//            map.put("json", jsonObj.toString());
+//        }
+//
+//        return "api";
+//    }
+
+
+
     }

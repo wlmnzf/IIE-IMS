@@ -1,0 +1,36 @@
+.table .all
+{
+	
+}
+
+.event-title a
+{
+	color:#333;text-decoration:none;
+	cursor:pointer;
+}
+
+.event-title a:hover
+{
+    color:#599ee7;
+    text-decoration:underline;
+}
+
+.op-buttons
+{
+    height: 55px;
+}
+
+.page-header
+{
+    margin: 10px 0 10px;
+}
+
+.page-header h3
+{
+    display: inline;
+    margin: 0px 20px;
+}
+.table-responsive
+{
+    border:none;
+}
