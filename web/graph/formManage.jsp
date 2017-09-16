@@ -63,7 +63,7 @@
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
                 <ul class="menu-ul">
-                    <li><a href="">页面定制</a></li>
+                    <li class="current"><a href="">页面定制</a></li>
                     <li><a href="">结果管理</a></li>
                 </ul>
             </li>
@@ -103,10 +103,10 @@
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>1</td>
                         <td>
-                            <p><span class="event-title"><a href="#">计算机系统结构需要</a></span><span class="label label-warning">录入</span></p>
+                            <p><span class="event-title"><a href="#"></a></span><span class="label"></span></p>
 
                         </td>
-                        <td>2017-08-01</td>
+                        <td class="time"></td>
                         <td>
                             <a class="op-choice" name="preview" href="javascript:;">预览</a>
                             <a class="op-choice" name="del" href="javascript:;">删除</a>
@@ -116,10 +116,10 @@
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>2</td>
                         <td>
-                            <p><span class="event-title"><a href="#">计算机系统结构需要对方是否递四方速递</a></span><span class="label label-info">投票</span></p>
+                            <p><span class="event-title"><a href="#"></a></span><span class="label"></span></p>
 
                         </td>
-                        <td>2017-08-01</td>
+                        <td class="time"></td>
                         <td>
                             <a class="op-choice" name="preview" href="javascript:;">预览</a>
                             <a class="op-choice" name="del" href="javascript:;">删除</a>
@@ -131,14 +131,14 @@
                         <td>
                             <p>
                                 <span class="event-title"><a href="#"></a></span>
-                                <%--<span class="label label-info">投票</span>--%>
+                                <span class="label"></span>
                             </p>
 
                         </td>
-                        <td></td>
+                        <td class="time"></td>
                         <td>
-                            <%--<a class="op-choice" name="preview" href="javascript:;">预览</a>--%>
-                            <%--<a class="op-choice" name="del" href="javascript:;">删除</a>--%>
+                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
+                            <a class="op-choice" name="del" href="javascript:;">删除</a>
                         </td>
                     </tr>
                     <tr data-sh="4">
@@ -147,14 +147,14 @@
                         <td>
                             <p>
                                 <span class="event-title"><a href="#"></a></span>
-                                <%--<span class="label label-info"></span>--%>
+                                <span class="label"></span>
                             </p>
 
                         </td>
-                        <td></td>
+                        <td class="time"></td>
                         <td>
-                            <%--<a class="op-choice" name="preview" href="javascript:;">预览</a>--%>
-                            <%--<a class="op-choice" name="del" href="javascript:;">删除</a>--%>
+                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
+                            <a class="op-choice" name="del" href="javascript:;">删除</a>
                         </td>
                     </tr>
                     <tr data-sh="5">
@@ -163,14 +163,14 @@
                         <td>
                             <p>
                                 <span class="event-title"><a href="#"></a></span>
-                                <%--<span class="label label-info"></span>--%>
+                                <span class="label "></span>
                             </p>
 
                         </td>
-                        <td></td>
+                        <td class="time"></td>
                         <td>
-                            <%--<a class="op-choice" name="preview" href="javascript:;">预览</a>--%>
-                            <%--<a class="op-choice" name="del" href="javascript:;">删除</a>--%>
+                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
+                            <a class="op-choice" name="del" href="javascript:;">删除</a>
                         </td>
                     </tr>
                     <tr data-sh="6">
@@ -179,14 +179,14 @@
                         <td>
                             <p>
                                 <span class="event-title"><a href="#"></a></span>
-                                <%--<span class="label label-info"></span>--%>
+                                <span class="label "></span>
                             </p>
 
                         </td>
-                        <td></td>
+                        <td class="time"></td>
                         <td>
-                            <%--<a class="op-choice" name="preview" href="javascript:;">预览</a>--%>
-                            <%--<a class="op-choice" name="del" href="javascript:;">删除</a>--%>
+                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
+                            <a class="op-choice" name="del" href="javascript:;">删除</a>
                         </td>
                     </tr>
                     <tr data-sh="7">
@@ -195,14 +195,14 @@
                         <td>
                             <p>
                                 <span class="event-title"><a href="#"></a></span>
-                                <%--<span class="label label-info"></span>--%>
+                                <span class="label "></span>
                             </p>
 
                         </td>
-                        <td></td>
+                        <td class="time"></td>
                         <td>
-                            <%--<a class="op-choice" name="preview" href="javascript:;">预览</a>--%>
-                            <%--<a class="op-choice" name="del" href="javascript:;">删除</a>--%>
+                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
+                            <a class="op-choice" name="del" href="javascript:;">删除</a>
                         </td>
                     </tr>
                     <tr data-sh="8">
@@ -211,14 +211,14 @@
                         <td>
                             <p>
                                 <span class="event-title"><a href="#"></a></span>
-                                <%--<span class="label label-info"></span>--%>
+                                <span class="label "></span>
                             </p>
 
                         </td>
-                        <td></td>
+                        <td class="time"></td>
                         <td>
-                            <%--<a class="op-choice" name="preview" href="javascript:;">预览</a>--%>
-                            <%--<a class="op-choice" name="del" href="javascript:;">删除</a>--%>
+                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
+                            <a class="op-choice" name="del" href="javascript:;">删除</a>
                         </td>
                     </tr>
                     <tr data-sh="9">
@@ -227,14 +227,14 @@
                         <td>
                             <p>
                                 <span class="event-title"><a href="#"></a></span>
-                                <%--<span class="label label-info"></span>--%>
+                                <span class="label"></span>
                             </p>
 
                         </td>
-                        <td></td>
+                        <td class="time"></td>
                         <td>
-                            <%--<a class="op-choice" name="preview" href="javascript:;">预览</a>--%>
-                            <%--<a class="op-choice" name="del" href="javascript:;">删除</a>--%>
+                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
+                            <a class="op-choice" name="del" href="javascript:;">删除</a>
                         </td>
                     </tr>
                     <tr data-sh="10">
@@ -243,14 +243,14 @@
                         <td>
                             <p>
                                 <span class="event-title"><a href="#"></a></span>
-                                <%--<span class="label label-info"></span>--%>
+                                <span class="label "></span>
                             </p>
 
                         </td>
-                        <td></td>
+                        <td class="time"></td>
                         <td>
-                            <%--<a class="op-choice" name="preview" href="javascript:;">预览</a>--%>
-                            <%--<a class="op-choice" name="del" href="javascript:;">删除</a>--%>
+                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
+                            <a class="op-choice" name="del" href="javascript:;">删除</a>
                         </td>
                     </tr>
 
@@ -263,7 +263,7 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="active"><a href="#">1</a></li>
+                        <li class="active"><a href="">1</a></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                         <li><a href="#">4</a></li>
@@ -285,5 +285,7 @@
     </p>
 </footer>
 <input type="hidden" id="formToken" value="${formToken}"/>
+<input type="hidden" id="cur" value="${curPage}"/>
+<input type="hidden" id="base_path" value="<%=path%>"/>
 </body>
 </html>

@@ -1,0 +1,144 @@
+/*此文件为未登录时首页应用的样式*/
+/*header*/
+header .login-ul{
+    margin-top: 40px;
+}
+header .login-info{
+    display: inline-block;
+    width: 260px;
+}
+header img.media-object{
+    width: 50px;
+    height: 50px;
+}
+header .media-body .media-heading{
+    display: inline-block;
+}
+header .media-body .login-name{
+    width: 200px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+header .login-ul div.options{
+    margin-top: 23px;
+}
+header .login-ul .option{
+    display: inline-block;
+}
+header .login-ul .option:first-child{
+    padding-right:10px;
+    border-right: 1px solid #e7e7eb;
+}
+/*login-content*/
+.banner-content{
+    width: 100%;
+    min-height:240px;
+    background-color: #529ae6;
+}
+.banner-container{
+    background:url(../img/banner.png) no-repeat;
+    background-size: auto auto;
+    background-position: top left;
+}
+.login-box{
+    float:right;
+    margin:20px 0 20px 0;
+    padding: 20px 30px;
+    border-radius:5px;
+    background-color: #fff;
+}
+.login-box button.j-submit{
+    width: 100%;
+}
+/*inform-content*/
+.inform-content{
+    /*width: 100%;*/
+    min-height:300px;
+}
+.inform-content .container{
+    position: relative;
+}
+.inform-content .nav-tabs{
+    position: absolute;
+    z-index: 10;
+    top: 25px;
+    right: 20px;
+}
+.inform-block{
+    margin-top:20px;
+    padding:18px;
+    min-height:250px;
+    background-color: #fff;
+}
+.inform-block h3.title{
+    margin: 5px 0 10px 0;
+}
+.btn-tab{
+    position: absolute;
+    top: 10px;
+    right:20px;
+}
+.inform-label, .inform-name, .inform-time{
+    display: inline-block;
+}
+.inform-label, .inform-name{
+    float: left;
+}
+.inform-label{
+    margin-right: 10px;
+    margin-top: 2px;
+}
+.inform-name{
+    width: 70%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+@media screen and (min-width:360px) and (max-width: 960px){
+    .inform-name{
+        width: 55%;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+}
+@media screen and (max-width: 360px){
+    .inform-name{
+        width: 50%;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+}
+.inform-time{
+    float: right;
+}
+/*
+.inform-title{
+    float: left;
+}
+
+.inform-title .inform-name{
+    width: 60%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.inform-title .inform-label{
+     margin-right:10px;
+ }
+.inform-time{
+    float: right;
+}*/
+/*admin-content admin-op-panel*/
+
+/*footer*/
+footer{
+    margin-top: 20px;
+    padding: 30px;
+    background-color: #fff;
+}
+footer .copyright{
+    color: #616161;
+}
