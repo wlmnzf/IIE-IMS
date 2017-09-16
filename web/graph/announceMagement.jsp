@@ -20,9 +20,9 @@
 
     <title>公告管理</title>
 
-    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="/graph/css/admin.css">
-    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css">
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap-theme.min.css" />
 
     <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>

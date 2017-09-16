@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+%>
 <html>
 <head>
 
@@ -13,9 +16,9 @@
     <meta charset="utf-8"/>
     <title>公告编辑</title>
 
-    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="/graph/css/admin.css">
-    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <link type="text/css" rel="<%=path%>stylesheet" href="/graph/css/admin.css">
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap-theme.min.css" />
 
     <script src="/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="/graph/js/bootstrap/bootstrap.min.js"></script>
