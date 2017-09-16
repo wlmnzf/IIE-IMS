@@ -1,8 +1,6 @@
 package cn.iie.icm.Bean;
 
-import sun.jvm.hotspot.debugger.Page;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class Pager{
