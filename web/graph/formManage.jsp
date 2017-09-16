@@ -56,8 +56,8 @@
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
                 <ul class="menu-ul">
-                    <li><a href="">公告管理</a></li>
-                    <li><a href="">公告编辑</a></li>
+                    <li><a href="announceMagement">公告管理</a></li>
+                    <li><a href="announceEditor">公告编辑</a></li>
                 </ul>
             </li>
             <li>
