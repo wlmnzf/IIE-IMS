@@ -96,3 +96,54 @@ header img.brand{
         box-sizing: content-box;
     }
 }
+/*时间/紧急区分标签*/
+.nav-tabs {
+    border-bottom: none;
+}
+.nav-tabs.cate-tabs{
+    position: absolute;
+    right: 0;
+    top: 35px;
+    border-bottom: none;
+    z-index:10;
+}
+.nav-tabs.cate-tabs>li {
+    float: right;
+    margin-bottom: -1px;
+}
+.nav-tabs.cate-tabs>li.active>a{
+    color: #fff;
+    cursor: default;
+    background-color: #599ee7;
+    border: none;
+}
+.nav-tabs.cate-tabs>li>a{
+    margin-right: 0;
+    padding: 5px 10px;
+    color: #999;
+    background-color: #ddd;
+    border-radius: 0;
+    border: none;
+ }
+.nav-tabs.cate-tabs>li>a:hover {
+    border-color: transparent;
+
+}
+/*通知/活动区分标签*/
+.nav-tabs.underline-tabs{
+    margin-bottom: 10px;
+    border-bottom: none;
+}
+.nav-tabs.underline-tabs>li.active>a{
+    cursor: default;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 3px solid #599ee7;
+}
+.nav-tabs.underline-tabs>li>a{
+    border: none;
+}
+.nav-tabs.underline-tabs>li>a:hover {
+    border-bottom: 3px solid #599ee7;
+}
