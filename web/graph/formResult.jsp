@@ -13,10 +13,10 @@
     <title>信息录入系统</title>
     <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css">
-    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/FormManage.css">
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/FormResult.css">
     <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="<%=path%>/graph/js/formmanage.js"></script>
+    <script type="text/javascript" src="<%=path%>/graph/js/formresult.js"></script>
     <script type="text/javascript" src="<%=path%>/graph/js/layer/layer.js"></script>
 </head>
 <body>
@@ -56,15 +56,15 @@
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
                 <ul class="menu-ul">
-                    <li><a href="announceMagement">公告管理</a></li>
-                    <li><a href="announceEditor">公告编辑</a></li>
+                    <li><a href="">公告管理</a></li>
+                    <li><a href="">公告编辑</a></li>
                 </ul>
             </li>
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
                 <ul class="menu-ul">
-                    <li class="current"><a href="">页面定制</a></li>
-                    <li><a href="">结果管理</a></li>
+                    <li><a href="">页面定制</a></li>
+                    <li class="current"><a href="">结果管理</a></li>
                 </ul>
             </li>
             <li>
@@ -83,19 +83,20 @@
     </div>
     <div class="admin-op-panel">
         <div class="panel-content">
+            <div class="page-header">
+                <h3>今天中午要吃什么 </h3><span class="label"></span>
+            </div>
             <div class="op-buttons">
+                <button class="btn btn-default" id="export">导出</button>
                 <button class="btn btn-default" id="delAll">删除</button>
-                <button class="btn btn-default" id="addNew">新增</button>
             </div>
             <div class="op-content">
+                <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th><input class="all" name="event" type="checkbox" value="" /></th>
                         <th>序号</th>
-                        <th>标题</th>
-                        <th>时间</th>
-                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -256,6 +257,7 @@
 
                     </tbody>
                 </table>
+                </div>
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <li>
@@ -287,5 +289,9 @@
 <input type="hidden" id="formToken" value="${formToken}"/>
 <input type="hidden" id="cur" value="${curPage}"/>
 <input type="hidden" id="base_path" value="<%=path%>"/>
+<input type="hidden" id="type" value="${type}"/>
+<input type="hidden" id="types" value='${types}'/>
+<input type="hidden" id="json" value='${json}'/>
+<input type="hidden" id="title" value="${title}"/>
 </body>
 </html>

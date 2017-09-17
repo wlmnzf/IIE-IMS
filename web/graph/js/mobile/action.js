@@ -1,3 +1,92 @@
+var _BASE_PATH="";
+var tj=function(){
+   var nodes=$(".op");
+   var jsonObj={};
+
+   $(nodes).each(function(index,o){
+	   jsonObj[index]={};
+       jsonObj[index]["type"]=$(o).attr("data-type");
+       if(  jsonObj[index]["type"]=="t1")
+            jsonObj[index]["data"]=$(o).find("input").val();
+       else if(jsonObj[index]["type"]=="t2")
+	   {
+           jsonObj[index]["data"]=$(o).find("textarea").val();
+	   }
+       else if(  jsonObj[index]["type"]=="t3")
+	   {
+           jsonObj[index]["data"]={};
+           var checked="";
+           var content="";
+           $(o).find("input").each(function (index,c) {
+			     if(c.checked)
+				 {
+				 	if(checked=="")
+					{
+						checked=""+index;
+						content=""+$(c).val()
+					}
+					else
+					{
+						checked=checked+"|"+index;
+                        content=content+"|"+$(c).val()
+					}
+				 }
+           });
+           jsonObj[index]["data"]["index"]=checked;
+           jsonObj[index]["data"]["content"]=content;
+	   }
+	   else if(  jsonObj[index]["type"]=="t4")
+	   {
+           jsonObj[index]["data"]={};
+           var checked="";
+           var content="";
+           $(o).find("input").each(function (index,c) {
+               if(c.checked)
+               {
+                       checked=""+index;
+                       content=""+$(c).val()
+               }
+           });
+           jsonObj[index]["data"]["index"]=checked;
+           jsonObj[index]["data"]["content"]=content;
+	   }
+	   else
+	   {
+	   	  alert("error");
+	   }
+
+	})
+
+	console.log(jsonObj);
+	var jsonText=JSON.stringify(jsonObj);
+
+
+	var UserId="11";
+	var UserToken="22";
+	var name="wlm";
+	var formToken="201709162003446";
+    $.ajax({
+        type:"POST",
+        url:_BASE_PATH+"/saveClientForm",
+        async:true,
+        data:{"UserId":UserId,"UserToken":UserToken,"name":name,"formToken":formToken,"Json":jsonText,},
+        dataType:"json",
+        success:function(data){
+            console.log(data);
+            if(data["res"]=="OK")
+            	alert("保存成功");
+            else
+            	alert("保存失败");
+
+        },
+        error:function(msg){
+            alert("与服务器连接断开...."+JSON.stringify(msg));
+            // layer.closeAll('loading');
+        }
+    })
+
+}
+
 $(document).ready(function(){
 	
 	var jsonText=localStorage.formJson;
@@ -5,12 +94,14 @@ $(document).ready(function(){
 		return;
 	jsonObj=JSON.parse(jsonText);
 	console.log(jsonObj);
+
+      _BASE_PATH=$("#basepath").val();
 	
 	for(var i=0;i<jsonObj.length;i++)
 	{
 		if(jsonObj[i]["type"]=="t1")
 		{
-			var nodeText="<li>";
+			var nodeText="<li data-type='"+jsonObj[i]["type"]+"'  class='op'>";
                 nodeText+="<div class=\"item-content\">";
                 nodeText+="<div class=\"item-inner\">";
                 nodeText+="<div class=\"item-title label\">"+jsonObj[i]["data"]["label"]+"</div>";
@@ -23,7 +114,7 @@ $(document).ready(function(){
 		}
 		else if(jsonObj[i]["type"]=="t2")
 		{
-			var nodeText="<li>";
+			var nodeText="<li data-type=\""+jsonObj[i]["type"]+"\"  class='op'>";
                 nodeText+="<div class=\"item-content\">";
                 nodeText+="<div class=\"item-inner\">";
                 nodeText+="<div class=\"item-title label\">"+jsonObj[i]["data"]["label"]+"</div>";
@@ -35,7 +126,7 @@ $(document).ready(function(){
 		}
 		else if(jsonObj[i]["type"]=="t3")
 		{
-			var nodeText="<div class=\"item-content\">";
+			var nodeText="<div data-type=\""+jsonObj[i]["type"]+"\" class=\"item-content op\">";
         		nodeText+="<div class=\"checkboxR item-inner\">";
     			nodeText+="<div class=\"item-title label\">"+jsonObj[i]["data"][0]+"</div>";
     			nodeText+="<ul>";
@@ -60,7 +151,7 @@ $(document).ready(function(){
 		}
 		else if(jsonObj[i]["type"]=="t4")
 		{
-			var nodeText="<div class=\"item-content\">";
+			var nodeText="<div data-type=\""+jsonObj[i]["type"]+"\" class=\"item-content op\">";
    				nodeText+="<div class=\"radioR item-inner\">";
     			nodeText+="<div class=\"item-title label\">"+jsonObj[i]["data"][0]+"</div>";
     			nodeText+="<ul>";
@@ -89,7 +180,7 @@ $(document).ready(function(){
 	var nodeText="<li>";
         nodeText+="<div class=\"item-content\">";
         nodeText+="<div class=\"item-inner\">";
-		nodeText+="<p class=\"buttons-row\"><a href=\"#\" class=\"button button-fill button-raised\">提交</a></p></div></div>";    
+		nodeText+="<p class=\"buttons-row\"><a href=\"javascript:void(0)\" class=\"button button-fill button-raised\"   onclick=\"tj()\">提交</a></p></div></div>";
 	$(".list-block >ul").append(nodeText);
 	
 	if(64+$(".list-block").height()+$(".toolbar").height()+10<$(".view").height())

@@ -1,41 +1,5 @@
-/*可以考虑加入common.css里*/
-body{
-    min-width:1260px;
-    font-size: 16px;
-    background-color:#e7e8e0;
-    font-family: "微软雅黑";
-}
-ul{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-p{
-    margin: 0;
-}
-a{
-    color: #599ee7;
-}
-a:hover{
-    text-decoration: none;
-}
-.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
-    background-color: #599ee7;
-    border-color: #599ee7;
-}
-.label-primary {
-    background-color: #599ee7;
-}
-
+/*此文件应用于用户公告页面*/
 /*header*/
-header{
-    background-color: #fff;
-}
-header img.brand{
-    height: 70px;
-    padding: 25px 25px;
-    box-sizing: content-box;
-}
 header .login-ul{
     margin-top: 40px;
 }
@@ -69,7 +33,7 @@ header .login-ul .option:first-child{
 /*admin-content*/
 .admin-content{
     margin: 20px auto;
-    width: 1200px;
+    max-width: 1200px;
     min-height: 500px;
     background-color: #fff;
 }
@@ -85,6 +49,18 @@ header .login-ul .option:first-child{
     border-left:1px solid #ddd;
     box-sizing: border-box;
 }
+@media screen and (max-width: 768px){
+    .admin-op-list{
+        width: 100%;
+    }
+    .admin-op-panel{
+        width: 100%;
+        border-left:none;
+        box-sizing: border-box;
+    }
+}
+/*缩小后的菜单*/
+
 /*admin-content admin-op-list*/
 .menu{
 }
@@ -113,14 +89,7 @@ header .login-ul .option:first-child{
     color: #222;
     text-indent: 60px;
 }
-.menu .menu-ul li:not(.current) a:hover
-{
-    color: black;
-    text-decoration: none;
-    background-color: #f4f5f9;
-
-}
-.menu .menu-ul  .current a{
+.menu .menu-ul li a:hover{
     color: #fff;
     text-decoration: none;
     background-color: #599ee7;
@@ -164,12 +133,4 @@ header .login-ul .option:first-child{
 }
 .op-content .pagination{
     float: right;
-}
-/*footer*/
-footer{
-    padding: 30px;
-    background-color: #fff;
-}
-footer .copyright{
-    color: #616161;
 }

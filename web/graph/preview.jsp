@@ -49,7 +49,7 @@
       </div>
     </div>
     
-    
+    <input type="hidden" id="basepath" value="<%=path%>"/>
      <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="<%=path%>/graph/js/mobile/framework7.min.js"></script>

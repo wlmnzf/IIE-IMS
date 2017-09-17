@@ -438,6 +438,8 @@ var getTotalJson=function()
 {
 	var totals=$("#dropArea .form-group");
 	var totalJson=[];
+    // var formToken=$("#formToken").val();
+
 	if(totals.length>0)
 	{
 		totals.each(function(index,element){
@@ -462,6 +464,12 @@ $(document).ready(function(){
 
 
 	  $("#submit").click(function(){
+          var title=prompt("请输入标题","新建表单")
+          if(title=="") {
+              alert("不能为空");
+              return;
+          }
+
 	       var json=getTotalJson();
 			var formToken=$("#formToken").val();
 			if(formToken)
@@ -469,11 +477,12 @@ $(document).ready(function(){
                 var UserId="wlm";
                 var UserToken="www";
 
+
                 $.ajax({
                     type:"POST",
                     url:_BASE_PATH+"/saveForm/"+UserId+"/"+UserToken+"/",
                     async:true,
-					data:{"formToken":formToken,"json":json},
+					data:{"formToken":formToken,"json":json,"type":1,"title":title},
                     dataType:"json",
                     success:function(data){
                         if(data["res"]=="OK")

@@ -1,24 +1,20 @@
 <%--
   Created by IntelliJ IDEA.
   User: liuzhilei
-  Date: 2017/9/7
-  Time: 下午5:15
+  Date: 2017/9/10
+  Time: 下午9:45
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String path = request.getContextPath();
-%>
 <html>
 <head>
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8"/>
-    <title>公告编辑</title>
+    <title>编辑成功</title>
 
-    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
-    <link type="text/css" rel="<%=path%>stylesheet" href="/graph/css/admin.css">
-    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="/graph/css/admin.css">
+    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap-theme.min.css" />
 
     <script src="/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="/graph/js/bootstrap/bootstrap.min.js"></script>
@@ -61,10 +57,6 @@
         </div>
     </header>
 
-
-
-
-
     <div class="admin-content clearfix">
         <div class="admin-op-list">
             <ul class="menu">
@@ -101,51 +93,9 @@
             <div class="panel-content">
                 <div class="customForm">
                     <div class="leftForm">
-                        <div>
-                            <form method="post" action="/addAnc">
-                                <div class="form-group">
-                                    <label for="anc_title" class="col-sm-2 control-label">标题</label>
-                                    <div class="col-sm-10">
-                                        <input style="width: 600px" type="text" class="form-control" id="anc_title" name="title" placeholder="请输入标题">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="anc_text" class="col-sm-2 control-label">正文</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="anc_text" class="form-control" style="width: 600px;height: 400px"  name="text"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div style="margin-left: 15px" >
-                                            <div class="checkbox form-group" id="anc_level" name="level" aria-checked="true">
-                                                <label style="color: red">
-                                                    <input type="checkbox" name="checkbox" value="0">紧急
-                                                </label>
-                                                <label style="color: cornflowerblue">
-                                                    <input type="checkbox" name="checkbox" value="1"> 一般
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" style="padding-top: 10px">
-                                        <center>
-                                        <select class="selectpicker form-control" id="anc_access" name="groupid">
-                                            <option id="op1" value="0">公开</option>
-                                            <option id="op2" value="1">第一组可见</option>
-                                            <option id="op3" value="2">第二组可见</option>
-                                            <option id="op4" value="3">第三组可见</option>
-                                        </select>
-                                        </center>
-                                    </div>
-
-                                </div>
-
-                                <div style="margin-top: 20px;padding-left: 15px">
-                                    <button style="width: 80px" type="submit" class="btn btn-info">发布</button>
-                                </div>
-                            </form>
+                        <div style="margin-left: 100px">
+                            <center style="margin-top: 150px"><img style="width: 100px;height: 150px;" src="/graph/img/rocket.png"></center>
+                            <center><h3>Edit Success!</h3></center>
                         </div>
                     </div>
                 </div>
@@ -153,6 +103,7 @@
             </div>
         </div>
     </div>
+
 
 </body>
 </html>

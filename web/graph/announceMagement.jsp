@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page isELIgnored="false" %>
 <%--
   Created by IntelliJ IDEA.
   User: liuzhilei
@@ -6,6 +10,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+%>
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,18 +20,19 @@
 
     <title>公告管理</title>
 
-    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="/graph/css/admin.css">
-    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css">
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap-theme.min.css" />
 
-    <script src="/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="/graph/js/bootstrap/bootstrap.min.js"></script>
+    <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript"   src="/graph/js/submit.js"></script>
     <script type="text/javascript"   src="/graph/js/customForm_h5.js"></script>
     <script type="text/javascript"   src="/graph/s/jquery.sticky.js"></script>
     <script type="text/javascript"   src="/graph/js/layer/layer.js"></script>
 
-    <link rel="stylesheet" href="/graph/css/customForm_h5.css"/>
+
+    <link rel="stylesheet" href="<%=path%>/graph/css/customForm_h5.css"/>
 </head>
 <body>
     <header>
@@ -89,9 +97,112 @@
                 </li>
             </ul>
         </div>
+        <div class="admin-op-panel">
+            <div class="panel-content">
+                <div class="op-buttons">
+                    <button class="btn btn-default" id="delAll">删除</button>
+                    <button class="btn btn-default" id="addNew" href="/addAnc">新增</button>
+                </div>
+                <div class="op-content">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th><input class="all" name="event" type="checkbox" value="" /></th>
+                            <th>序号</th>
+                            <th>标题</th>
+                            <th>level</th>
+                            <th>发布者</th>
+                            <th>发布时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items = "${announceMents}" var="announceMent" varStatus="id">
+                            <tr  data-sh="1">
+                                <th scope="row"><input name="event" type="checkbox" value="" /></th>
+                                <th><span style="font-weight: normal">${id.index + 1}</span></th>
+                                <th>
+                                    <a style="text-decoration: none;"  href="showAnc?title=${announceMent.title}">
+                                        ${announceMent.title}
+                                    </a>
+                                </th>
+                                <script>
+                                    var level = document.getElementById("levle");
+                                    if(${announceMent.level} == 1){
+                                        level.innerText= "紧急";
+                                        level.style.color = #FFA500;
+                                    }else {
+                                        level.innerText = "普通";
+                                        level.style.color = #FF00FF;
+                                    }
+                                </script>
+                                <th><span style="font-weight: normal" id="level"></span></th>
+                                <th><span style="font-weight: normal">${announceMent.author}</span></th>
+                                <th><span style="font-weight: normal">${announceMent.datestamp}</span></th>
+                                <th>
+                                    <a class="op-choice" name="preview" href="showAnc?title=${announceMent.title}">预览</a>
+                                    <a class="op-choice" name="del" href="/deleteAnc?title=${announceMent.title}">删除</a>
+                                    <a class="op-choice" name="del" href="/upperShow?title=${announceMent.title}">置顶</a>
+                                </th>
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                    <script>
+                        //记录当前页
+                        var currentPage = ${page.currentPage};
+                        function up(){
+                            var up = document.getElementById("up")
+                            alert(currentPage);
+                            if(currentPage == 1){
+                                alert("当前已是第一页");
+                            }
+                            else {
+                                currentPage -= 1;
+                                up.href = "pageManageMent?currentPage=" + currentPage;
+                            }
+
+                        }
+                        function down(){
+                            var down = document.getElementById("down")
+                            if(currentPage == ${page.totalPage}){
+                                alert("当前已是最后一页");
+                            }
+                            else {
+                                currentPage += 1;
+                                down.href = "pageManageMent?currentPage=" + currentPage;
+                            }
 
 
+
+                    }
+                    </script>
+
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li>
+                                    <span aria-hidden="true">总页数</span>
+                                    <span>${page.totalPage}</span>
+                            </li>
+                            <li>
+                                <a href="#"  id="up"  onclick="up()">
+                                    <span aria-hidden="true" for="id">上一页</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" id="down" onclick="down()">
+                                    <span aria-hidden="true" for="id">下一页</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 
 
 

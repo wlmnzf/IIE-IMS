@@ -32,7 +32,6 @@ var initInfo=function(info,types)
     {
     	$(ths[cuKey]).attr("data-sh",	info[cuKey]["formToken"]);
 		$(ths[cuKey]).find(".event-title a").html(info[cuKey]["title"]);
-        $(ths[cuKey]).find(".event-title a").attr("href",_BASE_PATH+"/formResult/"+info[cuKey]["formToken"]+"/1/");
         $(ths[cuKey]).find(".time").html(timestamp2time(info[cuKey]["time"]));
         for(var cuCode in types )
 		{
@@ -63,11 +62,11 @@ var initPage=function(page)
     	$(this).removeClass("active");
 	})
 
-	var start=-1;
+	var strat=-1;
     var end =-1;
 	 if(pageNum<=5)
 	 {
-	 	    start=1;
+	 	    strat=1;
 	 	    end=pageNum;
 	 }
 	else
@@ -112,6 +111,51 @@ var initPage=function(page)
     }
 }
 
+var initTitle=function()
+{
+    var title= $("#title").val();
+    var type= $("#type").val();
+    var types=$("#types").val();
+    var json= $("#json").val();
+
+    console.log(json);
+    console.log(types);
+    console.log(title);
+    console.log(type)
+    types=$.parseJSON(types);
+    json=$.parseJSON(json);
+
+
+    $(".page-header h3").text(title);
+    for(var cuKey in types["types"])
+    {
+        var typeNode=$(".page-header span");
+        $(typeNode).addClass(types["types"][cuKey]["typeClass"]);
+        $(typeNode).html(types["types"][cuKey]["typeName"]);
+    }
+
+    var tName=["姓名","学号","时间"];
+    for(var cuKey in tName)
+    {
+        $(".table thead tr").append("<th>"+tName[cuKey]+"</th>");
+    }
+
+    var name="";
+    for(var cuKey in json)
+    {
+
+        if(json[cuKey]["type"]=="t1"||json[cuKey]["type"]=="t2")
+        {
+          name= json[cuKey]["data"]["label"]
+        }
+        else
+        {
+            name= json[cuKey]["data"][0]
+        }
+        $(".table thead tr").append("<th>"+name+"</th>");
+    }
+
+}
 var init=function()
 {
 	var Page=$("#cur").val();
@@ -122,12 +166,15 @@ var init=function()
     layer.load(2);
 	var UserId="";
 	var UserToken="";
+	var FormToken="";
     $(".op-choice").hide();
     $(".pagination li").hide();
 
+    initTitle();
+
     $.ajax({
         type:"POST",
-        url:_BASE_PATH+"/Form/"+Page+"/",
+        url:_BASE_PATH+"/FormResult/"+FormToken+"/"+Page+"/",
         async:true,
         data:{"UserId":UserId,"UserToken":UserToken},
         dataType:"json",

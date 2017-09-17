@@ -83,7 +83,7 @@
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
                 <ul class="menu-ul">
-                    <li><a href="">页面定制</a></li>
+                    <li class="current"><a href="">页面定制</a></li>
                     <li><a href="">结果管理</a></li>
                 </ul>
             </li>
