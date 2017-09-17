@@ -20,9 +20,9 @@
 
     <title>公告管理</title>
 
-    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="/graph/css/admin.css">
-    <link rel="stylesheet" href="/graph/css/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css">
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap-theme.min.css" />
 
     <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>
@@ -129,10 +129,10 @@
                                 <script>
                                     var level = document.getElementById("levle");
                                     if(${announceMent.level} == 1){
-                                        level.innerHTML = "紧急";
+                                        level.innerText= "紧急";
                                         level.style.color = #FFA500;
                                     }else {
-                                        level.innerHTML = "普通";
+                                        level.innerText = "普通";
                                         level.style.color = #FF00FF;
                                     }
                                 </script>
@@ -150,19 +150,20 @@
                         </tbody>
                     </table>
                     <script>
+                        //记录当前页
                         var currentPage = ${page.currentPage};
-
-
                         function up(){
-                            var up = document.getElementsById("up");
+                            var up = document.getElementById("up")
+                            alert(currentPage);
                             if(currentPage == 1){
-                                alert("当前已是首页");
+                                alert("当前已是第一页");
                             }
                             else {
                                 currentPage -= 1;
-                                up.href = "announceMagement?currentPage=" + currentPage;
+                                up.href = "pageManageMent?currentPage=" + currentPage;
                             }
-                    }
+
+                        }
                         function down(){
                             var down = document.getElementById("down")
                             if(currentPage == ${page.totalPage}){
@@ -185,13 +186,13 @@
                                     <span>${page.totalPage}</span>
                             </li>
                             <li>
-                                <a href="announceMagement"  id="up" aria-label="Previous" onclick="up()">
-                                    <span aria-hidden="true">上一页</span>
+                                <a href="#"  id="up"  onclick="up()">
+                                    <span aria-hidden="true" for="id">上一页</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" id="down"  aria-label="Next" onclick="down()">
-                                    <span aria-hidden="true" >下一页</span>
+                                <a href="#" id="down" onclick="down()">
+                                    <span aria-hidden="true" for="id">下一页</span>
                                 </a>
                             </li>
                         </ul>

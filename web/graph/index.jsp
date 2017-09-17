@@ -17,7 +17,6 @@
 
 <body>
 </body>
-<a href="<%=path%>/formResult">结果管理</a>
 <a href="<%=path%>/formManage">表单管理页面</a> </br>
 <a href="<%=path%>/graph/personalManage.jsp">人员管理页面</a> </br>
 <a href="<%=path%>/graph/groupManage.jsp">分组管理页面</a>

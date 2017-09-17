@@ -438,6 +438,8 @@ var getTotalJson=function()
 {
 	var totals=$("#dropArea .form-group");
 	var totalJson=[];
+    // var formToken=$("#formToken").val();
+
 	if(totals.length>0)
 	{
 		totals.each(function(index,element){

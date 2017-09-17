@@ -82,6 +82,7 @@ public class AnnounceController {
 
     }
 
+    //展示公告详细内容
     @RequestMapping("/showAnc")
     public String showAnc(HttpServletRequest request,ModelMap model){
         String title = request.getParameter("title");

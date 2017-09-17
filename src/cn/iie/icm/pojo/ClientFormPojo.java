@@ -26,7 +26,7 @@ public class ClientFormPojo {
     public void setUserid(String userId){this.userid=userId;}
     public String getUserid(){return userid;}
 
-    public void seName(String name){this.name=name;}
+    public void setName(String name){this.name=name;}
     public String getName(){return name;}
 
     public void setTime(String time){this.time=time;}
@@ -35,7 +35,7 @@ public class ClientFormPojo {
     public void setJson(String json){this.json=json;}
     public String getJson(){return json;}
 
-    public void setFormtoken(String formToken){this.formtoken=formtoken;}
+    public void setFormtoken(String formToken){this.formtoken=formToken;}
     public String getFormtoken(){return formtoken;}
 
 }

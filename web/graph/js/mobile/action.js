@@ -1,3 +1,4 @@
+var _BASE_PATH="";
 var tj=function(){
    var nodes=$(".op");
    var jsonObj={};
@@ -60,6 +61,30 @@ var tj=function(){
 	var jsonText=JSON.stringify(jsonObj);
 
 
+	var UserId="11";
+	var UserToken="22";
+	var name="wlm";
+	var formToken="201709162003446";
+    $.ajax({
+        type:"POST",
+        url:_BASE_PATH+"/saveClientForm",
+        async:true,
+        data:{"UserId":UserId,"UserToken":UserToken,"name":name,"formToken":formToken,"Json":jsonText,},
+        dataType:"json",
+        success:function(data){
+            console.log(data);
+            if(data["res"]=="OK")
+            	alert("保存成功");
+            else
+            	alert("保存失败");
+
+        },
+        error:function(msg){
+            alert("与服务器连接断开...."+JSON.stringify(msg));
+            // layer.closeAll('loading');
+        }
+    })
+
 }
 
 $(document).ready(function(){
@@ -69,6 +94,8 @@ $(document).ready(function(){
 		return;
 	jsonObj=JSON.parse(jsonText);
 	console.log(jsonObj);
+
+      _BASE_PATH=$("#basepath").val();
 	
 	for(var i=0;i<jsonObj.length;i++)
 	{
