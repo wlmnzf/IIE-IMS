@@ -36,7 +36,7 @@ public class AncJDBCTemplate implements AncDao{
      * @param level
      */
     @Override
-    public void create(String title, String text, Integer groupid, Integer level,Timestamp datestamp,String author) {
+    public void create(String title, String text, Integer groupid, String  level,Timestamp datestamp,String author) {
         String sql = "insert into tanc_manager (title,text,groupid,level,datestamp,author) values (?,?,?,?,?,?)";
         jdbcTemplateObject.update(sql,title,text,groupid,level,datestamp,author);
         System.out.println("Created record title = " + title + "  text = " + text + "  groupid = " +groupid + "  level = " + level + "time = " + datestamp + "author = " + author);
@@ -88,7 +88,7 @@ public class AncJDBCTemplate implements AncDao{
      * @param id
      */
     @Override
-    public void update(String title, String text, Integer groupid, Integer level,Integer id) {
+    public void update(String title, String text, Integer groupid, String level,Integer id) {
         String sql = "update tanc_manger set title = ? text = ? groupid = ? level = ? where id = ?";
         jdbcTemplateObject.update(sql,title,text,groupid,level);
         System.out.println("Updated Record with Id = " + id);

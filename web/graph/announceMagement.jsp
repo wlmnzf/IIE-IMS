@@ -26,10 +26,10 @@
 
     <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript"   src="/graph/js/submit.js"></script>
-    <script type="text/javascript"   src="/graph/js/customForm_h5.js"></script>
-    <script type="text/javascript"   src="/graph/s/jquery.sticky.js"></script>
-    <script type="text/javascript"   src="/graph/js/layer/layer.js"></script>
+    <script type="text/javascript"   src="<%=path%>/graph/js/submit.js"></script>
+    <script type="text/javascript"   src="<%=path%>/graph/js/customForm_h5.js"></script>
+    <script type="text/javascript"   src="<%=path%>/graph/s/jquery.sticky.js"></script>
+    <script type="text/javascript"   src="<%=path%>/graph/js/layer/layer.js"></script>
 
 
     <link rel="stylesheet" href="<%=path%>/graph/css/customForm_h5.css"/>
@@ -38,7 +38,7 @@
     <header>
         <div class="container-fluid">
             <div class="navbar-header">
-                <img class="brand" src="/graph/img/logo.png" alt="">
+                <img class="brand" src="<%=path%>/graph/img/logo.png" alt="">
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right login-ul">
@@ -46,7 +46,7 @@
                         <div class="login-info">
                             <div class="media-left media-top">
                                 <a href="#">
-                                    <img class="media-object" src="/graph/img/head.jpg" alt="...">
+                                    <img class="media-object" src="<%=path%>/graph/img/head.jpg" alt="...">
                                 </a>
                             </div>
                             <div class="media-body">
