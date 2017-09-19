@@ -13,7 +13,7 @@ public class AnnounceMent implements Serializable{
     private String author;
     private Timestamp datestamp;
     private Integer groupid;
-    private Integer level;
+    private String level;
     private Integer id;
 
 
@@ -21,7 +21,7 @@ public class AnnounceMent implements Serializable{
     public AnnounceMent() {
     }
 
-    public AnnounceMent(String title, String text, String author, Timestamp datestamp, Integer groupid, Integer level, Integer id) {
+    public AnnounceMent(String title, String text, String author, Timestamp datestamp, Integer groupid, String level, Integer id) {
         this.title = title;
         this.text = text;
         this.author = author;
@@ -51,11 +51,11 @@ public class AnnounceMent implements Serializable{
         this.groupid = groupid;
     }
 
-    public Integer getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

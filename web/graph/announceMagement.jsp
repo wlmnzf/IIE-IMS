@@ -100,8 +100,13 @@
         <div class="admin-op-panel">
             <div class="panel-content">
                 <div class="op-buttons">
+                    <script>
+                        function addAnc(){
+                            window.location.href = "/announceEditor";
+                        }
+                    </script>
                     <button class="btn btn-default" id="delAll">删除</button>
-                    <button class="btn btn-default" id="addNew" href="/addAnc">新增</button>
+                    <button class="btn btn-default" id="addNew" onclick="addAnc()">新增</button>
                 </div>
                 <div class="op-content">
                     <table class="table table-striped">
@@ -126,22 +131,15 @@
                                         ${announceMent.title}
                                     </a>
                                 </th>
-                                <script>
-                                    var level = document.getElementById("levle");
-                                    if(${announceMent.level} == 1){
-                                        level.innerText= "紧急";
-                                        level.style.color = #FFA500;
-                                    }else {
-                                        level.innerText = "普通";
-                                        level.style.color = #FF00FF;
-                                    }
-                                </script>
-                                <th><span style="font-weight: normal" id="level"></span></th>
+
+                                <th >
+                                    <span style="font-weight: normal;font-family: Arial;color: #00d449;font-size: small;" >${announceMent.level}</span>
+                                </th>
                                 <th><span style="font-weight: normal">${announceMent.author}</span></th>
                                 <th><span style="font-weight: normal">${announceMent.datestamp}</span></th>
                                 <th>
                                     <a class="op-choice" name="preview" href="showAnc?title=${announceMent.title}">预览</a>
-                                    <a class="op-choice" name="del" href="/deleteAnc?title=${announceMent.title}">删除</a>
+                                    <a class="op-choice" name="preview" href="/deleteAnc?title=${announceMent.title}">删除</a>
                                     <a class="op-choice" name="del" href="/upperShow?title=${announceMent.title}">置顶</a>
                                 </th>
                             </tr>
@@ -154,7 +152,7 @@
                         var currentPage = ${page.currentPage};
                         function up(){
                             var up = document.getElementById("up")
-                            alert(currentPage);
+                            //alert(currentPage);
                             if(currentPage == 1){
                                 alert("当前已是第一页");
                             }

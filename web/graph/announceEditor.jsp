@@ -121,10 +121,10 @@
                                         <div style="margin-left: 15px" >
                                             <div class="checkbox form-group" id="anc_level" name="level" aria-checked="true">
                                                 <label style="color: red">
-                                                    <input type="checkbox" name="checkbox" value="0">紧急
+                                                    <input type="checkbox" name="checkbox" value="紧急">紧急
                                                 </label>
                                                 <label style="color: cornflowerblue">
-                                                    <input type="checkbox" name="checkbox" value="1"> 一般
+                                                    <input type="checkbox" name="checkbox" value="普通"> 普通
                                                 </label>
                                             </div>
                                         </div>

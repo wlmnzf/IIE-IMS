@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Collections;
@@ -56,14 +57,19 @@ public class AnnounceController {
         AncJDBCTemplate ancJDBCTemplate = (AncJDBCTemplate) context.getBean("ancJDBCTemplate");
         String title = request.getParameter("title");
         String text = request.getParameter("text");
-        String levelString = request.getParameter("checkbox");
+        String level = request.getParameter("checkbox");
+        try {
+            level = new String(level.trim().getBytes("ISO-8859-1"),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String groupidString = request.getParameter("groupid");
         Date date = new Date();
         //获取公告发布者
         String author = "admin";
         //生成公告发布的时间
         Timestamp timestamp  = new Timestamp(date.getTime());
-        int level = Integer.parseInt(levelString);
+        //int level = Integer.parseInt(levelString);
         int groupid = Integer.parseInt(groupidString);
         ancJDBCTemplate.create(title,text,groupid,level,timestamp,author);
         return "editSuccess";
@@ -86,10 +92,15 @@ public class AnnounceController {
     @RequestMapping("/showAnc")
     public String showAnc(HttpServletRequest request,ModelMap model){
         String title = request.getParameter("title");
+        try {
+            title = new String(title.trim().getBytes("ISO-8859-1"),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         int index = 0;
 
         for(int i = 0;i < datalist.size();i++){
-            if (title == datalist.get(i).getTitle()){
+            if (title.equals(datalist.get(i).getTitle())){
                 index = i;
                 break;
             }
