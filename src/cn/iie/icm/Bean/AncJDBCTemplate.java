@@ -1,6 +1,6 @@
 package cn.iie.icm.Bean;
 
-import cn.iie.icm.DAO.AncDao;
+import cn.iie.icm.dao.AncDao;
 import cn.iie.icm.plantform.AnnouncementMapper;
 //import com.sun.tools.corba.se.idl.StringGen;
 import net.sf.ehcache.concurrent.Sync;
@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import cn.iie.icm.plantform.AnnouncementMapper;
-import cn.iie.icm.DAO.*;
+import cn.iie.icm.dao.*;
 
 public class AncJDBCTemplate implements AncDao{
     private DataSource dataSource;

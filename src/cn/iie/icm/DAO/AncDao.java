@@ -1,4 +1,4 @@
-package cn.iie.icm.DAO;
+package cn.iie.icm.dao;
 
 import cn.iie.icm.Bean.AnnounceMent;
 
