@@ -96,6 +96,55 @@ header img.brand{
         box-sizing: content-box;
     }
 }
+header .login-ul{
+    margin-top: 40px;
+}
+header .login-info{
+    display: inline-block;
+    width: 260px;
+}
+header img.media-object{
+    width: 50px;
+    height: 50px;
+}
+header .media-body .media-heading{
+    display: inline-block;
+}
+header .media-body .login-name{
+    width: 200px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+header div.options{
+    display: inline-block;
+    margin-top: 23px;
+}
+header .option{
+    display: inline-block;
+}
+header .option:first-child{
+    padding-right:10px;
+    border-right: 1px solid #e7e7eb;
+}
+header .user-collapse{
+    display: none;
+    padding: 10px 0;
+    border-top: 3px solid #ccc;
+}
+header .user-welcome{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+header .user-collapse div.options{
+    margin-top: 0;
+}
+@media screen and (max-width: 767px){
+    header .user-collapse{
+        display: block;
+    }
+}
 /*时间/紧急区分标签*/
 .nav-tabs {
     border-bottom: none;
@@ -146,4 +195,80 @@ header img.brand{
 }
 .nav-tabs.underline-tabs>li>a:hover {
     border-bottom: 3px solid #599ee7;
+}
+/**
+以下为用户登录后的界面共享样式
+*/
+/*admin-content*/
+.admin-content{
+    margin: 20px auto;
+    max-width: 1200px;
+    min-height: 500px;
+    background-color: #fff;
+}
+.admin-op-list{
+    float: left;
+    width: 20.4%;
+    height:100%;
+    box-sizing: border-box;
+}
+.admin-op-panel{
+    float: left;
+    width: 79%;
+    min-height: 300px;
+    border-left:1px solid #ddd;
+    box-sizing: border-box;
+}
+@media screen and (max-width: 767px){
+    .admin-op-list{
+        width: 100%;
+    }
+    .admin-op-panel{
+        width: 100%;
+        border-left:none;
+        box-sizing: border-box;
+    }
+}
+
+/*admin-content admin-op-list*/
+.menu{
+}
+.menu .menu-title{
+    position: relative;
+    margin: 0;
+    padding: 16px 0 16px 58px;
+    font-size: 1.125em;
+    color: #b2b2b2;
+}
+.menu .menu-title .glyphicon {
+    display: block;
+    position: absolute;
+    left: 27px;
+    top: 16px;
+    width: 20px;
+    height: 20px;
+}
+.menu .menu-ul{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e7e7eb;
+    font-size: 1em;
+}
+.menu .menu-ul li a{
+    display: block;
+    height: 36px;
+    line-height: 36px;
+    color: #222;
+    text-indent: 60px;
+}
+.menu .menu-ul li a:hover{
+    color: #fff;
+    text-decoration: none;
+    background-color: #599ee7;
+}
+/*admin-content admin-op-panel*/
+.panel-content{
+    position: relative;
+    margin: 0 auto;
+    padding: 29px 0;
+    width: 85%;
 }
