@@ -58,11 +58,14 @@ public class AnnounceController {
         String title = request.getParameter("title");
         String text = request.getParameter("text");
         String level = request.getParameter("checkbox");
-        try {
-            level = new String(level.trim().getBytes("ISO-8859-1"),"UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        try{
+            text = new String(text.trim().getBytes("ISO-8859-1"),"UIF-8");
+            title = new String(title.trim().getBytes("ISO-8859-1"),"UIF-8");
+            level = new String(level.trim().getBytes("ISO-8859-1"),"UIF-8");
+        }catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
         String groupidString = request.getParameter("groupid");
         Date date = new Date();
         //获取公告发布者

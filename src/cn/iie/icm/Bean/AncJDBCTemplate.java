@@ -8,11 +8,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 import java.sql.Timestamp;
 import java.util.List;
-<<<<<<< HEAD
-=======
+
 import cn.iie.icm.plantform.AnnouncementMapper;
 import cn.iie.icm.dao.*;
->>>>>>> c93325cc90edada2fb14694b0620c6170bc92c97
+
 
 public class AncJDBCTemplate implements AncDao{
     private DataSource dataSource;
