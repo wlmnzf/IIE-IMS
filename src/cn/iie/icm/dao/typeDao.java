@@ -35,7 +35,7 @@ public class typeDao implements typeDaoInterface {
 
     @Override
     public void addType(TypePojo type) {
-        String sql="insert into tforms values (null,?,?,?)";
+        String sql="insert into tformsTypr values (null,?,?,?)";
         try {
             conn= mysql.getConnection();
             pstmt=conn.prepareStatement(sql);

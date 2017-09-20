@@ -17,14 +17,14 @@
     <title>公告编辑</title>
 
     <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
-    <link type="text/css" rel="<%=path%>stylesheet" href="/graph/css/admin.css">
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css">
     <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap-theme.min.css" />
 
     <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript"   src="<%=path%>/graph/js/submit.js"></script>
-    <script type="text/javascript"   src="/<%=path%>graph/js/customForm_h5.js"></script>
-    <script type="text/javascript"   src="<%=path%>/graph/s/jquery.sticky.js"></script>
+    <script type="text/javascript"   src="<%=path%>/graph/js/customForm_h5.js"></script>
+    <script type="text/javascript"   src="<%=path%>/graph/js/jquery.sticky.js"></script>
     <script type="text/javascript"   src="<%=path%>/graph/js/layer/layer.js"></script>
 
     <link rel="stylesheet" href="<%=path%>/graph/css/customForm_h5.css"/>
@@ -102,7 +102,7 @@
                 <div class="customForm">
                     <div class="leftForm">
                         <div>
-                            <form method="post" action="/addAnc">
+                            <form method="post" action="<%=path%>/addAnc">
                                 <div class="form-group">
                                     <label for="anc_title" class="col-sm-2 control-label">标题</label>
                                     <div class="col-sm-10">

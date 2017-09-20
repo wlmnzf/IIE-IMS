@@ -1,0 +1,10 @@
+/*此文件为user-input界面需要的样式*/
+h3.form-title{
+    padding-bottom: 10px;
+    color: #599ee7;
+    border-bottom: 1px solid #ccc;
+}
+.inform-form{
+    position: relative;
+    margin: 20px 0;
+}
