@@ -25,7 +25,7 @@
 <header>
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="brand" src="img/logo.png" alt="">
+            <img class="brand" src="<%=path%>/img/logo.png" alt="">
         </div>
     </div>
 </header>
@@ -64,9 +64,9 @@
 </div>
 <div class="inform-content">
     <div class="container">
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#informs" aria-controls="home" role="tab" data-toggle="tab">时间</a></li>
-            <li role="presentation"><a href="#activities" aria-controls="profile" role="tab" data-toggle="tab">紧急</a></li>
+        <ul class="nav nav-tabs cate-tabs" role="tablist">
+            <li role="presentation"><a href="#informs" aria-controls="home" role="tab" data-toggle="tab">紧急</a></li>
+            <li role="presentation" class="active"><a href="#activities" aria-controls="profile" role="tab" data-toggle="tab">时间</a></li>
         </ul>
 
         <!-- Tab panes -->
@@ -158,6 +158,7 @@
         ©2017 中国科学院 信息工程研究所
     </p>
 </footer>
+
 <input type="hidden" id="basepath" value="<%=path%>"/>
 </body>
 <script>

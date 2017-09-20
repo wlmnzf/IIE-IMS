@@ -59,11 +59,8 @@ header .login-ul .option:first-child{
 .inform-content .container{
     position: relative;
 }
-.inform-content .nav-tabs{
-    position: absolute;
-    z-index: 10;
-    top: 25px;
-    right: 20px;
+.inform-content>.nav-tabs.cate-tabs{
+    right: 25px;
 }
 .inform-block{
     margin-top:20px;
