@@ -1,12 +1,9 @@
 package cn.iie.icm.action.api;
 
 import cn.iie.icm.dao.ClientFormDao;
-import cn.iie.icm.dao.formDao;
-import cn.iie.icm.dao.typeDao;
 import cn.iie.icm.pojo.ClientFormPojo;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;

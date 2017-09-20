@@ -1,11 +1,9 @@
-package cn.iie.icm.DAO;
+package cn.iie.icm.dao;
 
 import cn.iie.icm.Bean.AnnounceMent;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 public interface AncDao {
