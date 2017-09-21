@@ -15,7 +15,7 @@ import java.util.Map;
 
 
 @Controller
-public class FormResult {
+public class FormResultController {
 
     @RequestMapping("/formResult/{formtoken}/{page}/")
     private String formResult(Map<String, Object> map, @PathVariable("formtoken") String formToken, @PathVariable("page") String page,  HttpServletRequest request)

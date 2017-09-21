@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.Map;
 
 @Controller
-public class CustomFormContorller {
+public class CustomFormController {
 
 //    @RequestMapping("/customForm")
 //    private ModelAndView customForm(HttpServletRequest request, HttpServletResponse response,

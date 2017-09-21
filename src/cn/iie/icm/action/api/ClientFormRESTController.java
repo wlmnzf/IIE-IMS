@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
-public class ClientFormRESTContorller {
+public class ClientFormRESTController {
 
     @RequestMapping(value="saveClientForm")
     public String form(Map<String, Object> map, HttpServletRequest request) {

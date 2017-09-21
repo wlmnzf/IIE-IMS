@@ -68,31 +68,30 @@
                     <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
                     <ul class="menu-ul">
                         <li><a href="announceMagement">公告管理</a></li>
-                        <li><a href="announceEditor">公告编辑</a></li>
+                        <li class="current"><a href="announceEditor">公告编辑</a></li>
                     </ul>
                 </li>
                 <li>
                     <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
                     <ul class="menu-ul">
-                        <li><a href="">页面定制</a></li>
-                        <li><a href="">结果管理</a></li>
+                        <li><a href="formManage">页面定制</a></li>
+                        <li><a href="formResult">结果管理</a></li>
                     </ul>
                 </li>
                 <li>
                     <h4 class="menu-title"><em class="glyphicon glyphicon-user"></em>人员</h4>
                     <ul class="menu-ul">
-                        <li><a href="">人员管理</a></li>
+                        <li><a href="graph/personalManage.jsp">人员管理</a></li>
                     </ul>
                 </li>
                 <li>
                     <h4 class="menu-title"><em class="glyphicon glyphicon-align-left"></em>分组</h4>
                     <ul class="menu-ul">
-                        <li><a href="">分组管理</a></li>
+                        <li><a href="graph/groupManage.jsp">分组管理</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
-
         <div class="admin-op-panel" style="margin-left: 5px">
             <div class="panel-content">
                 <div class="customForm">

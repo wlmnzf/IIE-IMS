@@ -23,6 +23,8 @@ interface personDaoInterface
 
     public PersonPojo getPerson(String num);
 
+    public void updateToken(String num,String Token);
+
 //    //查询所有
 //    public List<PersonPojo> getAllType();
 //
@@ -55,6 +57,7 @@ public class PersonDao  implements personDaoInterface {
     }
 
     //删除
+    @Override
     public void deletePerson(String num)
     {
         String sql="delete from tperson where num=?";
@@ -72,11 +75,13 @@ public class PersonDao  implements personDaoInterface {
     }
 
     //修改
+    @Override
     public void updatePerson( PersonPojo person)
     {
 
     }
 
+    @Override
     public PersonPojo getPerson(String num)
     {
         PersonPojo person=null;
@@ -95,5 +100,23 @@ public class PersonDao  implements personDaoInterface {
             mysql.closeAll(rs, pstmt, conn);
         }
         return person;
+    }
+
+    @Override
+    public void updateToken(String num,String Token)
+    {
+        String sql="update tperson set token=?  where num=?";
+        try {
+            conn=mysql.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, Token);
+            pstmt.setString(2, num);
+            pstmt.executeUpdate();
+            System.out.println("修改成功！");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            mysql.closeAll(rs, pstmt, conn);
+        }
     }
 }

@@ -15,7 +15,7 @@ import java.io.*;
 import java.net.URL;
 
 @Controller
-public class IndexContorller {
+public class IndexController {
 	/**
 	 * 跳转到主页
 	 * @param request

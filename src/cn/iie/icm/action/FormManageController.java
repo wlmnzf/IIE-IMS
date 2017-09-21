@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.Map;
 
 @Controller
-public class FormManageContorller {
+public class FormManageController {
 
     @RequestMapping("/formManage")
     private String customForm(Map<String, Object> map)

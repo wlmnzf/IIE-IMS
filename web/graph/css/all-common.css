@@ -151,8 +151,10 @@ header .user-collapse div.options{
 }
 .nav-tabs.cate-tabs{
     position: absolute;
-    right: 0;
-    top: 35px;
+    /*right: 0;*/
+    /*top: 35px;*/
+    right: 33px;
+    top: 43px;
     border-bottom: none;
     z-index:10;
 }
@@ -161,21 +163,38 @@ header .user-collapse div.options{
     margin-bottom: -1px;
 }
 .nav-tabs.cate-tabs>li.active>a{
-    color: #fff;
+    /*color: #fff;*/
+    color:#f9f9f9;
     cursor: default;
     background-color: #599ee7;
+    /*background-color:#eee;*/
     border: none;
+
+    height: 20px;
+    font-size: 10px;
+    line-height: 10px;
+    width: 60px;
+    text-align: center;
 }
 .nav-tabs.cate-tabs>li>a{
     margin-right: 0;
     padding: 5px 10px;
-    color: #999;
-    background-color: #ddd;
+    /*color: #999;*/
+    /*background-color: #ddd;*/
+    color:#385971;
+    background-color:#eee;
     border-radius: 0;
     border: none;
+
+    height: 20px;
+    font-size: 10px;
+    line-height: 10px;
+    width: 60px;
+    text-align: center;
  }
 .nav-tabs.cate-tabs>li>a:hover {
     border-color: transparent;
+
 
 }
 /*通知/活动区分标签*/

@@ -19,9 +19,16 @@
     <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap.js" ></script>
     <script src="<%=path%>/graph/js/index.js" type="text/javascript"></script>
+    <script src="<%=path%>/graph/js/jquery.md5.js" type="text/javascript"></script>
+    <script src="<%=path%>/graph/js/layer/layer.js" type="text/javascript"></script>
+    <script src="<%=path%>/graph/js/jquery.cookie.js" type="text/javascript"></script>
     <!--<script type="text/javascript" src="js/index.js"></script>-->
 </head>
 <body>
+<div class="alert alert-warning alert-dismissible" role="alert" style="    margin-bottom: 10px;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>注意:</strong> 学生端： stu    123456      管理员端：  admin   123456
+</div>
 <header>
     <div class="container-fluid">
         <div class="navbar-header">
@@ -36,14 +43,14 @@
         </div>
         <div class="login-box col-sm-6 col-md-3">
             <h3>登录</h3>
-            <form action="">
+            <form  method="post" action="<%=path%>/Login">
                 <div class="form-group">
                     <div class="help-block with-errors"></div>
                     <div class="input-group">
                         <label class="input-group-addon" for="login_name">
                             <span class="glyphicon glyphicon-user"></span>
                         </label>
-                        <input type="text" class="form-control" data-login-name=1 required id="login_name" name="login_name" placeholder="请输入账号">
+                        <input type="text" id="account" class="form-control" data-login-name=1 required id="login_name" name="login_name" placeholder="请输入账号">
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,11 +59,11 @@
                         <label class="input-group-addon" for="password">
                             <span class="glyphicon glyphicon-lock"></span>
                         </label>
-                        <input type="password" class="form-control" data-password=1 required id="password" name="password" placeholder="请输入密码">
+                        <input type="password" id="password" class="form-control" data-password=1 required id="password" name="password" placeholder="请输入密码">
                     </div>
                 </div>
                 <p>
-                    <button type="submit" data-loading-text="登录中..." class="btn  btn-inline btn-right btn-primary j-submit" id="submit" name="submit">登 录</button>
+                    <button type="submit"  data-loading-text="登录中..." class="btn  btn-inline btn-right btn-primary j-submit" id="submit" name="submit">登 录</button>
                 </p>
             </form>
         </div>

@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 
 
 @Controller
-public class FormRESTContorller {
+public class FormRESTController {
 
     @RequestMapping(value="Form/{page}/")
     public String form(Map<String, Object> map,@PathVariable("page") int page, HttpServletRequest request){
