@@ -39,6 +39,10 @@ public class AnnounceController {
         Pager pager = new Pager(announceMents,pageNum);
         model.addAttribute("announceMents",pager.getDatalist());
         model.addAttribute("page",pager);
+        Object text = request.getParameter("event");
+        System.out.println("****************" + text);
+
+
         return "announceMagement";
     }
 
