@@ -177,23 +177,55 @@
                     }
                     </script>
 
+                    <script>
+                        var num = 5;
+                        var totalPage = ${page.totalPage};
+                        var startPoint = 1;
+                        var endPoint = 5;
+                        if(totalPage < num){
+                            endPoint = totalPage;
+                        }
+
+
+                    </script>
+
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <li>
-                                    <span aria-hidden="true">总页数</span>
-                                    <span>${page.totalPage}</span>
+                            <span aria-hidden="true">总页数</span>
+                            <span>${page.totalPage}</span>
                             </li>
                             <li>
-                                <a href="#"  id="up"  onclick="up()">
-                                    <span aria-hidden="true" for="id">上一页</span>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
+                            
+                                <li><a href="#">${i}</a></li>
+
+
                             <li>
-                                <a href="#" id="down" onclick="down()">
-                                    <span aria-hidden="true" for="id">下一页</span>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
+                        <%--<ul class="pagination">--%>
+                            <%--<li>--%>
+                                    <%--<span aria-hidden="true">总页数</span>--%>
+                                    <%--<span>${page.totalPage}</span>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#"  id="up"  onclick="up()">--%>
+                                    <%--<span aria-hidden="true" for="id">上一页</span>--%>
+                                <%--</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#" id="down" onclick="down()">--%>
+                                    <%--<span aria-hidden="true" for="id">下一页</span>--%>
+                                <%--</a>--%>
+                            <%--</li>--%>
+                        <%--</ul>--%>
                     </nav>
                 </div>
             </div>

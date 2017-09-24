@@ -28,6 +28,41 @@
     <script type="text/javascript"   src="<%=path%>/graph/js/layer/layer.js"></script>
 
     <link rel="stylesheet" href="<%=path%>/graph/css/customForm_h5.css"/>
+
+    //富文本编辑
+    <%
+        request.setCharacterEncoding("UTF-8");
+        String htmlData = request.getParameter("content1") != null ? request.getParameter("text") : "";
+    %>
+    <meta charset="utf-8" />
+    <title>KindEditor JSP</title>
+    <link rel="stylesheet" href="<%=path%>/kindEditor/themes/default/default.css" />
+    <link rel="stylesheet" href="<%=path%>/kindEditor/plugins/code/prettify.css" />
+    <script charset="utf-8" src="<%=path%>/kindEditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="<%=path%>/kindEditor/lang/zh-CN.js"></script>
+    <script charset="utf-8" src="<%=path%>/kindEditor/plugins/code/prettify.js"></script>
+    <script>
+        KindEditor.ready(function(K) {
+            var editor1 = K.create('textarea[name="text"]', {
+                cssPath : '../plugins/code/prettify.css',
+                uploadJson : '../jsp/upload_json.jsp',
+                fileManagerJson : '../jsp/file_manager_json.jsp',
+                allowFileManager : true,
+                afterCreate : function() {
+                    var self = this;
+                    K.ctrl(document, 13, function() {
+                        self.sync();
+                        document.forms['example'].submit();
+                    });
+                    K.ctrl(self.edit.doc, 13, function() {
+                        self.sync();
+                        document.forms['example'].submit();
+                    });
+                }
+            });
+            prettyPrint();
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -99,18 +134,22 @@
             <div class="panel-content">
                 <div class="customForm">
                     <div class="leftForm">
+
+
                         <div>
-                            <form method="post" action="<%=path%>/addAnc">
+                         <form method="post" action="<%=path%>/addAnc">
+
+
                                 <div class="form-group">
                                     <label for="anc_title" class="col-sm-2 control-label">标题</label>
                                     <div class="col-sm-10">
-                                        <input style="width: 600px" type="text" class="form-control" id="anc_title" name="title" placeholder="请输入标题">
+                                        <input style="width: 700px" type="text" class="form-control" id="anc_title" name="title" placeholder="请输入标题">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="anc_text" class="col-sm-2 control-label">正文</label>
                                     <div class="col-sm-10">
-                                        <textarea id="anc_text" class="form-control" style="width: 600px;height: 400px"  name="text"></textarea>
+                                        <textarea id="anc_text" class="form-control" style="width: 700px;height: 500px"  name="text"><%=htmlspecialchars(htmlData)%></textarea>
                                     </div>
                                 </div>
 
@@ -154,3 +193,13 @@
 
 </body>
 </html>
+
+<%!
+    private String htmlspecialchars(String str) {
+        str = str.replaceAll("&", "&amp;");
+        str = str.replaceAll("<", "&lt;");
+        str = str.replaceAll(">", "&gt;");
+        str = str.replaceAll("\"", "&quot;");
+        return str;
+    }
+%>

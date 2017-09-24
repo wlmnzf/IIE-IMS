@@ -9,8 +9,9 @@ import javax.sql.DataSource;
 import java.sql.Timestamp;
 import java.util.List;
 
+import cn.iie.icm.dao.AncDao;
+
 import cn.iie.icm.plantform.AnnouncementMapper;
-import cn.iie.icm.dao.*;
 
 
 public class AncJDBCTemplate implements AncDao{
