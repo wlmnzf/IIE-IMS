@@ -732,7 +732,7 @@
     </welcome-file-list>-->
     <!-- yzlj self -->
     <welcome-file-list>
-        <welcome-file>indexpage.do</welcome-file>
+        <welcome-file>index.do</welcome-file>
     </welcome-file-list>
 
     <!-- guorui -->

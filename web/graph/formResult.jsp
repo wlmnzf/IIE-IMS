@@ -103,156 +103,51 @@
                     <tr  data-sh="1">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>1</td>
-                        <td>
-                            <p><span class="event-title"><a href="#"></a></span><span class="label"></span></p>
 
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
                     <tr data-sh="2">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>2</td>
-                        <td>
-                            <p><span class="event-title"><a href="#"></a></span><span class="label"></span></p>
-
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
                     <tr data-sh="3">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>3</td>
-                        <td>
-                            <p>
-                                <span class="event-title"><a href="#"></a></span>
-                                <span class="label"></span>
-                            </p>
 
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
                     <tr data-sh="4">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>4</td>
-                        <td>
-                            <p>
-                                <span class="event-title"><a href="#"></a></span>
-                                <span class="label"></span>
-                            </p>
 
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
                     <tr data-sh="5">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>5</td>
-                        <td>
-                            <p>
-                                <span class="event-title"><a href="#"></a></span>
-                                <span class="label "></span>
-                            </p>
 
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
                     <tr data-sh="6">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>6</td>
-                        <td>
-                            <p>
-                                <span class="event-title"><a href="#"></a></span>
-                                <span class="label "></span>
-                            </p>
 
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
                     <tr data-sh="7">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>7</td>
-                        <td>
-                            <p>
-                                <span class="event-title"><a href="#"></a></span>
-                                <span class="label "></span>
-                            </p>
 
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
                     <tr data-sh="8">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>8</td>
-                        <td>
-                            <p>
-                                <span class="event-title"><a href="#"></a></span>
-                                <span class="label "></span>
-                            </p>
 
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
                     <tr data-sh="9">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>9</td>
-                        <td>
-                            <p>
-                                <span class="event-title"><a href="#"></a></span>
-                                <span class="label"></span>
-                            </p>
 
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
                     <tr data-sh="10">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
                         <td>10</td>
-                        <td>
-                            <p>
-                                <span class="event-title"><a href="#"></a></span>
-                                <span class="label "></span>
-                            </p>
 
-                        </td>
-                        <td class="time"></td>
-                        <td>
-                            <a class="op-choice" name="preview" href="javascript:;">预览</a>
-                            <a class="op-choice" name="del" href="javascript:;">删除</a>
-                        </td>
                     </tr>
 
                     </tbody>

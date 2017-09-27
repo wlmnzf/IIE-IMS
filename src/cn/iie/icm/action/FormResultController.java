@@ -34,6 +34,7 @@ public class FormResultController {
         List<TypePojo> types=td.getAllType();
 
         map.put("title",fp.getTitle());
+        map.put("formToken",formToken);
         map.put("json",fp.getJson());
         map.put("type",fp.getType());
         map.put("types",new JSONObject().put("types",types).toString());
