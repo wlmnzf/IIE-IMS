@@ -1,0 +1,64 @@
+<!-- <ol><h3>1.将jsp页面的header修改成如下代码所示</h3><li><p>用户信息会在这段前端代码中给出，也会存一份在cookie中，但是因为cookie开启了HttpOnly，因此js将提取不到cookie.</p></li><li>&quot;<em>USER</em>NAME&quot;:用户名</li><li>&quot;_TOKEN&quot;：用户Token值</li><li>&quot;_TYPE&quot;：用户类型</li><li>&quot;<em>TYPE</em>TEXT&quot;:类型的文本信息</li><li>&quot;<em>HEAD</em>URL&quot;：头像地址</li></ol>
+
+<p><pre>
+&lt;header&gt;
+    &lt;div class=&quot;container-fluid&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;img class=&quot;brand&quot; src=&quot;&lt;%=path%&gt;/img/logo.png&quot; alt=&quot;&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;collapse navbar-collapse&quot;&gt;
+            &lt;ul class=&quot;nav navbar-nav navbar-right login-ul&quot;&gt;
+                &lt;li&gt;
+                    &lt;div class=&quot;login-info&quot;&gt;
+                        &lt;div class=&quot;media-left media-top&quot;&gt;
+                            &lt;a href=&quot;#&quot;&gt;
+                            &lt;img class=&quot;media-object&quot; src=&quot;${<em>HEAD</em>URL}&quot; alt=&quot;...&quot;&gt;
+                            &lt;/a&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;media-body&quot;&gt;
+                            &lt;h4 class=&quot;media-heading&quot; data-type=&quot;${<em>TYPE}&quot;&gt;&lt;span class=&quot;label label-primary&quot;&gt;${</em>TYPE<em>TEXT}&lt;/span&gt;&lt;/h4&gt;
+                            &lt;p class=&quot;login-name&quot; data-token=&quot;${</em>TOKEN}&quot;&gt;${<em>USER</em>NAME}&lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;div class=&quot;options&quot;&gt;
+                        &lt;%--&lt;a class=&quot;option&quot; href=&quot;#&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-envelope&quot;&gt;&lt;/span&gt;&lt;/a&gt;--%&gt;
+                        &lt;a class=&quot;option&quot; id=&quot;exit&quot; href=&quot;#&quot;&gt;退出&lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/header&gt;</pre></p>
+
+<p></p>
+
+<ol><h3>2. 在对应controller中进行用户认证，包括登录认证和权限认证</h3></ol>
+
+<h4>注意控制器中添加三个参数</h4>
+
+<ul><li><p>(Map&lt;String, Object&gt; map
+&gt; 用于将用户信息传递到前端</p></li><li><p>HttpServletRequest request
+&gt; 用于提取cookie</p></li><li><p>RedirectAttributes attr
+&gt; 用于登录失效时跳转后给出提示消息</p></li></ul>
+
+<p><pre>
+//给出示例，这是永用于显示表单管理页面的控制器</p>
+
+<p> @RequestMapping(&quot;/formManage&quot;)
+    private String customForm(Map&lt;String, Object&gt; map,HttpServletRequest request,RedirectAttributes attr)
+    {
+        map.put(&quot;curPage&quot;,1);
+//开始认证
+        int res=comm.Login.validCheck(request,2,attr,map);
+        if(res==0) {
+            return &quot;formManage&quot;;
+        }
+        else
+        {
+          return comm.Login.errRedirect(attr,res);
+        }
+ //结束
+    }
+</pre></p>-->

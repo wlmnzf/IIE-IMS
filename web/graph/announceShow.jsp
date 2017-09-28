@@ -23,7 +23,7 @@
 <header>
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="brand" src="img/logo.png" alt="">
+            <img class="brand" src="<%=path%>/img/logo.png" alt="">
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right login-ul">
@@ -81,12 +81,13 @@
                 <li>
                     <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>信息录入</h4>
                     <ul class="menu-ul">
-                        <li><a href="">信息录入</a></li>
+                        <li><a href="<%=path%>/inManage">信息录入</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
+
     <div class="admin-op-panel">
         <div class="panel-content">
             <ul class="nav nav-tabs cate-tabs" role="tablist">

@@ -42,8 +42,8 @@
                 </li>
                 <li>
                     <div class="options">
-                        <a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>
-                        <a class="option" href="#">退出</a>
+                        <%--<a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>--%>
+                        <a class="option" id="exit" href="<%=path%>/exit">退出</a>
                     </div>
                 </li>
             </ul>

@@ -30,6 +30,10 @@ var initInfo=function(info)
 	var ths=$("table tbody tr");
     var cuKey=0;
     var opCnt=0;
+    var cnt=0;
+
+    opCnt+=3;
+
     for(cuKey in info )
     {
     	$(ths[cuKey]).attr("data-userid",	info[cuKey]["userid"]);
@@ -37,12 +41,12 @@ var initInfo=function(info)
         $(ths[cuKey]).append($(node).html(info[cuKey]["name"]))
         $(ths[cuKey]).append($(node).html(info[cuKey]["userid"]))
         $(ths[cuKey]).append($(node).html(timestamp2time(info[cuKey]["time"])))
-        opCnt+=3;
+
         //这个是不确定的，需要把json先提取出来然后按顺序添加node
 
         var jsonText=info[cuKey]["json"];
         var jsonObj=$.parseJSON(jsonText);
-        var cnt=0;
+
         for(var opKey in jsonObj)
         {
             if(jsonObj[opKey]["type"]=="t1")
@@ -61,32 +65,12 @@ var initInfo=function(info)
             {
                 $(ths[cuKey]).append($(node).html(jsonObj[opKey]["data"]["content"]))
             }
-            if(cuKey==0)
+            if(cuKey=="0")
             {
                 cnt++;
             }
 
         }
-
-        opCnt+=cnt;
-        cuKey++;
-        var node="";
-        while(opCnt--)
-        {
-            node+="<td></td>";
-        }
-
-        while(cuKey<10)
-        {
-            $(ths[cuKey]).append(node);
-            cuKey++;
-        }
-
-
-
-
-
-
         //
         // $(ths[cuKey]).find(".time").html(timestamp2time(info[cuKey]["time"]));
         // for(var cuCode in types )
@@ -100,6 +84,20 @@ var initInfo=function(info)
 		// 	}
 		// }
 
+    }
+
+    opCnt+=cnt;
+    cuKey++;
+    var node="";
+    while(opCnt--)
+    {
+        node+="<td></td>";
+    }
+
+    while(cuKey<10)
+    {
+        $(ths[cuKey]).append(node);
+        cuKey++;
     }
 
 }
@@ -118,11 +116,11 @@ var initPage=function(page)
     	$(this).removeClass("active");
 	})
 
-	var strat=-1;
+	var start=-1;
     var end =-1;
 	 if(pageNum<=5)
 	 {
-	 	    strat=1;
+	 	    start=1;
 	 	    end=pageNum;
 	 }
 	else
@@ -146,24 +144,37 @@ var initPage=function(page)
 
 	 }
 
+	 var formToken=$("#formToken").val();
     for(var i=start;i<=end;i++)
     {
         if(i==cur)
             $(pagination[i]).addClass("active");
         $(pagination[i]).attr("data-page",i);
         $(pagination[i]).find("a").html(i);
-        $(pagination[i]).find("a").attr("href",_BASE_PATH+"/formManage/"+i+"/")
+        $(pagination[i]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+i+"/")
         $(pagination[i]).show();
     }
 
     if(cur!=1) {
         $(pagination[0]).show();
-        $(pagination[0]).find("a").attr("href",_BASE_PATH+"/formManage/"+(cur-1)+"/")
+        $(pagination[0]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+(cur-1)+"/")
+    }
+    else
+    {
+        $(pagination[0]).show();
+        $(pagination[0]).addClass("disabled");
+        $(pagination[0]).find("a").attr("href","javascript:void(0)");
     }
 
     if(cur!=end) {
         $(pagination[6]).show();
-        $(pagination[6]).find("a").attr("href",_BASE_PATH+"/formManage/"+(cur+1)+"/")
+        $(pagination[6]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+(cur+1)+"/")
+    }
+    else
+    {
+        $(pagination[6]).show();
+        $(pagination[6]).addClass("disabled");
+        $(pagination[6]).find("a").attr("href","javascript:void(0)");
     }
 }
 
@@ -244,7 +255,7 @@ var init=function()
                   // var types=data["type"]
                   //
                   initInfo(info);
-                  // initPage(page);
+                  initPage(page);
                   layer.closeAll('loading');
               }
 

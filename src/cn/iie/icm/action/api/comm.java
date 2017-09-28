@@ -69,6 +69,7 @@ public  class comm {
                 case 0:
                 case 1:return setErrInfo(attr,"登录已失效，请重新登陆！");
                 case 2:return  setErrInfo(attr,"对不起，您没有权限访问此页面");
+                case 3:return  setErrInfo(attr,"退出成功!");
             }
             return "redirect:/index";
         }
