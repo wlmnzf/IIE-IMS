@@ -131,7 +131,6 @@
                                         ${announceMent.title}
                                     </a>
                                 </th>
-
                                 <th >
                                     <span style="font-weight: normal;font-family: Arial;color: #00d449;font-size: small;" >${announceMent.level}</span>
                                 </th>
@@ -144,14 +143,15 @@
                                 </th>
                             </tr>
                         </c:forEach>
-
                         </tbody>
                     </table>
                     <script>
                         //记录当前页
                         var currentPage = ${page.currentPage};
+                        var totalPages = ${page.totalPage};
+                        //向上翻页
                         function up(){
-                            var up = document.getElementById("up")
+                            var up = document.getElementById("up");
                             //alert(currentPage);
                             if(currentPage == 1){
                                 alert("当前已是第一页");
@@ -160,10 +160,12 @@
                                 currentPage -= 1;
                                 up.href = "pageManageMent?currentPage=" + currentPage;
                             }
-
                         }
+                        //向下翻页
                         function down(){
-                            var down = document.getElementById("down")
+                            var down = document.getElementById("down");
+                            //setStatus();
+
                             if(currentPage == ${page.totalPage}){
                                 alert("当前已是最后一页");
                             }
@@ -171,61 +173,97 @@
                                 currentPage += 1;
                                 down.href = "pageManageMent?currentPage=" + currentPage;
                             }
-
-
-
+                    }
+                    //点击分页符实现翻页
+                    function clickPage(id){
+                            var pNum = document.getElementById(id).innerHTML;
+                            //alert(pNum);
+                            var p = document.getElementById(id);
+                            p.href = "pageManageMent?currentPage=" + pNum;
+                    }
+                    //使所有分页符可见
+                    function initLi() {
+                            for (var t = 1;t <= 5;t++){
+                                document.getElementById("page" + t).style.display = "true";
+                            }
                     }
                     </script>
-
-                    <script>
-                        var num = 5;
-                        var totalPage = ${page.totalPage};
-                        var startPoint = 1;
-                        var endPoint = 5;
-                        if(totalPage < num){
-                            endPoint = totalPage;
-                        }
-
-
-                    </script>
-
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                            <li>
+                            <li class="disabled">
                             <span aria-hidden="true">总页数</span>
                             <span>${page.totalPage}</span>
                             </li>
                             <li>
-                                <a href="#" aria-label="Previous">
+                                <a href="#" aria-label="Previous" onclick="up()" id="up">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            
-                                <li><a href="#">${i}</a></li>
+                            <li><a href="#" id="page1" onclick="clickPage('page1')"></a></li>
+                            <li><a href="#" id="page2" onclick="clickPage('page2')"></a></li>
+                            <li><a href="#" id="page3" onclick="clickPage('page3')"></a></li>
+                            <li><a href="#" id="page4" onclick="clickPage('page4')"></a></li>
+                            <li><a href="#" id="page5" onclick="clickPage('page5')"></a></li>
+                            <script>
+                                //此部分实现动态分页
+                                //var totalPages = ${page.totalPage};
 
+                                if(totalPages <= 5){
+                                    for(var x = 1; x <= totalPages;t++){
+                                        document.getElementById("page" + x).innerHTML = x;
+                                    }
+                                   for (var i = totalPages + 1;i <= 5;i++)
+                                   {
+                                       document.getElementById("page" + i).style.display = "none";
+                                   }
 
+                                }else {
+                                    if (currentPage <= 3){
+                                        for(var y = 1; y <= 5;y++){
+                                            document.getElementById("page" + y).innerHTML = y;
+                                        }
+                                    }else {
+                                        /*document.getElementById("page1").innerHTML = currentPage - 2;
+                                        document.getElementById("page2").innerHTML = currentPage - 1;
+                                        document.getElementById("page3").innerHTML = currentPage;*/
+                                        if(currentPage == totalPages){
+                                            document.getElementById("page1").innerHTML = currentPage - 4;
+                                            document.getElementById("page2").innerHTML = currentPage - 3;
+                                            document.getElementById("page3").innerHTML = currentPage - 2;
+                                            document.getElementById("page4").innerHTML = currentPage - 1;
+                                            document.getElementById("page5").innerHTML = currentPage;
+                                        }
+                                        if(currentPage + 1 == totalPages){
+                                            document.getElementById("page1").innerHTML = currentPage - 3;
+                                            document.getElementById("page2").innerHTML = currentPage - 2;
+                                            document.getElementById("page3").innerHTML = currentPage - 1;
+                                            document.getElementById("page4").innerHTML = currentPage;
+                                            document.getElementById("page5").innerHTML = currentPage + 1;
+                                        }
+                                        if(currentPage + 2 <= totalPages){
+                                            document.getElementById("page1").innerHTML = currentPage - 2;
+                                            document.getElementById("page2").innerHTML = currentPage - 1;
+                                            document.getElementById("page3").innerHTML = currentPage;
+                                            document.getElementById("page4").innerHTML = currentPage + 1;
+                                            document.getElementById("page5").innerHTML = currentPage + 2;
+                                        }
+                                    }
+                                }
+                            </script>
+                            <script>
+                                //此段代码设置分页符选中效果
+                                for(var pp = 1 ; pp <= 5 ; pp++){
+                                    if(document.getElementById("page" + pp).innerHTML == currentPage){
+                                        document.getElementById("page" + pp).style.background = "#BCD2EE";
+                                    }
+                                }
+                            </script>
                             <li>
-                                <a href="#" aria-label="Next">
+                                <a href="#" aria-label="Next" onclick="down()" id="down">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
-                        <%--<ul class="pagination">--%>
-                            <%--<li>--%>
-                                    <%--<span aria-hidden="true">总页数</span>--%>
-                                    <%--<span>${page.totalPage}</span>--%>
-                            <%--</li>--%>
-                            <%--<li>--%>
-                                <%--<a href="#"  id="up"  onclick="up()">--%>
-                                    <%--<span aria-hidden="true" for="id">上一页</span>--%>
-                                <%--</a>--%>
-                            <%--</li>--%>
-                            <%--<li>--%>
-                                <%--<a href="#" id="down" onclick="down()">--%>
-                                    <%--<span aria-hidden="true" for="id">下一页</span>--%>
-                                <%--</a>--%>
-                            <%--</li>--%>
-                        <%--</ul>--%>
                     </nav>
                 </div>
             </div>
