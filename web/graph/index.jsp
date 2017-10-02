@@ -27,7 +27,7 @@
 <body>
 <div class="alert alert-warning alert-dismissible" role="alert" style="    margin-bottom: 10px;">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>注意:</strong> 学生端： stu    123456      管理员端：  admin   123456
+    <strong>注意:</strong>${info}${info1}
 </div>
 <header>
     <div class="container-fluid">

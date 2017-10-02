@@ -1,14 +1,13 @@
 package cn.iie.icm.action.api;
 
-import cn.iie.icm.action.comm;
 import cn.iie.icm.dao.PersonDao;
 import cn.iie.icm.dao.formDao;
 import cn.iie.icm.dao.typeDao;
 import cn.iie.icm.pojo.PersonPojo;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ import java.util.Map;
 public class LoginRESTController {
 
     @RequestMapping(value="Login")
-    public String Login(Map<String, Object> map, HttpServletRequest request,HttpServletResponse response) {
+    public String Login(Map<String, Object> map, HttpServletRequest request,HttpServletResponse response,RedirectAttributes attr) {
         String userid = request.getParameter("login_name");
         String password = request.getParameter("password");
 
@@ -38,8 +37,9 @@ public class LoginRESTController {
                 SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
                 String token = comm.MD5_32(userid + password + df.format(new Date()).toString());
                 pd.updateToken(userid, token);
+                jsonObj.put("account",userid);
                 jsonObj.put("res", "OK");
-                jsonObj.put("type", pp.getTpersonType_id());
+                jsonObj.put("type", pp.getAuth());
                 jsonObj.put("token", token);
 
 
@@ -52,7 +52,10 @@ public class LoginRESTController {
             }
             else
             {
-                jsonObj.put("res", "Password error");
+//                jsonObj.put("res", "Password error");
+//                attr.addFlashAttribute("info", "账号密码错误！");
+//                return "redirect:/index";
+               return comm.Login.setErrInfo(attr,"账号密码错误！");
             }
         }
         catch(Exception e){
@@ -61,11 +64,11 @@ public class LoginRESTController {
 
 //        map.put("json",jsonObj.toString());
 
-        if(pp.getTpersonType_id()==1)
+        if(pp.getAuth()==1)
         {
             return "redirect:/announceShow";
         }
-        else if(pp.getTpersonType_id()==2)
+        else if(pp.getAuth()==2)
         {
             return "redirect:/announceMagement";
         }
@@ -85,14 +88,8 @@ public class LoginRESTController {
         return "api";
     }
 
-    public boolean validCheck(String num,String token)
-    {
-        return true;
-    }
 
-    public void  setLoginInfo(String num)
-    {
 
-    }
+
 
 }

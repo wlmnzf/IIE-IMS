@@ -1,5 +1,8 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,18 +11,19 @@
     <meta charset="utf-8"/>
     <!--<link rel="Shortcut Icon" href="images/logo.jpg" type="image/x-icon">-->
     <title>信息录入系统</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="css/all-common.css">
-    <link type="text/css" rel="stylesheet" href="css/user-inform.css">
-    <script src="resources/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/all-common.css">
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/user-inform.css">
+    <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>
     <!--<script type="text/javascript" src="js/index.js"></script>-->
 </head>
 <body>
 <header>
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="brand" src="img/logo.png" alt="">
+            <img class="brand" src="<%=path%>/img/logo.png" alt="">
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right login-ul">
@@ -77,12 +81,13 @@
                 <li>
                     <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>信息录入</h4>
                     <ul class="menu-ul">
-                        <li><a href="">信息录入</a></li>
+                        <li><a href="<%=path%>/inManage">信息录入</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
+
     <div class="admin-op-panel">
         <div class="panel-content">
             <ul class="nav nav-tabs cate-tabs" role="tablist">

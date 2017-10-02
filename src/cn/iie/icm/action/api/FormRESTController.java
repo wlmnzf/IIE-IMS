@@ -1,13 +1,16 @@
 package cn.iie.icm.action.api;
 
+import cn.iie.icm.dao.ClientFormDao;
 import cn.iie.icm.dao.formDao;
 import cn.iie.icm.dao.typeDao;
+import cn.iie.icm.pojo.ClientFormPojo;
 import cn.iie.icm.pojo.FormPojo;
 import cn.iie.icm.pojo.TypePojo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.lang.Object;
@@ -142,15 +145,32 @@ public class FormRESTController {
 
 
 
-//    @RequestMapping(value="formResult/{formid}/{page}/")
-//    public String formResult(Map<String, Object> map, @PathVariable("formid") String formid, @PathVariable("page") String page,  HttpServletRequest request)
-//    {
-//        FormPojo fp=new FormPojo();
-//        formDao fd=new formDao();
-//        JSONObject  jsonObj = new JSONObject();
-//
-//        return "api";
-//    }
+    @RequestMapping(value="Result/{formid}/{page}/")
+    public String formResult(Map<String, Object> map, @PathVariable("formid") String formid, @PathVariable("page") int page,  HttpServletRequest request)
+    {
+        List<ClientFormPojo> fp=new ArrayList<ClientFormPojo>();
+        ClientFormDao cfd=new ClientFormDao();
+        JSONObject  jsonObj = new JSONObject();
+        JSONObject  pagesObj = new JSONObject();
+
+        int pageCnt = 10;
+        int resNum =cfd.getTotal();
+        int pagesNum = resNum / pageCnt + (resNum % pageCnt == 0 ? 0 : 1);
+
+        fp=cfd.getFormsResWithLimit(page,pageCnt);
+
+
+        pagesObj.put("total",resNum);
+        pagesObj.put("num",pagesNum);
+        pagesObj.put("cur",page);
+
+        jsonObj.put("info",fp);
+        jsonObj.put("page",pagesObj);
+        jsonObj.put("res","OK");
+
+        map.put("json", jsonObj.toString());
+        return "api";
+    }
 
 //    @RequestMapping(value="formTitle/{formtoken}/{page}/")
 //    public String formTitle(Map<String, Object> map, @PathVariable("formtoken") String formToken, @PathVariable("page") String page,  HttpServletRequest request)

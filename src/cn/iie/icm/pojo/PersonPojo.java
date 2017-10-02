@@ -8,11 +8,13 @@ public class PersonPojo {
     private String password;
     private String num;
     private String token;
-    private String auth;
+    private int auth;
+    private String headurl;
+    private int sex;
 
     public PersonPojo(){super();}
 
-    public PersonPojo(int id,String name,int tgroup_id,int tgroupType_id,String password,String num,String token,String auth)
+    public PersonPojo(int id,String name,int tgroup_id,int tgroupType_id,String password,String num,String token,int auth,String headurl,int sex)
     {
         this.id=id;
         this.name=name;
@@ -22,6 +24,8 @@ public class PersonPojo {
         this.num=num;
         this.token=token;
         this.auth=auth;
+        this.headurl=headurl;
+        this.sex=sex;
     }
 
 
@@ -46,8 +50,15 @@ public class PersonPojo {
     public String getToken(){return token;}
     public void setToken(String token){this.token=token;}
 
-    public String getAuth(){return auth;}
-    public void setAuth(String auth){this.auth=auth;}
+    public int getAuth(){return auth;}
+    public void setAuth(int auth){this.auth=auth;}
+
+    public String getHeadUrl(){return headurl;}
+    public void setHeadUrl(String headurl){this.headurl=headurl;}
+
+    public int getSex(){return sex;}
+    public void setSex(int sex){this.sex=sex;}
+
 
 
 }

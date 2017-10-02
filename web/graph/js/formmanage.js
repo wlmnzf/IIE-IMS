@@ -105,10 +105,22 @@ var initPage=function(page)
         $(pagination[0]).show();
         $(pagination[0]).find("a").attr("href",_BASE_PATH+"/formManage/"+(cur-1)+"/")
     }
+    else
+    {
+            $(pagination[0]).show();
+            $(pagination[0]).addClass("disabled");
+            $(pagination[0]).find("a").attr("href","javascript:void(0)");
+    }
 
     if(cur!=end) {
         $(pagination[6]).show();
         $(pagination[6]).find("a").attr("href",_BASE_PATH+"/formManage/"+(cur+1)+"/")
+    }
+    else
+    {
+        $(pagination[6]).show();
+        $(pagination[6]).addClass("disabled");
+        $(pagination[6]).find("a").attr("href","javascript:void(0)");
     }
 }
 

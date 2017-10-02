@@ -235,6 +235,7 @@ header .user-collapse div.options{
     float: left;
     width: 79%;
     min-height: 300px;
+    /*min-height:500px;*/
     border-left:1px solid #ddd;
     box-sizing: border-box;
 }

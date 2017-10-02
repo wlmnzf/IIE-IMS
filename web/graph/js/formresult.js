@@ -25,25 +25,79 @@ var  timestamp2time=function (timestamp)
     return  newDate.Format("yyyy-MM-dd");
 }
 
-var initInfo=function(info,types)
+var initInfo=function(info)
 {
 	var ths=$("table tbody tr");
-    for(var cuKey in info )
-    {
-    	$(ths[cuKey]).attr("data-sh",	info[cuKey]["formToken"]);
-		$(ths[cuKey]).find(".event-title a").html(info[cuKey]["title"]);
-        $(ths[cuKey]).find(".time").html(timestamp2time(info[cuKey]["time"]));
-        for(var cuCode in types )
-		{
-			if(info[cuKey]["type"]==types[cuCode]["typeCode"])
-			{
-               var typeNode=$(ths[cuKey]).find(".event-title").next();
-               $(typeNode).addClass(types[cuCode]["typeClass"]);
-               $(typeNode).html(types[cuCode]["typeName"]);
-               $(ths[cuKey]).find(".op-choice").show();
-			}
-		}
+    var cuKey=0;
+    var opCnt=0;
+    var cnt=0;
 
+    opCnt+=3;
+
+    for(cuKey in info )
+    {
+    	$(ths[cuKey]).attr("data-userid",	info[cuKey]["userid"]);
+		var node="<td></td>";
+        $(ths[cuKey]).append($(node).html(info[cuKey]["name"]))
+        $(ths[cuKey]).append($(node).html(info[cuKey]["userid"]))
+        $(ths[cuKey]).append($(node).html(timestamp2time(info[cuKey]["time"])))
+
+        //这个是不确定的，需要把json先提取出来然后按顺序添加node
+
+        var jsonText=info[cuKey]["json"];
+        var jsonObj=$.parseJSON(jsonText);
+
+        for(var opKey in jsonObj)
+        {
+            if(jsonObj[opKey]["type"]=="t1")
+            {
+                $(ths[cuKey]).append($(node).html(jsonObj[opKey]["data"]))
+            }
+            else if(jsonObj[opKey]["type"]=="t2")
+            {
+                $(ths[cuKey]).append($(node).html(jsonObj[opKey]["data"]))
+            }
+            else if(jsonObj[opKey]["type"]=="t3")
+            {
+                $(ths[cuKey]).append($(node).html(jsonObj[opKey]["data"]["content"]))
+            }
+            else if(jsonObj[opKey]["type"]=="t4")
+            {
+                $(ths[cuKey]).append($(node).html(jsonObj[opKey]["data"]["content"]))
+            }
+            if(cuKey=="0")
+            {
+                cnt++;
+            }
+
+        }
+        //
+        // $(ths[cuKey]).find(".time").html(timestamp2time(info[cuKey]["time"]));
+        // for(var cuCode in types )
+		// {
+		// 	if(info[cuKey]["type"]==types[cuCode]["typeCode"])
+		// 	{
+         //       var typeNode=$(ths[cuKey]).find(".event-title").next();
+         //       $(typeNode).addClass(types[cuCode]["typeClass"]);
+         //       $(typeNode).html(types[cuCode]["typeName"]);
+         //       $(ths[cuKey]).find(".op-choice").show();
+		// 	}
+		// }
+
+    }
+
+    opCnt+=cnt;
+    cuKey++;
+    var node="";
+    while(opCnt--)
+    {
+        node+="<td></td>";
+    }
+
+    while(cuKey<10)
+    {
+        $(ths[cuKey]).append(node);
+        cuKey++;
     }
 
 }
@@ -62,11 +116,11 @@ var initPage=function(page)
     	$(this).removeClass("active");
 	})
 
-	var strat=-1;
+	var start=-1;
     var end =-1;
 	 if(pageNum<=5)
 	 {
-	 	    strat=1;
+	 	    start=1;
 	 	    end=pageNum;
 	 }
 	else
@@ -90,24 +144,37 @@ var initPage=function(page)
 
 	 }
 
+	 var formToken=$("#formToken").val();
     for(var i=start;i<=end;i++)
     {
         if(i==cur)
             $(pagination[i]).addClass("active");
         $(pagination[i]).attr("data-page",i);
         $(pagination[i]).find("a").html(i);
-        $(pagination[i]).find("a").attr("href",_BASE_PATH+"/formManage/"+i+"/")
+        $(pagination[i]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+i+"/")
         $(pagination[i]).show();
     }
 
     if(cur!=1) {
         $(pagination[0]).show();
-        $(pagination[0]).find("a").attr("href",_BASE_PATH+"/formManage/"+(cur-1)+"/")
+        $(pagination[0]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+(cur-1)+"/")
+    }
+    else
+    {
+        $(pagination[0]).show();
+        $(pagination[0]).addClass("disabled");
+        $(pagination[0]).find("a").attr("href","javascript:void(0)");
     }
 
     if(cur!=end) {
         $(pagination[6]).show();
-        $(pagination[6]).find("a").attr("href",_BASE_PATH+"/formManage/"+(cur+1)+"/")
+        $(pagination[6]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+(cur+1)+"/")
+    }
+    else
+    {
+        $(pagination[6]).show();
+        $(pagination[6]).addClass("disabled");
+        $(pagination[6]).find("a").attr("href","javascript:void(0)");
     }
 }
 
@@ -166,7 +233,7 @@ var init=function()
     layer.load(2);
 	var UserId="";
 	var UserToken="";
-	var FormToken="";
+	var FormToken=$("formToken").val();
     $(".op-choice").hide();
     $(".pagination li").hide();
 
@@ -174,19 +241,23 @@ var init=function()
 
     $.ajax({
         type:"POST",
-        url:_BASE_PATH+"/FormResult/"+FormToken+"/"+Page+"/",
+        url:_BASE_PATH+"/Result/"+FormToken+"/"+Page+"/",
         async:true,
         data:{"UserId":UserId,"UserToken":UserToken},
         dataType:"json",
         success:function(data){
         	  console.log(data);
-        	    var info=data["info"];
- 				var page=data["page"];
- 				var types=data["type"]
+        	  if(data["res"]=="OK") {
+                  var info = data["info"];
+                  var page = data["page"];
 
-				initInfo(info,types);
-				initPage(page);
-                layer.closeAll('loading');
+
+                  // var types=data["type"]
+                  //
+                  initInfo(info);
+                  initPage(page);
+                  layer.closeAll('loading');
+              }
 
         },
         error:function(msg){

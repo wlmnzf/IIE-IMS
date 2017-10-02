@@ -38,7 +38,7 @@ public class PersonDao  implements personDaoInterface {
     @Override
     public void addPerson(PersonPojo person)
     {
-        String sql="insert into tperson values (null,?,?,?,?,?,null,null)";
+        String sql="insert into tperson values (null,?,?,?,?,?,null,?,?,?)";
         try {
             conn= mysql.getConnection();
             pstmt=conn.prepareStatement(sql);
@@ -47,6 +47,9 @@ public class PersonDao  implements personDaoInterface {
             pstmt.setInt(3, person.getTpersonType_id());
             pstmt.setString(4,person.getPassword());
             pstmt.setString(5, person.getNum());
+            pstmt.setInt(6, person.getAuth());
+            pstmt.setString(7, person.getHeadUrl());
+            pstmt.setInt(8, person.getSex());
             pstmt.executeUpdate();
             System.out.println("添加类别成功！");
         } catch (SQLException e) {
@@ -92,7 +95,7 @@ public class PersonDao  implements personDaoInterface {
             pstmt.setString(1, num);
             rs=pstmt.executeQuery();
             if(rs.next()){
-                person=new PersonPojo(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
+                person=new PersonPojo(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getInt(8),rs.getString(9),rs.getInt(10));
             }
         } catch (SQLException e) {
             e.printStackTrace();
