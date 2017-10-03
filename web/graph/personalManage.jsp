@@ -260,6 +260,35 @@
 <body>
 <header>
 
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img class="brand" src="<%=path%>/img/logo.png" alt="">
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right login-ul">
+                <li>
+                    <div class="login-info">
+                        <div class="media-left media-top">
+                            <a href="#">
+                                <img class="media-object" src="${_HEAD_URL}" alt="...">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" data-type="${_TYPE}"><span class="label label-primary">${_TYPE_TEXT}</span></h4>
+                            <p class="login-name" data-token="${_TOKEN}">${_USER_NAME}</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="options">
+                        <%--<a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>--%>
+                        <a class="option" id="exit" href="<%=path%>/exit">退出</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -287,34 +316,6 @@
     </div>
     <!-- 模态框（Modal）end -->
 
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <img class="brand" src="<%=path%>/graph/img/logo.png" alt="">
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right login-ul">
-                <li>
-                    <div class="login-info">
-                        <div class="media-left media-top">
-                            <a href="#">
-                                <img class="media-object" src="<%=path%>/graph/img/head.jpg" alt="...">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading"><span class="label label-primary">管理员</span></h4>
-                            <p class="login-name">会码代码的扫地王大爷</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="options">
-                        <a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>
-                        <a class="option" href="#">退出</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
 </header>
 
 <div class="admin-content clearfix">

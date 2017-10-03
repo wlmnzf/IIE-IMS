@@ -19,56 +19,91 @@
     <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
     <script src="<%=path%>/resources/jquery-1.9.1.min.js"></script>
-    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>--%>
-    <script src="<%=path%>/graph/js/jstree.min.js"></script>
+    <script src="<%=path%>/graph/js/jstree.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#jstree_div").jstree({
-                "core" : {
-                    // so that create works
-                    "check_callback" : true,
-                    'data' :   function (obj, callback) {
-                        var jsonstr="[]";
-                        var jsonarray = eval('('+jsonstr+')');
-                        $.ajax({
-                            type: "get",
-                            url:"<%=path%>/group/list.do",
-                            dataType:"json",
-                            async: false,
-                            success:function(datas) {
-                                for(var i=0 ; i<datas.length; i++){
-                                    var arr = {
-                                        "id":datas[i].id,
-                                        "parent":datas[i].parent=="root"?"#":datas[i].parent,
-                                        "text":datas[i].text
-                                    };
-                                    jsonarray.push(arr);
-                                }
+        $(document).ready(
+            function () {
+                $("#jstree_div") .jstree({
+                        "core" : {
+                            // so that create works
+                            "check_callback" : true,
+                            "animation" : 0,
+                            "themes" : { "dots": true },
+                            'data' :   function (obj, callback) {
+                                var jsonstr="[]";
+                                var jsonarray = eval('('+jsonstr+')');
+                                $.ajax({
+                                    type: "get",
+                                    url:"<%=path%>/group/list.do",
+                                    dataType:"json",
+                                    async: false,
+                                    success:function(datas) {
+                                        for(var i=0 ; i<datas.length; i++){
+                                            var arr = {
+                                                "id":datas[i].id,
+                                                "parent":datas[i].parent=="root"?"#":datas[i].parent,
+                                                "text":datas[i].text
+                                            };
+                                            jsonarray.push(arr);
+                                        }
+                                    }
+
+                                });
+                                callback.call(this, jsonarray);
                             }
+                        },
+                        "types" : {
+                            "#" : {
+                                "max_depth" : 4
+                            }
+                        },
+                        "state" : { "key" : "demo3" },
+                        "plugins" : [ "contextmenu", "state", "types", "dnd"]
+                    })
+                    .bind("create_node.jstree",function(event,data){
+                    addNode(data);
+                }).bind("rename_node.jstree",function(event,data){
+                    renameNode(data);
+                }).bind("delete_node.jstree",function(event,data){
+                    removeNode(data);
+                }).bind('dblclick.jstree',function(event){
+                    alert("this is dbclick");
+                })
+                .on('move_node.jstree', function(e,data){
+                    moveNode(data);
+                })
+                ;
+            }
+        );
 
-                        });
-                        callback.call(this, jsonarray);
-                    }
-                },
-                "state" : { "key" : "demo3" },
-                "plugins" : [ "contextmenu", "state"],
-            }).bind("create_node.jstree",function(event,data){
-                addNode(event,data);
-            }) .bind("rename_node.jstree",function(event,data){
-                renameNode(event,data);
-            }).bind("delete_node.jstree",function(event,data){
-                removeNode(event,data);
-            });
+        function moveNode(data) {
+            var parentTable=data.parent.split("_")[0];
+            if(parentTable!=data.old_parent.split("_")[0]){
+                $("#jstree_div").jstree().refresh(true);
+                return;
+            }
+            var parentId = data.parent.split("_")[1];
+            var tempId=data.node.id;
+            var id=tempId.split("_")[1];
+            var table=tempId.split("_")[0];
+            var params = {"id":id, "table":table, "parentId":parentId, "parentTable":parentTable};
+            $.ajax({
+                url:"<%=path%>/group/moveGroup",
+                type:"get",
+                dataType:'json',
+                data:params,
+                success : function(result) {
+                    $(data.node).attr("id",result.id);
+                    $("#jstree_div").jstree().refresh(true);
+                }
+            })
+        }
 
 
-        });
-
-
-
-        function addNode(event,data){
-            var parentId = data.parent.replace(/[a-z]/g,"");
-            var parentTable=data.parent.replace(/[0-9]/g,"");
+        function addNode(data){
+            var parentId = data.parent.split("_")[1];
+            var parentTable=data.parent.split("_")[0];
             var name = data.node.text;
             var params = {"parentId":parentId,"name":name,"parentTable":parentTable};
             $.ajax({
@@ -83,10 +118,10 @@
             })
         }
 
-        function renameNode(event,data) {
+        function renameNode(data) {
             var tempId = data.node.id;
-            var id = tempId.replace(/[a-z]/g,"");
-            var table=tempId.replace(/[0-9]/g,"");
+            var id = tempId.split("_")[1];
+            var table=tempId.split("_")[0];
             var name = data.text;
             var params = {"id":id,"name":name, "table":table};
             $.ajax({
@@ -94,16 +129,13 @@
                 'type':'get',
                 'dataType':'json',
                 'data':params,
-                success : function() {
-                    $(data.node).attr("text",name);
-                }
             })
         }
 
-        function removeNode(event,data) {
+        function removeNode(data) {
             var tempId = data.node.id;
-            var id = tempId.replace(/[a-z]/g,"");
-            var table=tempId.replace(/[0-9]/g,"");
+            var id = tempId.split("_")[1];
+            var table=tempId.split("_")[0];
             var params = {"id":id, "table":table};
             $.ajax({
                 'url':"<%=path%>/group/delGroup",
@@ -111,13 +143,11 @@
                 'data':params,
                 'timeout':1000*10
             }).done(function(result){
-                if(result.ok==false) {
-                    alert("不能删除");
-                }
+                 if(result.isok==false) {
+                     alert("不能删除");
+                 }
             })
-
         }
-
 
     </script>
 </head>
@@ -125,7 +155,7 @@
 <header>
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="brand" src="<%=path%>/graph/img/logo.png" alt="">
+            <img class="brand" src="<%=path%>/img/logo.png" alt="">
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right login-ul">
@@ -133,19 +163,19 @@
                     <div class="login-info">
                         <div class="media-left media-top">
                             <a href="#">
-                                <img class="media-object" src="<%=path%>/graph/img/head.jpg" alt="...">
+                                <img class="media-object" src="${_HEAD_URL}" alt="...">
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading"><span class="label label-primary">管理员</span></h4>
-                            <p class="login-name">会码代码的扫地王大爷</p>
+                            <h4 class="media-heading" data-type="${_TYPE}"><span class="label label-primary">${_TYPE_TEXT}</span></h4>
+                            <p class="login-name" data-token="${_TOKEN}">${_USER_NAME}</p>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="options">
-                        <a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>
-                        <a class="option" href="#">退出</a>
+                        <%--<a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>--%>
+                        <a class="option" id="exit" href="<%=path%>/exit">退出</a>
                     </div>
                 </li>
             </ul>
@@ -158,27 +188,27 @@
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
                 <ul class="menu-ul">
-                    <li><a href="<%=path%>/announceMagement">公告管理</a></li>
-                    <li><a href="<%=path%>/announceEditor">公告编辑</a></li>
+                    <li><a href="">公告管理</a></li>
+                    <li><a href="">公告编辑</a></li>
                 </ul>
             </li>
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
                 <ul class="menu-ul">
-                    <li><a href="<%=path%>/formManage">页面定制</a></li>
-                    <li><a href="<%=path%>/formResult">结果管理</a></li>
+                    <li><a href="">页面定制</a></li>
+                    <li><a href="">结果管理</a></li>
                 </ul>
             </li>
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-user"></em>人员</h4>
                 <ul class="menu-ul">
-                    <li><a href="<%=path%>/graph/personalManage.jsp">人员管理</a></li>
+                    <li><a href="">人员管理</a></li>
                 </ul>
             </li>
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-align-left"></em>分组</h4>
                 <ul class="menu-ul">
-                    <li class="current"><a href="<%=path%>/graph/groupManage.jsp">分组管理</a></li>
+                    <li><a href="">分组管理</a></li>
                 </ul>
             </li>
         </ul>
