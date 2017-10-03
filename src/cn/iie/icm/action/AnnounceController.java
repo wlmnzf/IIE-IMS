@@ -3,13 +3,18 @@ package cn.iie.icm.action;
 import cn.iie.icm.Bean.AncJDBCTemplate;
 import cn.iie.icm.Bean.AnnounceMent;
 import cn.iie.icm.Bean.Pager;
+import net.sf.json.JSON;
 import org.apache.xpath.operations.Mod;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
@@ -73,14 +78,27 @@ public class AnnounceController {
         String groupidString = request.getParameter("groupid");
         Date date = new Date();
         //获取公告发布者
-        String usr = request.getParameter("_USER_NAME");
-        System.out.println("$$$$$$$$$$" + usr);
-        String author = "admin";
+        Cookie[] cookies = request.getCookies();
+        String announcer = null;
+        for (int i = 0;i < cookies.length;i++){
+            Cookie cookie = cookies[i];
+            //System.out.println("@@" + cookie.getName() + "  /  " + java.net.URLDecoder.decode(cookie.getValue()));
+            if (cookie.getName().equals("login")){
+                //jsonObject = (JSONObject) com.alibaba.fastjson.JSON.parse(java.net.URLDecoder.decode(cookie.getValue()));
+                String jsonString = java.net.URLDecoder.decode(cookie.getValue());
+                JSONObject jsonObject = new JSONObject(jsonString);
+                announcer = jsonObject.getString("account");
+                break;
+            }
+        }
+
+        //String author = "admin";
+       // System.out.println("&&&&&&&" + announcer);
         //生成公告发布的时间
         Timestamp timestamp  = new Timestamp(date.getTime());
         //int level = Integer.parseInt(levelString);
         int groupid = Integer.parseInt(groupidString);
-        ancJDBCTemplate.create(title,text,groupid,level,timestamp,author);
+        ancJDBCTemplate.create(title,text,groupid,level,timestamp,announcer);
         return "editSuccess";
     }
 
