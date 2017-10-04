@@ -21,8 +21,11 @@
     <script type="text/javascript"   src="<%=path%>/graph/js/customForm_h5.js"></script>
     <script type="text/javascript"   src="<%=path%>/graph/js/jquery.sticky.js"></script>
     <script type="text/javascript"   src="<%=path%>/graph/js/layer/layer.js"></script>
+    <script type="text/javascript"   src="<%=path%>/graph/js/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript"   src="<%=path%>/graph/js/datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
    
 	<link rel="stylesheet" href="<%=path%>/graph/css/customForm_h5.css"/>
+    <link rel="stylesheet" href="<%=path%>/graph/css/datetimepicker/bootstrap-datetimepicker.min.css"/>
 	<script>
 		window.onload=function()
         {
@@ -108,6 +111,20 @@
         <div class="panel-content">
         	<div class="customForm">
 	   	   <div class="leftForm">
+
+               <%--<div class="operate">--%>
+                   <%--<div class="block">--%>
+                       <%--<div class="name noselect">类型</div>--%>
+                       <%--<div class="circle lightblue"></div>--%>
+                   <%--</div>--%>
+                   <%--<div class="button lightblue noselect">--%>
+                       <%--<div class="center noselect">--%>
+                           <%--<button type="button"  id="preview" class="btn btn-default noselect" >预览</button>--%>
+                           <%--<button type="button"  id="submit" class="btn btn-primary noselect" >提交</button>--%>
+                       <%--</div>--%>
+                   <%--</div>--%>
+               <%--</div>--%>
+
 	   	   		<div class="box clearfix">
 	   	   			<div class="block">
 	   	   	    	    <div class="name noselect">表单</div>
@@ -121,12 +138,42 @@
 						  </div>-->
 					</form>
 	   	   		</div>
+
+                   <div class="option_button">
+                       <div class="block">
+                                <div class="name noselect">选项</div>
+                                <div class="circle midblue"></div>
+                       </div>
+                       <div class="button_group midblue noselect">
+
+                           <div class="center noselect">
+                               <div class="btn-group btn-group-lg">
+                                   <button type="button" class="btn btn-primary" data-type="1">录入</button>
+                                   <button type="button" class="btn btn-default"  data-type="2">投票</button>
+                               </div>
+                           </div>
+
+                           <div class="expire noselect">
+                               <div class="dateOption" >
+                                   <div class="check"><input type="checkbox" id="cp" checked="true"/><label for="cp">不设置任何期限</label></div>
+                                   <div class="input-group date form_datetime col-md-5" data-date="" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                       <input id="deadline" class="form-control" size="16" type="text" value="" readonly>
+                                       <%--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>--%>
+                                       <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                   </div>
+                               </div>
+                          </div>
+
+                       </div>
+                   </div>
+
 	   	   		<div class="operate">
 	   	   			<div class="block">
 	   	   	    	    <div class="name noselect">操作</div>
 	   	   	    	    <div class="circle lightblue"></div>
 	   	   	        </div>
 	   	   	        <div class="button lightblue noselect">
+
 	   	   	        	<div class="center noselect">
 							<button type="button"  id="preview" class="btn btn-default noselect" >预览</button>
 						    <button type="button"  id="submit" class="btn btn-primary noselect" >提交</button>

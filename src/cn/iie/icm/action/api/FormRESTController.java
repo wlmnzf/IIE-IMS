@@ -9,6 +9,7 @@ import cn.iie.icm.pojo.TypePojo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,22 +86,36 @@ public class FormRESTController {
 
     }
 
-    @RequestMapping(value="saveForm/{userid}/{usertoken}/")
-    public String saveForm(Map<String, Object> map, @PathVariable("userid") String userid, @PathVariable("usertoken") String usertoken,  HttpServletRequest request){
+    @RequestMapping(value="saveForm")
+    public String saveForm(Map<String, Object> map, HttpServletRequest request){
 
         String formToken=request.getParameter("formToken");
         String json=request.getParameter("json");
         String type=request.getParameter("type");
         String title=request.getParameter("title");
+        String deadline=request.getParameter("deadline");
         JSONObject  jsonObj = new JSONObject();
+
+        Cookie login= comm.getCookieByName(request,"login");
+        String jsonText = login.getValue();
+        try {
+            jsonText = java.net.URLDecoder.decode(jsonText, "utf-8");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        JSONObject loginObj = new JSONObject(jsonText);
+        String userName = (String) loginObj.get("account");
+        String userToken = (String) loginObj.get("token");
 
         FormPojo fp=new FormPojo();
         fp.setFormToken(formToken);
-        fp.setUserId(userid);
+        fp.setUserId(userName);
         fp.setJson(json);
         fp.setTime(System.currentTimeMillis()+"");
         fp.setType( Integer.parseInt(type));//其实应该检验一下
         fp.setTitle(title);
+        fp.setDeadline(deadline);
 
         formDao fd=new formDao();
         try {
@@ -145,8 +160,8 @@ public class FormRESTController {
 
 
 
-    @RequestMapping(value="Result/{formid}/{page}/")
-    public String formResult(Map<String, Object> map, @PathVariable("formid") String formid, @PathVariable("page") int page,  HttpServletRequest request)
+    @RequestMapping(value="Result/{formToken}/{page}/")
+    public String formResult(Map<String, Object> map, @PathVariable("formToken") String formToken, @PathVariable("page") int page,  HttpServletRequest request)
     {
         List<ClientFormPojo> fp=new ArrayList<ClientFormPojo>();
         ClientFormDao cfd=new ClientFormDao();
@@ -157,7 +172,7 @@ public class FormRESTController {
         int resNum =cfd.getTotal();
         int pagesNum = resNum / pageCnt + (resNum % pageCnt == 0 ? 0 : 1);
 
-        fp=cfd.getFormsResWithLimit(page,pageCnt);
+        fp=cfd.getFormsResWithLimit(page,pageCnt,formToken);
 
 
         pagesObj.put("total",resNum);
@@ -172,37 +187,33 @@ public class FormRESTController {
         return "api";
     }
 
-//    @RequestMapping(value="formTitle/{formtoken}/{page}/")
-//    public String formTitle(Map<String, Object> map, @PathVariable("formtoken") String formToken, @PathVariable("page") String page,  HttpServletRequest request)
-//    {
-//        String userid=request.getParameter("UserId");
-//        String usertoken=request.getParameter("UserToken");
-//        FormPojo fp=new FormPojo();
-//        TypePojo tp=new TypePojo();
-//        typeDao td=new typeDao();
-//        formDao fd=new formDao();
-//
-//        JSONObject  jsonObj = new JSONObject();
-//
-//        try {
-//            fp = fd.getFormById(formToken);
-//            jsonObj.put("title",fp.getTitle());
-//            jsonObj.put("json",fp.getJson());
-//            jsonObj.put("type",fp.getType());
-//            jsonObj.put("types",td.getAllType());
-//            jsonObj.put("res","OK");
-//        }
-//        catch(Exception e)
-//        {
-//            jsonObj.put("res",e);
-//        }
-//        finally
-//        {
-//            map.put("json", jsonObj.toString());
-//        }
-//
-//        return "api";
-//    }
+    @RequestMapping(value="needCheck")
+    public String formTitle(Map<String, Object> map, HttpServletRequest request)
+    {
+        String formToken=request.getParameter("formToken");
+        String flag=request.getParameter("flag");
+        String json=request.getParameter("json");
+        JSONObject  jsonObj = new JSONObject();
+
+        formDao fd=new formDao();
+        ClientFormDao cfd=new ClientFormDao();
+        try {
+            fd.updateCheck(formToken, flag.equals("1") ? 1 : 0, json);
+            //此处还需要清除所有结果的验证标志，进行重新审核
+            cfd.clearAllChecked(formToken);
+            jsonObj.put("res","OK");
+        }
+        catch(Exception e)
+        {
+            jsonObj.put("res",e);
+        }
+        finally
+        {
+            map.put("json", jsonObj.toString());
+        }
+
+        return "api";
+    }
 
 
 

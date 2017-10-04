@@ -7,10 +7,11 @@ public class ClientFormPojo {
     private String time;
     private String json;
     private String formtoken;
+    private int isChecked;
 
     public ClientFormPojo(){super();}
 
-    public ClientFormPojo(int id,String userid,String name,String time,String json,String formtoken)
+    public ClientFormPojo(int id,String userid,String name,String time,String json,String formtoken,int isChecked)
     {
         this.id=id;
         this.userid=userid;
@@ -18,6 +19,7 @@ public class ClientFormPojo {
         this.time=time;
         this.json=json;
         this.formtoken=formtoken;
+        this.isChecked=isChecked;
     }
 
     public void setId(int id){this.id=id;}
@@ -37,5 +39,8 @@ public class ClientFormPojo {
 
     public void setFormtoken(String formToken){this.formtoken=formToken;}
     public String getFormtoken(){return formtoken;}
+
+    public void setIsChecked(int isChecked){this.isChecked=isChecked;}
+    public int getIsChecked(){return isChecked;}
 
 }

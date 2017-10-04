@@ -1,4 +1,5 @@
 var _BASE_PATH="";
+var _CNT=0;
 Date.prototype.Format = function(fmt)
 { //author: meizz
     var o = {
@@ -25,14 +26,15 @@ var  timestamp2time=function (timestamp)
     return  newDate.Format("yyyy-MM-dd");
 }
 
+
 var initInfo=function(info)
 {
 	var ths=$("table tbody tr");
-    var cuKey=0;
-    var opCnt=0;
-    var cnt=0;
+    var cuKey=-1;
+    // var opCnt=0;
+    // var cnt=0;
 
-    opCnt+=3;
+    // opCnt+=3;
 
     for(cuKey in info )
     {
@@ -65,10 +67,10 @@ var initInfo=function(info)
             {
                 $(ths[cuKey]).append($(node).html(jsonObj[opKey]["data"]["content"]))
             }
-            if(cuKey=="0")
-            {
-                cnt++;
-            }
+            // if(cuKey=="0")
+            // {
+            //     cnt++;
+            // }
 
         }
         //
@@ -86,10 +88,10 @@ var initInfo=function(info)
 
     }
 
-    opCnt+=cnt;
+    // opCnt+=cnt;
     cuKey++;
     var node="";
-    while(opCnt--)
+    while(_CNT--)
     {
         node+="<td></td>";
     }
@@ -185,6 +187,8 @@ var initTitle=function()
     var types=$("#types").val();
     var json= $("#json").val();
 
+    var cnt=0;
+
     console.log(json);
     console.log(types);
     console.log(title);
@@ -201,6 +205,7 @@ var initTitle=function()
         $(typeNode).html(types["types"][cuKey]["typeName"]);
     }
 
+    cnt+=3;
     var tName=["姓名","学号","时间"];
     for(var cuKey in tName)
     {
@@ -210,7 +215,7 @@ var initTitle=function()
     var name="";
     for(var cuKey in json)
     {
-
+        cnt++;
         if(json[cuKey]["type"]=="t1"||json[cuKey]["type"]=="t2")
         {
           name= json[cuKey]["data"]["label"]
@@ -220,8 +225,25 @@ var initTitle=function()
             name= json[cuKey]["data"][0]
         }
         $(".table thead tr").append("<th>"+name+"</th>");
+        $(".dropdown-menu").append("<li  data-sh='"+cuKey+"'><input type=\"checkbox\"/><a class='aname' href=\"javascript:void(0)\">"+name+"</a></li>")
     }
 
+    $(".dropdown-menu").append('<li><button id="needCorrect" class="btn btn-default">确定</button></li>');
+    var needCheck=$("#needCheck").val()==="1"?1:0;
+    if(needCheck===1)
+    {
+        $(".dropdown>.btn").removeClass("btn-default");
+        $(".dropdown>.btn").addClass("btn-info");
+        var checkOption=$("#checkOption").val();
+        var checkOptionObj=$.parseJSON(checkOption);
+        for(var k in checkOptionObj )
+        {
+            var options=$(".op-buttons .dropdown-menu li");
+            $(options[k]).find("input")[0].checked=true;
+        }
+    }
+
+   _CNT=cnt;
 }
 var init=function()
 {
@@ -233,7 +255,7 @@ var init=function()
     layer.load(2);
 	var UserId="";
 	var UserToken="";
-	var FormToken=$("formToken").val();
+	var FormToken=$("#formToken").val();
     $(".op-choice").hide();
     $(".pagination li").hide();
 
@@ -274,10 +296,73 @@ var init=function()
 
 $(document).ready(function(){
 	_BASE_PATH=$("#base_path").val();
-	var userid="ww";
-	var usertoken="wwww";
+
+	$(".dropdown-toggle").dropdown();
 
 	init();
+
+	$("#needCorrect").click(function(){
+	    layer.load(2);
+	    var options=$(".op-buttons .dropdown-menu li");
+	    var optionObj={}
+
+	    var flag=0;
+
+	    options.each(function(index,o){
+	        if($(o).find("input").length>0)
+            {
+                if($(o).find("input")[0].checked)
+                {
+                    flag++;
+                    optionObj[index]=$(o).find(".aname").text();
+                }
+            }
+        })
+
+        var optionJson=JSON.stringify(optionObj);
+	    console.log(optionObj);
+	    var formToken=$("#formToken").val();
+
+        $.ajax({
+            type:"POST",
+            url:_BASE_PATH+"/needCheck",
+            async:true,
+            data:{"formToken":formToken,"json":optionJson,"flag":flag>0?1:0},
+            dataType:"json",
+            success:function(data){
+                console.log(data);
+                layer.closeAll('loading');
+                if(data["res"]=="OK")
+                {
+                    layer.closeAll('loading');
+                    $(".dropdown>.btn").removeClass("btn-default");
+                    $(".dropdown>.btn").removeClass("btn-info");
+                    if(flag>0) {
+                        $(".dropdown>.btn").addClass("btn-info");
+                    }
+                    else
+                    {
+                        $(".dropdown>.btn").addClass("btn-default");
+                    }
+                    alert("提交成功");
+                }
+                else
+                {
+                    layer.closeAll('loading');
+                    alert("连接失败");
+                }
+
+            },
+            error:function(msg){
+                alert("与服务器连接断开...."+JSON.stringify(msg));
+            }
+        })
+
+
+
+    })
+
+
 
 	$("[name='preview']").click(function(){
         layer.load(2);

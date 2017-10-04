@@ -465,6 +465,8 @@ $(document).ready(function(){
 
 	  $("#submit").click(function(){
           var title=prompt("请输入标题","新建表单")
+		  if(title===null)
+		  	  return;
           if(title=="") {
               alert("不能为空");
               return;
@@ -472,6 +474,23 @@ $(document).ready(function(){
 
 	       var json=getTotalJson();
 			var formToken=$("#formToken").val();
+			var deadline=$("#deadline").val();
+			var type=$(".btn-group .btn-primary").attr("data-type");
+			if(!$(".dateOption  input")[0].checked)
+			{
+				if(deadline=="")
+				{
+					alert("截止时间不能为空");
+					return;
+				}
+                deadline=Date.parse(deadline);
+			}
+			else
+			{
+				deadline=0;
+			}
+			// var d=new Date(deadline);
+			// console.log( Date.parse(deadline));
 			if(formToken)
 			{
                 var UserId="wlm";
@@ -482,7 +501,7 @@ $(document).ready(function(){
                     type:"POST",
                     url:_BASE_PATH+"/saveForm/"+UserId+"/"+UserToken+"/",
                     async:true,
-					data:{"formToken":formToken,"json":json,"type":1,"title":title},
+					data:{"formToken":formToken,"json":json,"type":type,"title":title,"deadline":deadline},
                     dataType:"json",
                     success:function(data){
                         if(data["res"]=="OK")
@@ -517,4 +536,47 @@ $(document).ready(function(){
 				  content: _BASE_PATH+'/preview/'
 			}); 
 	  });
+
+    $('.form_datetime').datetimepicker({
+        language:  'zh-CN',
+        format: 'yyyy-mm-dd hh:ii',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+    });
+
+    $('.form_datetime').hide();
+
+    $(".dateOption  input").click(function(o){
+
+			if(!this.checked)
+			{
+                // $(this).find("input")[0].checked=true;
+                $(".option_button").css("height","150px");
+                $('.form_datetime').show();
+			}
+			else
+			{
+                // $(this).find("input")[0].checked=false;
+                $(".option_button").css("height","100px");
+                $('.form_datetime').hide();
+			}
+        // o.stopPropagation();
+		// return false;
+	})
+
+	$(".btn-group .btn").click(function(){
+        $(".btn-group .btn").each(function(index,o){
+        	$(o).removeClass("btn-primary");
+            $(o).removeClass("btn-default");
+            $(o).addClass("btn-default");
+		})
+
+        $(this).removeClass("btn-default");
+		$(this).addClass("btn-primary")
+	})
 });

@@ -14,7 +14,7 @@ public class AnnounceShowController {
     @RequestMapping("/announceShow")
     private String show(HttpServletRequest request, Map<String, Object> map, RedirectAttributes attr) {
 
-        int res= comm.Login.validCheck(request,1,attr,map);
+        int res= comm.Login.validCheck(request,1,map);
         if(res==0) {
             return "announceShow";
         }

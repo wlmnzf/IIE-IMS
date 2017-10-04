@@ -24,7 +24,7 @@ public class FormResultController {
     {
         map.put("curPage",1);
 
-        int res= comm.Login.validCheck(request,2,attr,map);
+        int res= comm.Login.validCheck(request,2,map);
         if(res==0) {
             String userid=request.getParameter("UserId");
             String usertoken=request.getParameter("UserToken");
@@ -43,7 +43,7 @@ public class FormResultController {
     {
         map.put("curPage",page);
 
-        int res=comm.Login.validCheck(request,2,attr,map);
+        int res=comm.Login.validCheck(request,2,map);
         if(res==0) {
             String userid=request.getParameter("UserId");
             String usertoken=request.getParameter("UserToken");
@@ -73,6 +73,8 @@ public class FormResultController {
         map.put("json",fp.getJson());
         map.put("type",fp.getType());
         map.put("types",new JSONObject().put("types",types).toString());
+        map.put("needCheck",fp.getNeedCheck());
+        map.put("checkOption",fp.getCheckOption());
     }
 
 }

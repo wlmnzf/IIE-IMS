@@ -34,3 +34,30 @@
 {
     border:none;
 }
+
+
+.dropdown
+{
+    float: right;
+    margin: 10px 0 10px 10px;
+}
+
+.dropdown-menu>li>.aname
+{
+  display: inline;
+}
+.dropdown-menu>li
+{
+    margin-left:10px;
+}
+.dropdown-menu>li button
+{
+    width: 50px;
+    height: 20px;
+    font-size: 14px;
+    line-height: 0;
+    text-align: center;
+    padding: 0;
+    float: left !important;
+    margin: 10px 0 !important;
+}

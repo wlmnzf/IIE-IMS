@@ -17,7 +17,7 @@ public class FormManageController {
     {
         map.put("curPage",1);
 
-        int res=comm.Login.validCheck(request,2,attr,map);
+        int res=comm.Login.validCheck(request,2,map);
         if(res==0) {
             return "formManage";
         }
@@ -30,7 +30,7 @@ public class FormManageController {
     private String customFormWithPage(Map<String, Object> map, @PathVariable("page")String page,HttpServletRequest request,RedirectAttributes attr ){
         map.put("curPage",page);
 //        return "formManage";
-        int res=comm.Login.validCheck(request,2,attr,map);
+        int res=comm.Login.validCheck(request,2,map);
         if(res==0) {
             return "formManage";
         }

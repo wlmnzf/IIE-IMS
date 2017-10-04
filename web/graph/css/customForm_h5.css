@@ -28,6 +28,11 @@ body
 	width:60%;
 }
 
+.leftForm .form-group
+{
+	margin-bottom: 30px;
+}
+
 .rightForm
 {
 	background-color: #F6F7F8;
@@ -42,6 +47,7 @@ body
 {
 	cursor: pointer;
 }
+
 .rightForm form
 {
 	 height:100%;
@@ -113,10 +119,85 @@ body
 	border-color: #4483EB !important;
 }
 
+.midblue
+{
+	border-color:#599ee7 !important; ;
+}
+
 .lightblue 
 {
-    border-color: #66CCFF !important;
+    border-color: #5bc0de !important;
 }
+
+.btn-primary
+{
+	/*background-image: -webkit-linear-gradient(top,#599ee7 0,#599ee7 100%);*/
+	/*background-image: -o-linear-gradient(top,#599ee7 0,#599ee7 100%);*/
+	/*background-image: -webkit-gradient(linear,left top,left bottom,from(#599ee7),to(#599ee7));*/
+	/*background-image: linear-gradient(to bottom,#599ee7 0,#599ee7 100%);*/
+	/*background-color:#599ee7 !important;*/
+}
+.option_button
+{
+	/*padding-left: 10px;*/
+	position:relative;
+	height:100px;
+}
+
+.option_button .center
+{
+	width:201px;
+	margin: 8px auto 0px auto;
+	line-height:25px
+}
+
+.option_button .button_group
+{
+	width: 90%;
+	border-left: 2px solid;
+	padding: 10px;
+	height: 100%;
+	position: absolute;
+	right: 0;
+
+}
+
+.option_button .btn-group
+{
+	margin: 8px;
+}
+
+.option_button .btn-group .btn
+{
+	width: 50px;
+	height: 25px;
+	font-size: 12px;
+	text-align: center;
+	line-height: 0px;
+}
+
+
+.button_group .expire
+{
+	width:300px;
+	margin:0 auto;
+}
+
+.button_group .expire .check
+{
+	width: 200px;
+	margin: 0 auto;
+	padding: 5px 10px;
+}
+
+.form_datetime
+{
+	width: 250px;
+	margin-left: 57px;
+	padding-bottom: 10px;
+}
+
+
 
 
 .operate
@@ -125,6 +206,7 @@ body
 	position:relative;
 	height:50px;
 }
+
 
 .operate .button
 {
@@ -142,6 +224,7 @@ body
    margin:0 auto;	
    line-height:25px
 }
+
 
 .button button
 {

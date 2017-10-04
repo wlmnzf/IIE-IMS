@@ -85,12 +85,12 @@ public  class comm {
 //            return ;
 //        }
 
-        public  static int validCheck(HttpServletRequest request,int authType,RedirectAttributes attr)
+        public  static int validCheck(HttpServletRequest request,int authType)
         {
-            return  validCheck( request,authType,attr,null);
+            return  validCheck( request,authType,null);
         }
 
-        public  static int validCheck(HttpServletRequest request,int authType,RedirectAttributes attr,Map<String, Object>  map)
+        public  static int validCheck(HttpServletRequest request,int authType,Map<String, Object>  map)
         {
             Cookie login= comm.getCookieByName(request,"login");
 
@@ -130,7 +130,7 @@ public  class comm {
 
         public  static boolean authCheck(int authType,PersonPojo pp)
         {
-            if(authType==pp.getAuth())
+            if(authType<=pp.getAuth())
             {
                 return true;
             }

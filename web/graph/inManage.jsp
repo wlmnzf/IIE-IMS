@@ -23,6 +23,8 @@
     <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/user-vote.css">
     <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>
+    <script src="<%=path%>/graph/js/inmanage.js"></script>
+    <script src="<%=path%>/graph/js/layer/layer.js"></script>
 </head>
 <body>
 <header>
@@ -94,35 +96,202 @@
     </div>
     <div class="admin-op-panel">
         <div class="panel-content">
-            <h3 class="form-title">个人信息统计</h3>
-            <div class="inform-form">
-                <form action="">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="stuName">姓名</label>
-                            <input type="text" class="form-control" id="stuName" placeholder="姓名">
+              <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="time">
+                <ul class="nav nav-tabs underline-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#uninput" aria-controls="home" role="tab" data-toggle="tab">未录入</a></li>
+                    <li role="presentation"><a href="#uncorrect" aria-controls="profile" role="tab" data-toggle="tab">未核对</a></li>
+                    <li role="presentation"><a href="#all" aria-controls="profile" role="tab" data-toggle="tab">全部</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="uninput">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+
+
+
+
+
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="form-group">
-                            <label for="stuNumber">学号</label>
-                            <input type="text" class="form-control" id="stuNumber" placeholder="学号">
-                        </div>
-                        <div class="form-group">
-                            <label for="stuTeacher">导师</label>
-                            <input type="text" class="form-control" id="stuTeacher" placeholder="导师">
-                        </div>
-                        <div class="form-group">
-                            <label for="stuTeacher">个人简介</label>
-                            <textarea class="form-control" id="stuIntro" rows="3" placeholder="这个人比较懒哦~"></textarea>
-                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">提交</button>
+                    <div role="tabpanel" class="tab-pane" id="uncorrect">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <td><span class="label label-danger">置顶</span></td>
+                                    <td>
+                                        <p><a href=""><span class="event-title">计算机系统结构需要1</span></a></p>
+                                    </td>
+                                    <td>张慧慧</td>
+                                    <td>2017-08-01</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                </form>
+                    <div role="tabpanel" class="tab-pane" id="all">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <td><span class="label label-danger">置顶</span></td>
+                                    <td>
+                                        <p><a href=""><span class="event-title">计算机系统结构需要1</span></a></p>
+                                    </td>
+                                    <td>张慧慧</td>
+                                    <td>2017-08-01</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
+            <div role="tabpanel" class="tab-pane" id="urgent">
+                <ul class="nav nav-tabs underline-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#informs-2" aria-controls="home" role="tab" data-toggle="tab">通知</a></li>
+                    <li role="presentation"><a href="#activities-2" aria-controls="profile" role="tab" data-toggle="tab">活动</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="informs-2">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <td><span class="label label-warning">置顶</span></td>
+                                    <td>
+                                        <p><a href=""><span class="event-title">计算机系统结构需要2</span></a></p>
+                                    </td>
+                                    <td>张慧慧</td>
+                                    <td>2017-08-01</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="activities-2">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <td><span class="label label-danger">置顶</span></td>
+                                    <td>
+                                        <p><a href=""><span class="event-title">计算机系统结构需要2</span></a></p>
+                                    </td>
+                                    <td>张慧慧</td>
+                                    <td>2017-08-01</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 </div>
+<input type="hidden" id="base_path" value="<%=path%>"/>
 <footer>
     <p class="copyright text-center">
         ©2017 中国科学院 信息工程研究所

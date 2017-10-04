@@ -87,6 +87,14 @@
                 <h3>今天中午要吃什么 </h3><span class="label"></span>
             </div>
             <div class="op-buttons">
+                <div class="dropdown">
+                    <a class="btn btn-default dropdown-toggle"  data-toggle="dropdown" id="correct">校对<b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu">
+
+
+                    </ul>
+                </div>
+
                 <button class="btn btn-default" id="export">导出</button>
                 <button class="btn btn-default" id="delAll">删除</button>
             </div>
@@ -188,5 +196,7 @@
 <input type="hidden" id="types" value='${types}'/>
 <input type="hidden" id="json" value='${json}'/>
 <input type="hidden" id="title" value="${title}"/>
+<input type="hidden" id="needCheck" value="${needCheck}"/>
+<input type="hidden" id="checkOption" value='${checkOption}'/>
 </body>
 </html>

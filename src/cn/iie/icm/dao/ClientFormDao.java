@@ -27,9 +27,18 @@ interface ClientFormDaoInterface {
 
     public ClientFormPojo getFormResById(String formToken,String userid);
 
-    public List<ClientFormPojo> getFormsResWithLimit(int from,int cnt);
+       public List<ClientFormPojo> getFormsResWithLimit(int from,int cnt,String formToken);
 
     public int getTotal();
+
+    public void updateIsChecked(String userId,String formToken,int state);
+
+    public void clearAllChecked(String formToken);
+
+    //未确认
+    public List<ClientFormPojo> getFormsResWithoutChecked(String userId);
+
+    //未输入的
 
 
 }
@@ -39,9 +48,20 @@ public class ClientFormDao implements ClientFormDaoInterface {
     PreparedStatement pstmt=null;
     ResultSet rs=null;
 
+    private ClientFormPojo getClientFormPojo()
+    {
+        try {
+            return new ClientFormPojo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();;
+        }
+        return null;
+    }
     @Override
     public void saveFormRes(ClientFormPojo form) {
-        String sql="insert into tformsRes values (null,?,?,?,?,?)";
+        String sql="insert into tformsRes values (null,?,?,?,?,?,0)";
         try {
             conn= mysql.getConnection();
             pstmt=conn.prepareStatement(sql);
@@ -104,7 +124,7 @@ public class ClientFormDao implements ClientFormDaoInterface {
             pstmt=conn.prepareStatement(sql);
             rs=pstmt.executeQuery();
             while(rs.next()){
-                ClientFormPojo form=new ClientFormPojo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6));
+                ClientFormPojo form=getClientFormPojo();
                 forms.add(form);
             }
         } catch (SQLException e) {
@@ -125,7 +145,7 @@ public class ClientFormDao implements ClientFormDaoInterface {
             pstmt.setString(1, formToken);
             rs=pstmt.executeQuery();
             if(rs.next()){
-                form=new ClientFormPojo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6));
+                form=getClientFormPojo();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -136,17 +156,18 @@ public class ClientFormDao implements ClientFormDaoInterface {
     }
 
     @Override
-    public List<ClientFormPojo> getFormsResWithLimit(int from,int cnt) {
+    public List<ClientFormPojo> getFormsResWithLimit(int from,int cnt,String formToken) {
         List<ClientFormPojo> forms=new ArrayList<ClientFormPojo>();
-        String sql="select * from tformsRes order by time desc limit ?,?";
+        String sql="select * from tformsRes where formtoken=? order by time desc limit ?,?";
         try {
             conn=mysql.getConnection();
             pstmt=conn.prepareStatement(sql);
-            pstmt.setInt(1, (from-1)*cnt);
-            pstmt.setInt(2, cnt);
+            pstmt.setString(1, formToken);
+            pstmt.setInt(2, (from-1)*cnt);
+            pstmt.setInt(3, cnt);
             rs=pstmt.executeQuery();
             while(rs.next()){
-                ClientFormPojo  form=new ClientFormPojo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6));
+                ClientFormPojo  form=getClientFormPojo();
                 forms.add(form);
             }
         } catch (SQLException e) {
@@ -176,6 +197,60 @@ public class ClientFormDao implements ClientFormDaoInterface {
         return cnt;
     }
 
+    @Override
+    public void updateIsChecked(String userId, String formToken, int state) {
+        String sql="update tformsRes set isChecked=? where formtoken=? and userid=?";
+        try {
+            conn=mysql.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setInt(1,state);
+            pstmt.setString(2,formToken);
+            pstmt.setString(3,userId);
+            pstmt.executeUpdate();
+            System.out.println("修改成功！");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            mysql.closeAll(rs, pstmt, conn);
+        }
+    }
+
+    @Override
+    public void clearAllChecked(String formToken) {
+        String sql="update tformsRes set isChecked=0 where formtoken=?";
+        try {
+            conn=mysql.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,formToken);
+            pstmt.executeUpdate();
+            System.out.println("修改成功！");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            mysql.closeAll(rs, pstmt, conn);
+        }
+    }
+
+
+    @Override
+    public List<ClientFormPojo> getFormsResWithoutChecked(String userId) {
+        List<ClientFormPojo> forms=new ArrayList<ClientFormPojo>();
+        String sql="select * from tformsRes where userid=? and isChecked=0 and (select count(1) from tforms where formToken=tformsRes.formToken and needCheck=1)>0";
+        try {
+            conn=mysql.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            rs=pstmt.executeQuery();
+            while(rs.next()){
+                ClientFormPojo form=getClientFormPojo();
+                forms.add(form);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            mysql.closeAll(rs, pstmt, conn);
+        }
+        return forms;
+    }
 
 
 }

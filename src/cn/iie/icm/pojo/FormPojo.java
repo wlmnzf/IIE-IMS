@@ -8,13 +8,16 @@ public class FormPojo {
     private String time;
     private int type;
     private String title;
+    private  String deadline;
+    private int needCheck;
+    private  String checkOption;
 
 
     public FormPojo() {
         super();
     }
 
-    public FormPojo(int id, String userId, String json, String formToken,String time,int type,String title) {
+    public FormPojo(int id, String userId, String json, String formToken,String time,int type,String title,String deadline,int needCheck,String checkOption) {
         super();
         this.id = id;
         this.userId = userId;
@@ -23,6 +26,9 @@ public class FormPojo {
         this.time = time;
         this.type = type;
         this.title=title;
+        this.deadline=deadline;
+        this.checkOption=checkOption;
+        this.needCheck=needCheck;
     }
 
 
@@ -47,5 +53,13 @@ public class FormPojo {
     public String getTitle() { return title; }
     public void  setTitle(String title){this.title=title;}
 
+    public String getDeadline(){return deadline;}
+    public void setDeadline(String deadline){this.deadline=deadline;}
+
+    public String getCheckOption(){return checkOption;}
+    public void setCheckOption(String checkOption){this.checkOption=checkOption;}
+
+    public int getNeedCheck(){return needCheck;}
+    public void setNeedCheck(int needCheck){this.needCheck=needCheck;}
 
 }

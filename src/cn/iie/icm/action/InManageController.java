@@ -15,7 +15,7 @@ public class InManageController {
     {
         map.put("curPage",1);
 
-        int res= comm.Login.validCheck(request,1,attr,map);
+        int res= comm.Login.validCheck(request,1,map);
         if(res==0) {
             return "inManage";
         }
