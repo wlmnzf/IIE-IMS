@@ -281,9 +281,19 @@ header .user-collapse div.options{
     text-indent: 60px;
 }
 .menu .menu-ul li a:hover{
-    color: #fff;
+    color: black;
     text-decoration: none;
+    background-color: #f4f5f9;
+}
+
+.menu .menu-ul li .active{
+    display: block;
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    text-indent: 60px;
     background-color: #599ee7;
+    text-decoration: none;
 }
 /*admin-content admin-op-panel*/
 .panel-content{

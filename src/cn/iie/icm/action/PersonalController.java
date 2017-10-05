@@ -1,11 +1,14 @@
 package cn.iie.icm.action;
 
+import cn.iie.icm.action.api.comm;
 import cn.iie.icm.util.DbDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -163,4 +166,23 @@ public class PersonalController {
         return  result;
     }
 
+}
+
+
+@Controller
+class PersonViewController {
+    @RequestMapping("/personalManage")
+    private String customForm(Map<String, Object> map, HttpServletRequest request, RedirectAttributes attr)
+    {
+        map.put("curPage",1);
+
+        int res= comm.Login.validCheck(request,2,map);
+        if(res==0) {
+            return "personalManage";
+        }
+        else
+        {
+            return comm.Login.errRedirect(attr,res);
+        }
+    }
 }

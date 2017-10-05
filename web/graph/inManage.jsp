@@ -88,7 +88,7 @@
                 <li>
                     <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>信息录入</h4>
                     <ul class="menu-ul">
-                        <li><a href="">信息录入</a></li>
+                        <li><a href=""  class="active">信息录入</a></li>
                     </ul>
                 </li>
             </ul>
@@ -142,14 +142,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tbody>
-                                <tr>
-                                    <td><span class="label label-danger">置顶</span></td>
-                                    <td>
-                                        <p><a href=""><span class="event-title">计算机系统结构需要1</span></a></p>
-                                    </td>
-                                    <td>张慧慧</td>
-                                    <td>2017-08-01</td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -164,6 +157,7 @@
                                 <li><a href="#">2</a></li>
                                 <li><a href="#">3</a></li>
                                 <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
                                 <li>
                                     <a href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
@@ -176,14 +170,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tbody>
-                                <tr>
-                                    <td><span class="label label-danger">置顶</span></td>
-                                    <td>
-                                        <p><a href=""><span class="event-title">计算机系统结构需要1</span></a></p>
-                                    </td>
-                                    <td>张慧慧</td>
-                                    <td>2017-08-01</td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -198,6 +185,7 @@
                                 <li><a href="#">2</a></li>
                                 <li><a href="#">3</a></li>
                                 <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
                                 <li>
                                     <a href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
@@ -292,6 +280,8 @@
     </div>
 </div>
 <input type="hidden" id="base_path" value="<%=path%>"/>
+<input type="hidden" id="type" value="${type}"/>
+<input type="hidden" id="types" value='${types}'/>
 <footer>
     <p class="copyright text-center">
         ©2017 中国科学院 信息工程研究所

@@ -1,6 +1,7 @@
 package cn.iie.icm.dao;
 
 import cn.iie.icm.jdbc.mysql;
+import cn.iie.icm.pojo.ClientFormPojo;
 import cn.iie.icm.pojo.FormPojo;
 import java.sql.PreparedStatement;
 
@@ -39,6 +40,11 @@ import java.sql.SQLException;
     public List<FormPojo> getFormsEmpty(String userId,int from,int cnt);
 
     public int getEmptyTotal(String userid);
+
+    //未确认
+    public List<FormPojo> getFormsResWithoutChecked(String userId,int from,int cnt);
+
+    public int getUncheckedTotal(String userId);
 
     //修改
     public void updateCheck(String formToken,int flag,String json);
@@ -208,11 +214,11 @@ public class formDao implements formDaoInterface{
     public List<FormPojo> getFormsEmpty(String userId,int from,int cnt) {
         List<FormPojo> forms=new ArrayList<FormPojo>();
         String sql=" SELECT\n" +
-                "        *" +
+                "       id,(select name from tperson  where  num= tforms.userId) as name,json,formToken,time,type,title,deadline,needCheck,checkOption" +
                 "        FROM" +
                 "                tforms" +
                 "        WHERE" +
-                "        formToken NOT IN (select formToken from tformsRes where userId= ?)  order by time desc limit ?,?";
+                "        formToken NOT IN (select formToken from tformsRes where userId= ?)  order by deadline desc,time desc limit ?,?";
         try {
             conn=mysql.getConnection();
             pstmt=conn.prepareStatement(sql);
@@ -254,6 +260,54 @@ public class formDao implements formDaoInterface{
         }
         return cnt;
     }
+
+
+
+
+    @Override
+    public List<FormPojo> getFormsResWithoutChecked(String userId,int from,int cnt) {
+        List<FormPojo> forms=new ArrayList<FormPojo>();
+        String sql="select * from tforms where needCheck=1 and formToken in (select formtoken from tformsres where userid=? and isChecked=0)  order by deadline desc,time desc limit ?,?";
+        try {
+            conn=mysql.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            pstmt.setInt(2, (from-1)*cnt);
+            pstmt.setInt(3, cnt);
+            rs=pstmt.executeQuery();
+            while(rs.next()){
+                FormPojo form=getFormPojo();
+                forms.add(form);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            mysql.closeAll(rs, pstmt, conn);
+        }
+        return forms;
+    }
+
+
+    @Override
+    public int getUncheckedTotal(String userId) {
+        int cnt=0;
+        String sql="select count(1) from tforms where needCheck=1 and formToken in (select formtoken from tformsres where userid=? and isChecked=0)";
+        try {
+            conn=mysql.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                cnt=rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            mysql.closeAll(rs, pstmt, conn);
+        }
+        return cnt;
+    }
+
 
 
     @Override

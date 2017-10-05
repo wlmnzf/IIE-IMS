@@ -35,10 +35,6 @@ interface ClientFormDaoInterface {
 
     public void clearAllChecked(String formToken);
 
-    //未确认
-    public List<ClientFormPojo> getFormsResWithoutChecked(String userId);
-
-    //未输入的
 
 
 }
@@ -232,25 +228,6 @@ public class ClientFormDao implements ClientFormDaoInterface {
     }
 
 
-    @Override
-    public List<ClientFormPojo> getFormsResWithoutChecked(String userId) {
-        List<ClientFormPojo> forms=new ArrayList<ClientFormPojo>();
-        String sql="select * from tformsRes where userid=? and isChecked=0 and (select count(1) from tforms where formToken=tformsRes.formToken and needCheck=1)>0";
-        try {
-            conn=mysql.getConnection();
-            pstmt=conn.prepareStatement(sql);
-            rs=pstmt.executeQuery();
-            while(rs.next()){
-                ClientFormPojo form=getClientFormPojo();
-                forms.add(form);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally{
-            mysql.closeAll(rs, pstmt, conn);
-        }
-        return forms;
-    }
 
 
 }

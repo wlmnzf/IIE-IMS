@@ -117,8 +117,105 @@ public class ClientFormRESTController {
         return "api";
     }
 
+    @RequestMapping(value="uncorrect/{page}/")
+    public String uncorrect(Map<String, Object> map, @PathVariable("page") int page, HttpServletRequest request) {
+        if(comm.Login.validCheck(request,1)==0)
+        {
+//            String page=request.getParameter("page");
+            //用户名什么的从Cookie中直接读取
+            Cookie login= comm.getCookieByName(request,"login");
+            String jsonText = login.getValue();
+            try {
+                jsonText = java.net.URLDecoder.decode(jsonText, "utf-8");
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            JSONObject loginObj = new JSONObject(jsonText);
+            String userName = (String) loginObj.get("account");
+            String userToken = (String) loginObj.get("token");
+
+            JSONObject  jsonObj = new JSONObject();
+            JSONObject  pagesObj = new JSONObject();
+            formDao fd=new formDao();
 
 
+            int pageCnt = 10;
+            int resNum =fd.getUncheckedTotal(userName);
+            int pagesNum = resNum / pageCnt + (resNum % pageCnt == 0 ? 0 : 1);
 
+            List<FormPojo> forms=fd.getFormsResWithoutChecked(userName,page,pageCnt);
+
+
+            pagesObj.put("total",resNum);
+            pagesObj.put("num",pagesNum);
+            pagesObj.put("cur",page);
+
+            jsonObj.put("info",forms);
+            jsonObj.put("page",pagesObj);
+            jsonObj.put("res","OK");
+
+            map.put("json", jsonObj.toString());
+
+        }
+        else
+        {
+            map.put("json","认证出错");
+        }
+
+        return "api";
+    }
+
+
+    @RequestMapping(value="all/{page}/")
+    public String all(Map<String, Object> map, @PathVariable("page") int page, HttpServletRequest request) {
+        if(comm.Login.validCheck(request,1)==0)
+        {
+//            String page=request.getParameter("page");
+            //用户名什么的从Cookie中直接读取
+            Cookie login= comm.getCookieByName(request,"login");
+            String jsonText = login.getValue();
+            try {
+                jsonText = java.net.URLDecoder.decode(jsonText, "utf-8");
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            JSONObject loginObj = new JSONObject(jsonText);
+            String userName = (String) loginObj.get("account");
+            String userToken = (String) loginObj.get("token");
+
+            JSONObject  jsonObj = new JSONObject();
+            JSONObject  pagesObj = new JSONObject();
+            formDao fd=new formDao();
+
+
+            int pageCnt = 10;
+            int resNum =fd.getTotal();
+            int pagesNum = resNum / pageCnt + (resNum % pageCnt == 0 ? 0 : 1);
+
+            List<FormPojo> forms=fd.getFormsWithLimit(page,pageCnt);
+
+
+            pagesObj.put("total",resNum);
+            pagesObj.put("num",pagesNum);
+            pagesObj.put("cur",page);
+
+            jsonObj.put("info",forms);
+            jsonObj.put("page",pagesObj);
+            jsonObj.put("res","OK");
+
+            map.put("json", jsonObj.toString());
+
+        }
+        else
+        {
+            map.put("json","认证出错");
+        }
+
+        return "api";
+    }
 
 }
