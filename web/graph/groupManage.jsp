@@ -72,8 +72,14 @@
                 })
                 .on('move_node.jstree', function(e,data){
                     moveNode(data);
-                })
-                ;
+                }).on("load_node.jstree",function(e,d){
+                    var nodes=d.node.children_d;
+                    for(var i in nodes){
+                        var node=d.instance.get_node(nodes[i]);
+                        if(node.id.split("_")[0]=="3")
+                            node.icon="jstree-file";
+                    }
+                });
             }
         );
 
@@ -143,8 +149,9 @@
                 'data':params,
                 'timeout':1000*10
             }).done(function(result){
-                 if(result.isok==false) {
+                 if(result.isok=="false") {
                      alert("不能删除");
+                     $("#jstree_div").jstree().refresh(true);
                  }
             })
         }
