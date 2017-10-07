@@ -134,8 +134,8 @@ public class FormRESTController {
     }
 
 
-    @RequestMapping(value="getJson/{userid}/{usertoken}/")
-    public String getJson(Map<String, Object> map, @PathVariable("userid") String userid, @PathVariable("usertoken") String usertoken,  HttpServletRequest request)
+    @RequestMapping(value="getJson")
+    public String getJson(Map<String, Object> map, HttpServletRequest request)
     {
         String formToken=request.getParameter("formToken");
         FormPojo fp=new FormPojo();

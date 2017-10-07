@@ -139,6 +139,7 @@ public class ClientFormDao implements ClientFormDaoInterface {
             conn=mysql.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1, formToken);
+            pstmt.setString(2, userid);
             rs=pstmt.executeQuery();
             if(rs.next()){
                 form=getClientFormPojo();

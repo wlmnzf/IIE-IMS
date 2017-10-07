@@ -19,9 +19,9 @@ public class ClientFormRESTController {
 
     @RequestMapping(value="saveClientForm")
     public String form(Map<String, Object> map, HttpServletRequest request) {
-        String userid=request.getParameter("UserId");
-        String usertoken=request.getParameter("UserToken");
-        String name=request.getParameter("name");
+//        String userid=request.getParameter("UserId");
+//        String usertoken=request.getParameter("UserToken");
+//        String name=request.getParameter("name");
         String formToken=request.getParameter("formToken");
         String Json=request.getParameter("Json");
         String time=System.currentTimeMillis()+"";
@@ -30,14 +30,20 @@ public class ClientFormRESTController {
         ClientFormDao Cd=new ClientFormDao();
         JSONObject jsonObj=new JSONObject();
 
+        JSONObject loginObj=comm.Login.getLoginInfo(request);
+
         Cp.setFormtoken(formToken);
         Cp.setJson(Json);
-        Cp.setName(name);
+        Cp.setName((String)loginObj.get("name"));
         Cp.setTime(time);
-        Cp.setUserid(userid);
+        Cp.setUserid((String)loginObj.get("account"));
 
         try {
-            Cd.saveFormRes(Cp);
+            ClientFormPojo tmp=Cd.getFormResById(formToken,(String)loginObj.get("account"));
+            if(tmp!=null)
+                Cd.updateFormRes(Cp);
+            else
+                Cd.saveFormRes(Cp);
             jsonObj.put("res","OK");
         }
         catch (Exception e)
@@ -197,6 +203,7 @@ public class ClientFormRESTController {
             int pagesNum = resNum / pageCnt + (resNum % pageCnt == 0 ? 0 : 1);
 
             List<FormPojo> forms=fd.getFormsWithLimit(page,pageCnt);
+//            List<FormPojo> forms=fd.getFormsWithLimit(page,pageCnt);
 
 
             pagesObj.put("total",resNum);

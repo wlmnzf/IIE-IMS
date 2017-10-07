@@ -28,6 +28,7 @@ public class InManageController {
 
             map.put("types",new JSONObject().put("types",types).toString());
 
+
             return "inManage";
         }
         else

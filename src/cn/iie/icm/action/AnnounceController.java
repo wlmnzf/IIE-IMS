@@ -3,23 +3,17 @@ package cn.iie.icm.action;
 import cn.iie.icm.Bean.AncJDBCTemplate;
 import cn.iie.icm.Bean.AnnounceMent;
 import cn.iie.icm.Bean.Pager;
-import net.sf.json.JSON;
-import org.apache.xpath.operations.Mod;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +24,7 @@ public class AnnounceController {
     private List<AnnounceMent> datalist;
 
     //展示公告，管理公告
-    @RequestMapping("/announceMagement")
+    @RequestMapping("/announceManagement")
     private String toAnnounceMag(HttpServletRequest request, ModelMap model){
         ApplicationContext context = new ClassPathXmlApplicationContext("anc-beans.xml");
         AncJDBCTemplate ancJDBCTemplate = (AncJDBCTemplate) context.getBean("ancJDBCTemplate");
@@ -48,7 +42,7 @@ public class AnnounceController {
         System.out.println("****************" + text);
 
 
-        return "announceMagement";
+        return "announceManagement";
     }
 
     @RequestMapping("/announceEditor")
@@ -111,7 +105,7 @@ public class AnnounceController {
         Pager pager = new Pager(datalist,pageNum);
         model.addAttribute("announceMents",pager.getDatalist());
         model.addAttribute("page",pager);
-        return "announceMagement";
+        return "announceManagement";
 
     }
 
@@ -155,7 +149,7 @@ public class AnnounceController {
         model.addAttribute("announceMents",pager.getDatalist());
         model.addAttribute("page",pager);
 
-        return "announceMagement";
+        return "announceManagement";
 
     }
 
@@ -185,7 +179,7 @@ public class AnnounceController {
         model.addAttribute("announceMents",pager.getDatalist());
         model.addAttribute("page",pager);
 
-        return "announceMagement";
+        return "announceManagement";
 
     }
 }

@@ -17,27 +17,27 @@ public class FormManageController {
     {
         map.put("curPage",1);
 
-        int res=comm.Login.validCheck(request,2,map);
-        if(res==0) {
+//        int res=comm.Login.validCheck(request,2,map);
+//        if(res==0) {
             return "formManage";
-        }
-        else
-        {
-          return comm.Login.errRedirect(attr,res);
-        }
+//        }
+//        else
+//        {
+//          return comm.Login.errRedirect(attr,res);
+//        }
     }
     @RequestMapping("/formManage/{page}/")
     private String customFormWithPage(Map<String, Object> map, @PathVariable("page")String page,HttpServletRequest request,RedirectAttributes attr ){
         map.put("curPage",page);
 //        return "formManage";
-        int res=comm.Login.validCheck(request,2,map);
-        if(res==0) {
+//        int res=comm.Login.validCheck(request,2,map);
+//        if(res==0) {
             return "formManage";
-        }
-        else
-        {
-            return comm.Login.errRedirect(attr,res);
-        }
+//        }
+//        else
+//        {
+//            return comm.Login.errRedirect(attr,res);
+//        }
     }
 
 

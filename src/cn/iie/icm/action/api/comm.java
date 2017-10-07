@@ -6,6 +6,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import java.security.MessageDigest;
 import java.util.HashMap;
@@ -60,16 +61,16 @@ public  class comm {
     1:Login failed
     2:Auth failed
      */
-    public static class Login
-    {
-        public  static String errRedirect(RedirectAttributes attr,int res)
-        {
-            switch(res)
-            {
+    public static class Login {
+        public static String errRedirect(RedirectAttributes attr, int res) {
+            switch (res) {
                 case 0:
-                case 1:return setErrInfo(attr,"登录已失效，请重新登陆！");
-                case 2:return  setErrInfo(attr,"对不起，您没有权限访问此页面");
-                case 3:return  setErrInfo(attr,"退出成功!");
+                case 1:
+                    return setErrInfo(attr, "登录已失效，请重新登陆！");
+                case 2:
+                    return setErrInfo(attr, "对不起，您没有权限访问此页面");
+                case 3:
+                    return setErrInfo(attr, "退出成功!");
             }
             return "redirect:/index";
         }
@@ -85,56 +86,87 @@ public  class comm {
 //            return ;
 //        }
 
-        public  static int validCheck(HttpServletRequest request,int authType)
-        {
-            return  validCheck( request,authType,null);
+        public static int validCheck(HttpServletRequest request, int authType) {
+            return validCheck(request, authType, (HttpSession) null);
         }
 
-        public  static int validCheck(HttpServletRequest request,int authType,Map<String, Object>  map)
-        {
-            Cookie login= comm.getCookieByName(request,"login");
+        public static int validCheck(HttpServletRequest request, int authType, HttpSession session) {
+            JSONObject jsonObj = getLoginInfo(request);
+            PersonDao pd = new PersonDao();
+            PersonPojo pp = new PersonPojo();
 
-            if(login!=null)
-            {
+
+            if (jsonObj != null) {
                 try {
-                    PersonDao pd = new PersonDao();
-                    PersonPojo pp = new PersonPojo();
-
-                    String jsonText = login.getValue();
-                    jsonText = java.net.URLDecoder.decode(jsonText,"utf-8");
-                    JSONObject jsonObj = new JSONObject(jsonText);
                     String userName = (String) jsonObj.get("account");
                     String userToken = (String) jsonObj.get("token");
 
                     pp = pd.getPerson(userName);
 
-                    if(!authCheck(authType,pp))
-                    {
-                            return 2;
-//                        setErrInfo(attr,"对不起，您没有权限访问此页面");
+                    if (!authCheck(authType, pp)) {
+                        return 2;
                     }
 
                     if (pp.getToken().equals(userToken)) {
-                        if(map!=null)
-                            setLoginInfo(map,pp);
+                        if (session != null)
+                            setLoginInfo(session, pp);
                         return 0;
                     }
-                }
-                catch(Exception e)
-                {
+                } catch (Exception e) {
                     return 1;
                 }
             }
             return 1;
         }
 
-        public  static boolean authCheck(int authType,PersonPojo pp)
-        {
-            if(authType<=pp.getAuth())
-            {
+        public static int validCheck(HttpServletRequest request, int authType, Map<String, Object> map) {
+            Cookie login = comm.getCookieByName(request, "login");
+
+            if (login != null) {
+                try {
+                    PersonDao pd = new PersonDao();
+                    PersonPojo pp = new PersonPojo();
+
+                    String jsonText = login.getValue();
+                    jsonText = java.net.URLDecoder.decode(jsonText, "utf-8");
+                    JSONObject jsonObj = new JSONObject(jsonText);
+                    String userName = (String) jsonObj.get("account");
+                    String userToken = (String) jsonObj.get("token");
+
+                    pp = pd.getPerson(userName);
+
+                    if (!authCheck(authType, pp)) {
+                        return 2;
+//                        setErrInfo(attr,"对不起，您没有权限访问此页面");
+                    }
+
+                    if (pp.getToken().equals(userToken)) {
+                        if (map != null)
+                            setLoginInfo(map, pp);
+                        return 0;
+                    }
+                } catch (Exception e) {
+                    return 1;
+                }
+            }
+            return 1;
+        }
+
+        public static boolean authCheck(int authType, PersonPojo pp) {
+            if (authType <= pp.getAuth()) {
                 return true;
             }
             return false;
+        }
+
+        public static void setLoginInfo(HttpSession session, PersonPojo pp)
+        {
+            session.setAttribute("_USER_NAME",pp.getNum());
+            session.setAttribute("_TOKEN",pp.getToken());
+            session.setAttribute("_TYPE",pp.getAuth());
+            session.setAttribute("_TYPE_TEXT",pp.getAuth()==1?"用户":"管理员");
+            session.setAttribute("_HEAD_URL",pp.getHeadUrl());
+            session.setAttribute("_NAME",pp.getName());
         }
 
         public static void  setLoginInfo(Map<String, Object>  map,PersonPojo pp)
@@ -144,6 +176,7 @@ public  class comm {
             map.put("_TYPE",pp.getAuth());
             map.put("_TYPE_TEXT",pp.getAuth()==1?"用户":"管理员");
             map.put("_HEAD_URL",pp.getHeadUrl());
+            map.put("_NAME",pp.getName());
         }
 
         public static  String setErrInfo(RedirectAttributes attr,String info)
@@ -151,6 +184,28 @@ public  class comm {
             attr.addFlashAttribute("info", info);
             return "redirect:/index";
         }
+
+        public static JSONObject getLoginInfo(HttpServletRequest request)
+        {
+                 Cookie login= comm.getCookieByName(request,"login");
+
+                 if(login==null)
+                     return null;
+
+                    String jsonText = login.getValue();
+                    try {
+                        jsonText = java.net.URLDecoder.decode(jsonText,"utf-8");
+                    }
+                    catch(Exception e)
+                    {
+                        e.printStackTrace();
+                        return null;
+                    }
+
+                    JSONObject jsonObj = new JSONObject(jsonText);
+                   return jsonObj;
+        }
+
     }
 
 
