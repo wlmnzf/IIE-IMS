@@ -1,14 +1,10 @@
 package cn.iie.icm.action;
 
-import cn.iie.icm.action.api.comm;
 import cn.iie.icm.util.DbDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +14,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/group")
 public class GroupController {
+
+    private String[] tables={"academy", "troom", "tgroup", "tperson"};
+
     @RequestMapping("/list")
     @ResponseBody
     private List<Map<String, String>> list() {
@@ -25,35 +24,35 @@ public class GroupController {
         List<Map<String, String>> datas = new ArrayList<Map<String, String>>();
         Map<String, String> data;
         data = new HashMap<String, String>();
-        data.put("id", "academy");
+        data.put("id", "0_0");
         data.put("parent", "root");
         data.put("text", "信工所");
         datas.add(data);
         try {
             DbDao dd = new DbDao();
-            ResultSet rs = dd.query("select id, name from troom ");
+            ResultSet rs = dd.query("select id, name from "+tables[1]);
             while (rs.next()) {
                 data = new HashMap<String, String>();
-                data.put("id", "troom" + rs.getString("id"));
-                data.put("parent", "academy");
+                data.put("id", "1_" + rs.getString("id"));
+                data.put("parent", "0_0");
                 data.put("text", rs.getString("name"));
                 datas.add(data);
             }
 
-            rs = dd.query("select id, name, troom_id from tgroup ");
+            rs = dd.query("select id, name, troom_id from "+tables[2]);
             while (rs.next()) {
                 data = new HashMap<String, String>();
-                data.put("id", "tgroup" + rs.getString("id"));
-                data.put("parent", "troom" + rs.getString("troom_id"));
+                data.put("id", "2_" + rs.getString("id"));
+                data.put("parent", "1_" + rs.getString("troom_id"));
                 data.put("text", rs.getString("name"));
                 datas.add(data);
             }
 
-            rs = dd.query("select id, name, tgroup_id from tperson ");
+            rs = dd.query("select id, name, tgroup_id from "+tables[3]);
             while (rs.next()) {
                 data = new HashMap<String, String>();
-                data.put("id", "tperson" + rs.getString("id"));
-                data.put("parent", "tgroup" + rs.getString("tgroup_id"));
+                data.put("id", "3_" + rs.getString("id"));
+                data.put("parent", "2_" + rs.getString("tgroup_id"));
                 data.put("text", rs.getString("name"));
                 datas.add(data);
             }
@@ -66,29 +65,23 @@ public class GroupController {
 
     @RequestMapping("/addGroup")
     @ResponseBody
-    private Map<String, String> addGroup(@RequestParam(value = "name") String name, @RequestParam(value = "parentId") String parentId, @RequestParam(value = "parentTable") String parentTable ) {
+    public Map<String, String> addGroup(String name, int parentId, int parentTable ) {
 
         DbDao dd = new DbDao();
         ResultSet rs;
         Map<String, String> data = new HashMap<String, String>();
-        String table="";
-        if(parentTable.equals("academy"))
-            table="troom";
-        else if(parentTable.equals("troom"))
-            table="tgroup";
-        else
-            table="tperson";
+        int table=parentTable+1;
         try {
-            if (table.equals("troom")) {
-                dd.insert("insert into "+table+" (name) values (?)", name);
-                rs = dd.query("select id from "+table+" where name=?", name);
+            if (parentTable==0) {
+                dd.insert("insert into "+tables[table]+" (name) values (?)", name);
+                rs = dd.query("select id from "+tables[table]+" where name=?", name);
                 if (rs.next())
-                    data.put("id", "troom" + rs.getString("id"));
+                    data.put("id", table+"_"+ rs.getString("id"));
             } else {
-                dd.insert("insert into "+table+" (name, "+parentTable+"_id) values (?, ?)", name, parentId);
-                rs = dd.query("select id from "+table+" where name=? and "+parentTable+"_id=?", name, parentId);
+                dd.insert("insert into "+tables[table]+" (name, "+tables[parentTable]+"_id) values (?, ?)", name, parentId);
+                rs = dd.query("select id from "+tables[table]+" where name=? and "+tables[parentTable]+"_id=?", name, parentId);
                 if (rs.next())
-                    data.put("id", table + rs.getString("id"));
+                    data.put("id", table + "_"+rs.getString("id"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,10 +91,10 @@ public class GroupController {
 
     @RequestMapping("/editGroup")
     @ResponseBody
-    private void editGroup(@RequestParam(value="name") String name, @RequestParam(value="id") String id, @RequestParam(value="table") String table) {
+    private void editGroup(String name, int id, int table) {
         DbDao dd = new DbDao();
         try {
-                dd.modify("update "+table+" set name=? where id=? ", name, id);
+            dd.modify("update "+tables[table]+" set name=? where id=? ", name, id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,32 +102,38 @@ public class GroupController {
 
     @RequestMapping("/delGroup")
     @ResponseBody
-    private void delGroup(@RequestParam(value="id") String id, @RequestParam(value="table") String table) {
+    private Map<String, String> delGroup(String id, int table) {
+        Map<String, String> result=new HashMap<String, String>();
+        String status="true";
         DbDao dd = new DbDao();
         try {
-            dd.modify("delete from "+table+" where id=? ", id);
+            dd.modify("delete from "+tables[table]+" where id=? ", id);
         } catch (Exception e) {
-            e.printStackTrace();
+
+            status="false";
         }
+        result.put("isok", status);
+        return result;
     }
 
-}
-
-
-@Controller
-class GroupViewController {
-    @RequestMapping("/groupManage")
-    private String customForm(Map<String, Object> map, HttpServletRequest request, RedirectAttributes attr)
-    {
-        map.put("curPage",1);
-
-        int res= comm.Login.validCheck(request,2,map);
-        if(res==0) {
-            return "groupManage";
+    @RequestMapping("/moveGroup")
+    @ResponseBody
+    private Map<String, String> moveGroup(int id, int table, int parentId, int parentTable) {
+        Map<String, String> result=new HashMap<String, String>();
+        String status="true";
+        if(table!=parentTable+1) {
+            result.put("status", "false");
+            return result;
         }
-        else
-        {
-            return comm.Login.errRedirect(attr,res);
+        DbDao dd = new DbDao();
+        try {
+            dd.modify("update "+tables[table]+" set "+tables[parentTable]+"_id =? where id=? ", parentId, id);
+        } catch (Exception e) {
+
+            status="false";
         }
+        result.put("isok", status);
+        return result;
     }
+
 }
