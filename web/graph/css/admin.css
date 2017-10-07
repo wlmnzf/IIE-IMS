@@ -48,13 +48,21 @@ header img.media-object{
     height: 50px;
 }
 header .media-body .media-heading{
+    margin-top: 7px;
     display: inline-block;
 }
+/*header .media-body .media-heading .label-primary*/
+/*{*/
+    /*font-size: 10px;*/
+/*}*/
 header .media-body .login-name{
     width: 200px;
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
+
+    margin-top: 3px;
+    padding-left: 1px;
 }
 header .login-ul div.options{
     margin-top: 23px;
@@ -130,6 +138,7 @@ header .login-ul .option:first-child{
     margin: 0 auto;
     padding: 29px 0;
     width: 85%;
+    min-height: 500px;
 }
 .panel-content .op-buttons button{
     float: right;

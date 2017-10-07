@@ -1,5 +1,10 @@
 var _BASE_PATH="";
+//提交答案
 var tj=function(){
+
+	if(parent.data.flag!="c")
+		return;
+
    var nodes=$(".op");
    var jsonObj={};
 
@@ -61,15 +66,15 @@ var tj=function(){
 	var jsonText=JSON.stringify(jsonObj);
 
 
-	var UserId="11";
-	var UserToken="22";
-	var name="wlm";
-	var formToken="201709162003446";
+	// var UserId="11";
+	// var UserToken="22";
+	// var name="wlm";
+	var formToken=parent.data.formToken;
     $.ajax({
         type:"POST",
         url:_BASE_PATH+"/saveClientForm",
         async:true,
-        data:{"UserId":UserId,"UserToken":UserToken,"name":name,"formToken":formToken,"Json":jsonText,},
+        data:{"formToken":formToken,"Json":jsonText},
         dataType:"json",
         success:function(data){
             console.log(data);

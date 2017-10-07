@@ -28,19 +28,69 @@ var  timestamp2time=function (timestamp)
 
 var input=function(o)
 {
-    layer.open({
-        type: 2,
-        title: '预览页',
-        shadeClose: true,
-        shade: 0.8,
-        area: ['100%', '100%'],
-        content: _BASE_PATH+'/preview/'
-    });
+    var formToken=$(o).attr("data-formtoken");
+    var title=$(o).find("span").html();
+    data = {
+        "formToken":formToken,
+        "flag":"c"
+    };
+    if(localStorage["preview_"+formToken])
+    {
+        localStorage.formJson=localStorage["preview_"+formToken];
+        layer.closeAll('loading');
+        layer.open({
+            type: 2,
+            title:title ,
+            shadeClose: true,
+            shade: 0.8,
+            area: ['100%', '100%'],
+            content:  _BASE_PATH+'/preview/'
+        });
+    }
+    else
+    {
+        $.ajax({
+            type:"POST",
+            url:_BASE_PATH+"/getJson",
+            async:true,
+            data:{"formToken":formToken},
+            dataType:"json",
+            success:function(data){
+                console.log(data);
+                layer.closeAll('loading');
+                if(data["res"]=="OK")
+                {
+                    localStorage.formJson=localStorage["preview_"+formToken]=data["json"];
+                    layer.open({
+                        type: 2,
+                        title: title,
+                        shadeClose: true,
+                        shade: 0.8,
+                        area: ['100%', '100%'],
+                        content:  _BASE_PATH+'/preview/'
+                    });
+                }
+                else
+                {
+                    layer.closeAll('loading');
+                    alert("连接失败");
+                }
+
+            },
+            error:function(msg){
+                alert("与服务器连接断开...."+JSON.stringify(msg));
+            }
+        })
+
+    }
+
+
 }
 
 var initInfo=function(info,block)
 {
 	var table=$("#"+block).find("table tbody");
+	table.empty();
     var types=$.parseJSON($("#types").val());
     console.log(types);
     // var cuKey=0;
@@ -59,7 +109,8 @@ var initInfo=function(info,block)
         "</tr>" +
         "</thead>"
 
-    $(table).before($(tableTitle));
+   if($(table).parent().find("thead").length<=0)
+         $(table).before($(tableTitle));
 
     var nodePure=" <tr>" +
         " <td class='i-type'><span class=\"label \"></span></td>" +   //前两个tab是截止时间，第三个是类型
@@ -122,6 +173,42 @@ var initInfo=function(info,block)
 
 }
 
+
+var changePage=function(o){
+    var page=$(o).attr("data-page");
+    var block=$(o).parents(".active").attr("id");
+
+    layer.load(2);
+    $.ajax({
+        type:"POST",
+        url:_BASE_PATH+"/"+block+"/"+page+"/",
+        async:true,
+        dataType:"json",
+        success:function(data){
+            console.log(data);
+            if(data["res"]=="OK") {
+                var info = data["info"];
+                var page = data["page"];
+
+
+                // var types=data["type"]
+                //
+                initInfo(info,block);
+                initPage(page,block);
+                layer.closeAll('loading');
+            }
+
+        },
+        error:function(msg){
+            alert("与服务器连接断开...."+JSON.stringify(msg));
+            layer.closeAll('loading');
+        }
+    })
+
+}
+
+
+
 var initPage=function(page,block)
 {
 	 var total=page["total"];
@@ -133,6 +220,7 @@ var initPage=function(page,block)
 
     $(pagination).each(function(){
     	$(this).removeClass("active");
+        $(this).removeClass("disabled");
 	})
 
 	var start=-1;
@@ -170,13 +258,19 @@ var initPage=function(page,block)
             $(pagination[i]).addClass("active");
         $(pagination[i]).attr("data-page",i);
         $(pagination[i]).find("a").html(i);
-        $(pagination[i]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+i+"/")
+        $(pagination[i]).find("a").attr("data-page",i);
+        $(pagination[i]).find("a").attr("href","javascript:void(0)");
+        $(pagination[i]).find("a").attr("onclick","changePage(this)");
         $(pagination[i]).show();
     }
 
     if(cur!=1) {
         $(pagination[0]).show();
-        $(pagination[0]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+(cur-1)+"/")
+        $(pagination[0]).find("a").attr("data-page",cur-1);
+        $(pagination[0]).find("a").attr("href","javascript:void(0)");
+        $(pagination[0]).find("a").attr("onclick","changePage(this)");
+        // $(pagination[0]).removeClass("disabled");
+        // $(pagination[0]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+(cur-1)+"/")
     }
     else
     {
@@ -187,7 +281,11 @@ var initPage=function(page,block)
 
     if(cur!=end) {
         $(pagination[6]).show();
-        $(pagination[6]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+(cur+1)+"/")
+        $(pagination[6]).find("a").attr("data-page",cur+1);
+        $(pagination[6]).find("a").attr("href","javascript:void(0)");
+        $(pagination[6]).find("a").attr("onclick","changePage(this)");
+        // $(pagination[0]).removeClass("disabled");
+        // $(pagination[6]).find("a").attr("href",_BASE_PATH+"/formResult/"+formToken+"/"+(cur+1)+"/")
     }
     else
     {

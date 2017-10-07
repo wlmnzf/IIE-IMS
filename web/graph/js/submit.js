@@ -499,7 +499,7 @@ $(document).ready(function(){
 
                 $.ajax({
                     type:"POST",
-                    url:_BASE_PATH+"/saveForm/"+UserId+"/"+UserToken+"/",
+                    url:_BASE_PATH+"/saveForm",
                     async:true,
 					data:{"formToken":formToken,"json":json,"type":type,"title":title,"deadline":deadline},
                     dataType:"json",

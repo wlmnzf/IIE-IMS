@@ -193,7 +193,7 @@ $(document).ready(function(){
 		{
             $.ajax({
                 type:"POST",
-                url:_BASE_PATH+"/getJson/"+userid+"/"+usertoken+"/",
+                url:_BASE_PATH+"/getJson",
                 async:true,
                 data:{"formToken":formToken},
                 dataType:"json",

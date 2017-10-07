@@ -144,7 +144,32 @@ header .user-collapse div.options{
     header .user-collapse{
         display: block;
     }
+    .admin-op-panel
+    {min-height:200px !important;}
+
+    admin-content
+    {min-height: 300px !important;}
+
+.glyphicon-th-list
+    {
+        font-size: 20px;
+    }
+    .panel-content
+    {
+        padding-top:0 !important;
+    }
+    .nav-tabs.cate-tabs
+    {
+        top:13px !important;
+    }
 }
+
+
+.navbar-collapse
+{
+    padding: 0px;
+}
+
 /*时间/紧急区分标签*/
 .nav-tabs {
     border-bottom: none;
@@ -234,8 +259,8 @@ header .user-collapse div.options{
 .admin-op-panel{
     float: left;
     width: 79%;
-    min-height: 300px;
-    /*min-height:500px;*/
+    /*min-height: 300px;*/
+    min-height:500px;
     border-left:1px solid #ddd;
     box-sizing: border-box;
 }
