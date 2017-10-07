@@ -339,13 +339,13 @@
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-user"></em>人员</h4>
                 <ul class="menu-ul">
-                    <li><a href="<%=path%>/graph/personalManage.jsp">人员管理</a></li>
+                    <li class="current"><a href="<%=path%>/graph/personalManage.jsp">人员管理</a></li>
                 </ul>
             </li>
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-align-left"></em>分组</h4>
                 <ul class="menu-ul">
-                    <li class="current"><a href="<%=path%>/graph/groupManage.jsp">分组管理</a></li>
+                    <li ><a href="<%=path%>/graph/groupManage.jsp">分组管理</a></li>
                 </ul>
             </li>
         </ul>

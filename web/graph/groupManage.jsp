@@ -47,6 +47,9 @@
                                         };
                                         jsonarray.push(arr);
                                     }
+                                },
+                                error:function(msg){
+                                    alert("与服务器连接断开...."+JSON.stringify(msg));
                                 }
 
                             });

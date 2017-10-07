@@ -94,6 +94,7 @@ public class FilterLoginCheck implements Filter{
 
 //				session.setAttribute("basePath", ); // 每个页面，都设置一下基础路径
 				chain.doFilter(req, res);
+				return;
 			}
      		else {
 				switch(result)

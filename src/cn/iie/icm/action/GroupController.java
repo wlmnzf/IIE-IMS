@@ -2,6 +2,7 @@ package cn.iie.icm.action;
 
 import cn.iie.icm.action.api.comm;
 import cn.iie.icm.util.DbDao;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,7 +62,8 @@ public class GroupController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return datas;
+       return datas;
+
     }
 
     @RequestMapping("/addGroup")
