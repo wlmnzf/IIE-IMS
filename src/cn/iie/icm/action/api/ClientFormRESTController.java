@@ -24,6 +24,7 @@ public class ClientFormRESTController {
 //        String name=request.getParameter("name");
         String formToken=request.getParameter("formToken");
         String Json=request.getParameter("Json");
+        String Block=request.getParameter("block");
         String time=System.currentTimeMillis()+"";
 
         ClientFormPojo Cp=new ClientFormPojo();
@@ -37,6 +38,10 @@ public class ClientFormRESTController {
         Cp.setName((String)loginObj.get("name"));
         Cp.setTime(time);
         Cp.setUserid((String)loginObj.get("account"));
+        if(Block.equals("uncorrect"))
+        {
+            Cp.setIsChecked(1);
+        }
 
         try {
             ClientFormPojo tmp=Cd.getFormResById(formToken,(String)loginObj.get("account"));

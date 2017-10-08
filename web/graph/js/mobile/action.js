@@ -74,12 +74,14 @@ var tj=function(){
         type:"POST",
         url:_BASE_PATH+"/saveClientForm",
         async:true,
-        data:{"formToken":formToken,"Json":jsonText},
+        data:{"formToken":formToken,"Json":jsonText,"block":parent.data.block},
         dataType:"json",
         success:function(data){
             console.log(data);
-            if(data["res"]=="OK")
-            	alert("保存成功");
+            if(data["res"]=="OK") {
+                alert("保存成功");
+                localStorage.result=localStorage["result_"+formToken]="";
+            }
             else
             	alert("保存失败");
 
@@ -94,52 +96,95 @@ var tj=function(){
 
 $(document).ready(function(){
 	
-	var jsonText=localStorage.formJson;
+	var jsonText=localStorage.formJson;;
+    var result= localStorage.result;
+    var needChecked=localStorage.needCheck;
+    var checkOption=localStorage.checkOption;
+    var isChecked=localStorage.isChecked;
+
 	if(jsonText==null)
 		return;
+
+	var resFlag=false;
 	jsonObj=JSON.parse(jsonText);
+
+	if(result!="") {
+        result = JSON.parse(result)
+		resFlag=true;
+    }
+
+    var checkFlag=false;
+	if(checkOption!="") {
+        checkOption = JSON.parse(checkOption);
+        // if(parent.data.block=="uncorrect") {
+            checkFlag = true;
+
+        // }
+    }
+
+
 	console.log(jsonObj);
+    console.log(result);
+    console.log(needChecked);
+    console.log(checkOption);
+    console.log(isChecked);
 
       _BASE_PATH=$("#basepath").val();
 	
 	for(var i=0;i<jsonObj.length;i++)
 	{
+        var nodeText="";
 		if(jsonObj[i]["type"]=="t1")
 		{
-			var nodeText="<li data-type='"+jsonObj[i]["type"]+"'  class='op'>";
+			    nodeText="<li data-type='"+jsonObj[i]["type"]+"'  class='op'>";
                 nodeText+="<div class=\"item-content\">";
                 nodeText+="<div class=\"item-inner\">";
                 nodeText+="<div class=\"item-title label\">"+jsonObj[i]["data"]["label"]+"</div>";
           		nodeText+="<div class=\"item-input\">";
-                nodeText+="<input type=\"text\"  placeholder=\""+jsonObj[i]["data"]["placeholder"]+"\"  maxlength=\""+jsonObj[i]["data"]["maxlength"]+"\"   value=\""+jsonObj[i]["data"]["value"]+"\" >";
+                nodeText+="<input type=\"text\"  placeholder=\""+jsonObj[i]["data"]["placeholder"]+"\"  maxlength=\""+jsonObj[i]["data"]["maxlength"]+"\"   value=\""+(resFlag?result[i]["data"]:jsonObj[i]["data"]["value"])+"\" >";
                 nodeText+="</div></div></div></li>";
                 
-            $(".list-block >ul").append(nodeText);
+            // $(".list-block >ul").append(nodeText);
 			
 		}
 		else if(jsonObj[i]["type"]=="t2")
 		{
-			var nodeText="<li data-type=\""+jsonObj[i]["type"]+"\"  class='op'>";
+			    nodeText="<li data-type=\""+jsonObj[i]["type"]+"\"  class='op'>";
                 nodeText+="<div class=\"item-content\">";
                 nodeText+="<div class=\"item-inner\">";
                 nodeText+="<div class=\"item-title label\">"+jsonObj[i]["data"]["label"]+"</div>";
           		nodeText+="<div class=\"item-input\">";
-                nodeText+="<textarea   placeholder=\""+jsonObj[i]["data"]["placeholder"]+"\"  maxlength=\""+jsonObj[i]["data"]["maxlength"]+"\" >"+jsonObj[i]["data"]["value"]+"</textarea>";
+                nodeText+="<textarea   placeholder=\""+jsonObj[i]["data"]["placeholder"]+"\"  maxlength=\""+jsonObj[i]["data"]["maxlength"]+"\" >"+(resFlag?result[i]["data"]:jsonObj[i]["data"]["value"])+"</textarea>";
                 nodeText+="</div></div></div></li>";
                 
-            $(".list-block >ul").append(nodeText);
+            // $(".list-block >ul").append(nodeText);
 		}
 		else if(jsonObj[i]["type"]=="t3")
 		{
-			var nodeText="<div data-type=\""+jsonObj[i]["type"]+"\" class=\"item-content op\">";
+			    nodeText="<div data-type=\""+jsonObj[i]["type"]+"\" class=\"item-content op\">";
         		nodeText+="<div class=\"checkboxR item-inner\">";
     			nodeText+="<div class=\"item-title label\">"+jsonObj[i]["data"][0]+"</div>";
     			nodeText+="<ul>";
-  			
+
+            var t3Flag=0;
   			for (var cuKey in jsonObj[i]["data"][1])
   			{
   				var check="";
-  				if(jsonObj[i]["data"][1][cuKey]==1||jsonObj[i]["data"][1][cuKey]=="1")
+  				if(resFlag)
+				{
+					var options=result[i].data.index;
+					var optionsRes=options.split("|");
+					console.log(optionsRes);
+					for(var cuIndex in optionsRes)
+					{
+						if(parseInt(optionsRes[cuIndex])===t3Flag)
+						{
+                            check="checked=\"checked\"";
+							break;
+						}
+					}
+				}
+  				else if((jsonObj[i]["data"][1][cuKey]==1||jsonObj[i]["data"][1][cuKey]=="1"))
 					 check="checked=\"checked\"";
   				nodeText+="<li>";
       			nodeText+="<label class=\"label-checkbox item-content\">";
@@ -150,22 +195,32 @@ $(document).ready(function(){
         		nodeText+="<div class=\"item-inner\">";
           		nodeText+="<div class=\"item-title\">"+cuKey+"</div>";
 				nodeText+="</div></label></li>"
+
+				t3Flag++;
   			}
   				nodeText+="</ul></div></div>";
-  				$(".list-block >ul").append(nodeText);
+  				// $(".list-block >ul").append(nodeText);
 		}
 		else if(jsonObj[i]["type"]=="t4")
 		{
-			var nodeText="<div data-type=\""+jsonObj[i]["type"]+"\" class=\"item-content op\">";
+			    nodeText="<div data-type=\""+jsonObj[i]["type"]+"\" class=\"item-content op\">";
    				nodeText+="<div class=\"radioR item-inner\">";
     			nodeText+="<div class=\"item-title label\">"+jsonObj[i]["data"][0]+"</div>";
     			nodeText+="<ul>";
   
-  
+
   			for (var cuKey in jsonObj[i]["data"][1])
   			{
   				var check="";
-  				if(jsonObj[i]["data"][2]==cuKey)
+                if(resFlag)
+                {
+                    var option=result[i].data.index;
+                    console.log(option);
+					if(option===cuKey) {
+                            check = "checked=\"checked\"";
+                        }
+                }
+  				else if(jsonObj[i]["data"][2]==cuKey)
 					 check="checked=\"checked\"";
   				nodeText+="<li>";
 	      		nodeText+="<label class=\"label-radio item-content\">";
@@ -178,8 +233,17 @@ $(document).ready(function(){
 	        	nodeText+="</div></label></li>";
   			}
  				nodeText+="</ul></div></div>";
- 				$(".list-block >ul").append(nodeText);
+
 		}
+
+
+        $(".list-block >ul").append(nodeText);
+        if(checkFlag)
+        {
+            if(!checkOption[i])
+                $($(".list-block >ul .op")[$(".list-block >ul .op").length-1]).attr("style","display:none");
+        }
+
 	}
 	
 	var nodeText="<li>";

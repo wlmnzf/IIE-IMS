@@ -30,13 +30,25 @@ var input=function(o)
 {
     var formToken=$(o).attr("data-formtoken");
     var title=$(o).find("span").html();
+    var block=$(o).parents(".active").attr("id");
     data = {
         "formToken":formToken,
-        "flag":"c"
+        "flag":"c",
+        "block":block,
     };
-    if(localStorage["preview_"+formToken])
+    if(block=="uncorrect")
+    {
+        localStorage.checkOption=localStorage["checkOption_"+formToken]=""
+    }
+
+    if(localStorage["preview_"+formToken]&&localStorage["result_"+formToken]&&localStorage["result_"+formToken]!=""&&localStorage["checkOption_"+formToken]!="")
     {
         localStorage.formJson=localStorage["preview_"+formToken];
+        // localStorage.formJson=localStorage["preview_"+formToken]=data["json"];
+        localStorage.result=localStorage["result_"+formToken];
+        localStorage.needCheck=localStorage["needCheck_"+formToken];
+        localStorage.checkOption=localStorage["checkOption_"+formToken];
+        localStorage.isChecked=localStorage["isChecked_"+formToken];
         layer.closeAll('loading');
         layer.open({
             type: 2,
@@ -61,6 +73,11 @@ var input=function(o)
                 if(data["res"]=="OK")
                 {
                     localStorage.formJson=localStorage["preview_"+formToken]=data["json"];
+                    localStorage.result=localStorage["result_"+formToken]=data["result"];
+                    localStorage.needCheck=localStorage["needCheck_"+formToken]=data["needCheck"];
+                    localStorage.checkOption=localStorage["checkOption_"+formToken]=data["checkOption"];
+                    localStorage.isChecked=localStorage["isChecked_"+formToken]=data["isChecked"];
+                    // localStorage.formJson=localStorage["preview_"+formToken]=data["json"];
                     layer.open({
                         type: 2,
                         title: title,

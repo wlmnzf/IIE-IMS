@@ -1,8 +1,10 @@
 package cn.iie.icm.action;
 
 import cn.iie.icm.action.api.comm;
+import cn.iie.icm.dao.ClientFormDao;
 import cn.iie.icm.dao.formDao;
 import cn.iie.icm.dao.typeDao;
+import cn.iie.icm.pojo.ClientFormPojo;
 import cn.iie.icm.pojo.FormPojo;
 import cn.iie.icm.pojo.TypePojo;
 import org.json.JSONObject;
@@ -21,8 +23,6 @@ public class InManageController {
     {
         map.put("curPage",1);
 
-        int res= comm.Login.validCheck(request,1,map);
-        if(res==0) {
             typeDao td=new typeDao();
             List<TypePojo> types=td.getAllType();
 
@@ -30,11 +30,7 @@ public class InManageController {
 
 
             return "inManage";
-        }
-        else
-        {
-            return comm.Login.errRedirect(attr,res);
-        }
+
     }
 
 }

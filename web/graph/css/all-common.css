@@ -158,7 +158,7 @@ header .user-collapse div.options{
     {
         padding-top:0 !important;
     }
-    .nav-tabs.cate-tabs
+    .panel-content .nav-tabs.cate-tabs
     {
         top:13px !important;
     }

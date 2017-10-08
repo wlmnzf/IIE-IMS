@@ -96,15 +96,8 @@ public class FormRESTController {
         String deadline=request.getParameter("deadline");
         JSONObject  jsonObj = new JSONObject();
 
-        Cookie login= comm.getCookieByName(request,"login");
-        String jsonText = login.getValue();
-        try {
-            jsonText = java.net.URLDecoder.decode(jsonText, "utf-8");
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        JSONObject loginObj = new JSONObject(jsonText);
+
+        JSONObject loginObj =comm.Login.getLoginInfo(request);
         String userName = (String) loginObj.get("account");
         String userToken = (String) loginObj.get("token");
 
@@ -138,13 +131,22 @@ public class FormRESTController {
     public String getJson(Map<String, Object> map, HttpServletRequest request)
     {
         String formToken=request.getParameter("formToken");
+        String userId=comm.Login.getLoginInfo(request).get("account").toString();
         FormPojo fp=new FormPojo();
+        ClientFormPojo cfp=new ClientFormPojo();
         formDao fd=new formDao();
+        ClientFormDao cfd=new ClientFormDao();
+
         JSONObject  jsonObj = new JSONObject();
 
         try {
+            cfp=cfd.getFormResById(formToken,userId);
             fp = fd.getFormById(formToken);
-            jsonObj.put("json",fp.getJson());
+            jsonObj.put("needCheck",(fp==null)?"":fp.getNeedCheck());
+            jsonObj.put("checkOption",(fp==null||fp.getCheckOption()==null)?"":fp.getCheckOption());
+            jsonObj.put("result",cfp==null?"":cfp.getJson());
+            jsonObj.put("json",fp==null?"":fp.getJson());
+            jsonObj.put("isChecked",cfp==null?"":cfp.getIsChecked());
             jsonObj.put("res","OK");
         }
         catch(Exception e)

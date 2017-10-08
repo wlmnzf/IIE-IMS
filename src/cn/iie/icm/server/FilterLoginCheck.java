@@ -43,7 +43,7 @@ public class FilterLoginCheck implements Filter{
 		HttpSession session = req.getSession();
 //		String password = (String) session.getAttribute("password");
 
-		if(path.indexOf("/index") > -1||path.indexOf(".js") > -1||path.indexOf(".css") > -1||path.indexOf(".png") > -1||path.indexOf("/jpg") > -1||path.indexOf("/Login") > -1) {
+		if(path.indexOf("/index") > -1||path.indexOf(".woff2") > -1||path.indexOf(".off") > -1||path.indexOf(".ttf") > -1||path.indexOf(".js") > -1||path.indexOf(".css") > -1||path.indexOf(".png") > -1||path.indexOf("/jpg") > -1||path.indexOf("/Login") > -1) {
 			chain.doFilter(req, res);
 			return;
 		}
