@@ -116,33 +116,36 @@
                     <div class="login-info">
                         <div class="media-left media-top">
                             <a href="#">
-                                <img class="media-object" src="img/head.jpg" alt="...">
+                                <img class="media-object" src="${_HEAD_URL}" alt="...">
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading"><span class="label label-primary">管理员</span></h4>
-                            <p class="login-name">会码代码的扫地王大爷</p>
+                            <h4 class="media-heading" data-type="${_TYPE}"><span class="label label-primary">${_TYPE_TEXT}</span></h4>
+                            <p class="login-name" data-token="${_TOKEN}" data-username="${_USER_NAME}">${_NAME}</p>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="options">
-                        <a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>
-                        <a class="option" href="#">退出</a>
+                        <%--<a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>--%>
+                        <a class="option" id="exit" href="<%=path%>/exit">退出</a>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
+
+
+
     <div class="user-collapse">
         <div class="container-fluid">
             <div class="inform">
                 <div class="user-welcome">
-                    <strong>welcome,</strong><span>会码代码的扫地王大爷</span>
+                    <strong>welcome,</strong><span   data-token="${_TOKEN}" data-username="${_USER_NAME}">${_NAME}</span>
                 </div>
                 <div class="options">
                     <a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>
-                    <a class="option" href="#">退出</a>
+                    <a class="option" href="<%=path%>/exit">退出</a>
                 </div>
             </div>
         </div>
@@ -160,7 +163,7 @@
                 <li>
                     <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
                     <ul class="menu-ul">
-                        <li><a href="">公告</a></li>
+                        <li><a href="<%=path%>/announceShow"  class="active">公告</a></li>
                     </ul>
                 </li>
                 <li>

@@ -21,8 +21,12 @@ public class PersonalController {
 
     @RequestMapping("/list")
     @ResponseBody
-    private Map<String, Object> list(@RequestParam(value="pageSize" ,required=false) Integer pageSize, @RequestParam(value="pageNumber" ,required=false) Integer pageNumber) {
+    private Map<String, Object> list(@RequestParam(value="pageSize" ,required=false) Integer pageSize, @RequestParam(value="pageNumber" ,required=false) Integer pageNumber, String roomId) {
 
+        String selectSql="";
+        if(!roomId.equals("")){
+            selectSql="where troom.id = "+roomId;
+        }
         Map<String, Object> result=new HashMap<String, Object>();
         List<Map<String, Object>> persons=new ArrayList<Map<String,Object>>();
         Map<String, Object> person;
@@ -31,9 +35,9 @@ public class PersonalController {
             DbDao dd = new DbDao();
             ResultSet rs;
             if(pageSize!=null)
-                rs = dd.query("select tperson.id, num, tperson.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id order by id limit ?, ?", (pageNumber - 1) * pageSize, pageSize);
+                rs = dd.query("select tperson.id, num, tperson.name, troom.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id inner join troom on troom_id=troom.id "+selectSql+" order by id limit ?, ?", (pageNumber - 1) * pageSize, pageSize);
             else
-                rs = dd.query("select tperson.id, num, tperson.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id order by id");
+                rs = dd.query("select tperson.id, num, tperson.name, troom.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id inner join troom on troom_id=troom.id "+selectSql+"order by id");
             while (rs.next()) {
                 person=new HashMap<String, Object>();
                 if(pageSize!=null)
@@ -43,10 +47,11 @@ public class PersonalController {
                 person.put("id", rs.getString("tperson.id"));
                 person.put("num", rs.getString("num"));
                 person.put("name", rs.getString("tperson.name"));
+                person.put("room", rs.getString("troom.name"));
                 person.put("group", rs.getString("tgroup.name"));
                 persons.add(person);
             }
-            rs = dd.query("select count(*) from tperson ");
+            rs = dd.query("select count(*) from tperson inner join tgroup on tgroup_id=tgroup.id inner join troom on troom_id=troom.id "+selectSql);
             if(rs.next())
                 total = rs.getInt(1);
         }catch (Exception e)
@@ -60,7 +65,7 @@ public class PersonalController {
 
     @RequestMapping("/getGroup")
     @ResponseBody
-    private List<Map<String, String>> getGroup(@RequestParam(value="roomId") String roomId)  {
+    private List<Map<String, String>> getGroup( String roomId)  {
         List<Map<String, String>> groups=new ArrayList<Map<String,String >>();
         Map<String, String> group;
         DbDao dd=new DbDao();
@@ -103,7 +108,7 @@ public class PersonalController {
 
     @RequestMapping("/getPerson")
     @ResponseBody
-    private Map<String, Object> getPerson( @RequestParam(value="id") String id)  {
+    private Map<String, Object> getPerson( String id)  {
         Map<String, Object> result=new HashMap<String, Object>();
         DbDao dd=new DbDao();
         ResultSet rs;
@@ -125,8 +130,7 @@ public class PersonalController {
 
     @RequestMapping("/editPerson")
     @ResponseBody
-    private void editPerson(@RequestParam(value="id", required = false) String id, @RequestParam(value="num") String num, @RequestParam(value="name") String name,
-                              @RequestParam(value="groupId") String groupId){
+    private void editPerson(@RequestParam(value="id", required = false) String id, String num, String name, String groupId){
         DbDao dd = new DbDao();
         try {
             if(id!=null)
@@ -140,7 +144,7 @@ public class PersonalController {
 
     @RequestMapping("/delPerson")
     @ResponseBody
-    private void delPerson(@RequestParam(value="id") String id){
+    private void delPerson( String id){
         DbDao dd = new DbDao();
         try {
             dd.modify("delete from tperson where id=? ", id);
@@ -151,7 +155,7 @@ public class PersonalController {
 
     @RequestMapping("/batchDelPerson")
     @ResponseBody
-    private Map<String, String> batchDelPerson(@RequestParam(value="ids") String ids){
+    private Map<String, String> batchDelPerson( String ids){
         DbDao dd = new DbDao();
         String status="success";
         Map<String, String> result=new HashMap<String, String>();

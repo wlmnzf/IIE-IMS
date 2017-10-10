@@ -1,4 +1,10 @@
 /*globals jQuery, define, module, exports, require, window, document, postMessage */
+
+var localObj = window.location;
+var basePath = localObj.protocol+"//"+localObj.host+"/";
+
+
+
 (function (factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
@@ -623,10 +629,17 @@
 						this.toggle_node(e.target);
 					}, this))
 				.on("dblclick.jstree", ".jstree-anchor", $.proxy(function (e) {
-						if(e.target.tagName && e.target.tagName.toLowerCase() === "input") { return true; }
-						if(this.settings.core.dblclick_toggle) {
-							this.toggle_node(e.target);
-						}
+						// if(e.target.tagName && e.target.tagName.toLowerCase() === "input") { return true; }
+						// if(this.settings.core.dblclick_toggle) {
+						// 	this.toggle_node(e.target);
+						// }
+                    // this.activate_node(e.currentTarget, e);
+
+                    e.preventDefault();
+                    if(e.currentTarget !== document.activeElement) { $(e.currentTarget).focus(); }
+                    var temp=this.get_node(e.currentTarget);
+                    this.edit(temp);
+
 					}, this))
 				.on("click.jstree", ".jstree-anchor", $.proxy(function (e) {
 						e.preventDefault();
@@ -3727,13 +3740,13 @@
 			if(!pos.toString().match(/^(before|after)$/) && !is_loaded && !this.is_loaded(par)) {
 				return this.load_node(par, function () { this.create_node(par, node, pos, callback, true); });
 			}
-			if(!node) { node = { "text" : this.get_string('New node') }; }
+			if(!node) { node = { "text" : this.get_string('新节点') }; }
 			if(typeof node === "string") {
 				node = { "text" : node };
 			} else {
 				node = $.extend(true, {}, node);
 			}
-			if(node.text === undefined) { node.text = this.get_string('New node'); }
+			if(node.text === undefined) { node.text = this.get_string('新节点'); }
 			var tmp, dpc, i, j;
 
 			if(par.id === $.jstree.root) {
@@ -3800,7 +3813,27 @@
 			 */
 			this.trigger('create_node', { "node" : this.get_node(node), "parent" : par.id, "position" : pos });
 			if(callback) { callback.call(this, this.get_node(node)); }
-			return node.id;
+
+
+            var parentId = par.id.split("_")[1];
+            var parentTable=par.id.split("_")[0];
+            if(parentTable=="2")
+                node.icon="jstree-file";
+            var name = node.text;
+            var params = {"parentId":parentId,"name":name,"parentTable":parentTable};
+            $.ajax({
+                url:basePath+"/group/addGroup",
+                type:"get",
+                dataType:'json',
+                data:params,
+                // async: true,
+                success : function(result) {
+                    node.id=result.id
+                }
+            });
+
+
+            return node.id;
 		},
 		/**
 		 * set the text value of a node
@@ -3836,6 +3869,17 @@
 			 * @param {String} old the old value
 			 */
 			this.trigger('rename_node', { "node" : obj, "text" : val, "old" : old });
+
+            var id = obj.id.split("_")[1];
+            var table=obj.id.split("_")[0];
+            var params = {"id":id,"name":val, "table":table};
+            $.ajax({
+                'url':basePath+'/group/editGroup',
+                'type':'get',
+                'dataType':'json',
+                'data':params
+            });
+			this.refresh(true);
 			return true;
 		},
 		/**
@@ -3855,6 +3899,10 @@
 				return true;
 			}
 			obj = this.get_node(obj);
+			if(obj.children.length!=0) {
+                alert("不能删除");
+                return false;
+            }
 			if(!obj || obj.id === $.jstree.root) { return false; }
 			par = this.get_node(obj.parent);
 			pos = $.inArray(obj.id, par.children);
@@ -3891,6 +3939,18 @@
 			 * @param {Object} node
 			 * @param {String} parent the parent's ID
 			 */
+
+            var tempId = obj.id;
+            var id = tempId.split("_")[1];
+            var table=tempId.split("_")[0];
+            var params = {"id":id, "table":table};
+            $.ajax({
+                'url':basePath+"/group/delGroup",
+                'dataType':"json",
+                'data':params,
+                'timeout':1000*10
+            });
+
 			this.trigger('delete_node', { "node" : obj, "parent" : par.id });
 			if(c) {
 				this.trigger('changed', { 'action' : 'delete_node', 'node' : obj, 'selected' : this._data.core.selected, 'parent' : par.id });
@@ -3914,6 +3974,9 @@
 				this.element[0].scrollLeft = lft;
 			}
 			this.redraw_node(par, true);
+
+
+
 			return true;
 		},
 		/**

@@ -31,12 +31,12 @@
                     <div class="login-info">
                         <div class="media-left media-top">
                             <a href="#">
-                            <img class="media-object" src="${_HEAD_URL}" alt="...">
+                                <img class="media-object" src="${_HEAD_URL}" alt="...">
                             </a>
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading" data-type="${_TYPE}"><span class="label label-primary">${_TYPE_TEXT}</span></h4>
-                            <p class="login-name" data-token="${_TOKEN}">${_USER_NAME}</p>
+                            <p class="login-name" data-token="${_TOKEN}" data-username="${_USER_NAME}">${_NAME}</p>
                         </div>
                     </div>
                 </li>
@@ -50,13 +50,16 @@
         </div>
     </div>
 </header>
+
+
+
 <div class="admin-content clearfix">
     <div class="admin-op-list">
         <ul class="menu">
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
                 <ul class="menu-ul">
-                    <li><a href="<%=path%>/announceMagement">公告管理</a></li>
+                    <li><a href="<%=path%>/announceManagement">公告管理</a></li>
                     <li><a href="<%=path%>/announceEditor">公告编辑</a></li>
                 </ul>
             </li>
@@ -64,7 +67,7 @@
                 <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
                 <ul class="menu-ul">
                     <li class="current"><a href="<%=path%>/formManage">页面定制</a></li>
-                    <li><a href="<%=path%>/formResult">结果管理</a></li>
+                    <%--<li><a href="<%=path%>/formResult">结果管理</a></li>--%>
                 </ul>
             </li>
             <li>
@@ -81,6 +84,8 @@
             </li>
         </ul>
     </div>
+
+
     <div class="admin-op-panel">
         <div class="panel-content">
             <div class="op-buttons">

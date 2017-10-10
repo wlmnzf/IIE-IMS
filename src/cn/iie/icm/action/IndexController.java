@@ -30,24 +30,24 @@ public class IndexController {
 	@RequestMapping("/index")
 		private ModelAndView index(Map<String, Object> map,HttpServletRequest request, HttpServletResponse response,
 									   String targetUrl,Model model) throws IOException {
-		String info = (String) model.asMap().get("info");
+		String info = (String)request.getAttribute("info");
 		if(info==null||info.isEmpty())
 		      map.put("info"," 学生端： stu    123456      管理员端：  admin   123456");
 
 		return new ModelAndView("index");
 		}
 
-	@RequestMapping("/exit")
-	private String exit(Map<String, Object> map,HttpServletRequest request,RedirectAttributes attr, HttpServletResponse response) throws IOException {
-
-		Cookie exit= new Cookie("login",null);
-		exit.setMaxAge(0);
-		exit.setHttpOnly(true);
-		exit.setPath("/");
-		response.addCookie(exit);
-
-		return comm.Login.errRedirect(attr,3);
-	}
+//	@RequestMapping("/exit")
+//	private String exit(Map<String, Object> map,HttpServletRequest request,RedirectAttributes attr, HttpServletResponse response) throws IOException {
+//
+//		Cookie exit= new Cookie("login",null);
+//		exit.setMaxAge(0);
+//		exit.setHttpOnly(true);
+//		exit.setPath("/");
+//		response.addCookie(exit);
+//
+//		return comm.Login.errRedirect(attr,3);
+//	}
 
 
 	@RequestMapping("/transfer")

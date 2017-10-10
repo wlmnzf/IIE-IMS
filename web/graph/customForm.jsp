@@ -46,7 +46,7 @@
 <header>
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="brand" src="<%=path%>/graph/img/logo.png" alt="">
+            <img class="brand" src="<%=path%>/img/logo.png" alt="">
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right login-ul">
@@ -54,32 +54,34 @@
                     <div class="login-info">
                         <div class="media-left media-top">
                             <a href="#">
-                            <img class="media-object" src="<%=path%>/graph/img/head.jpg" alt="...">
+                                <img class="media-object" src="${_HEAD_URL}" alt="...">
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading"><span class="label label-primary">管理员</span></h4>
-                            <p class="login-name">会码代码的扫地王大爷</p>
+                            <h4 class="media-heading" data-type="${_TYPE}"><span class="label label-primary">${_TYPE_TEXT}</span></h4>
+                            <p class="login-name" data-token="${_TOKEN}" data-username="${_USER_NAME}">${_NAME}</p>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="options">
-                        <a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>
-                        <a class="option" href="#">退出</a>
+                        <%--<a class="option" href="#"><span class="glyphicon glyphicon-envelope"></span></a>--%>
+                        <a class="option" id="exit" href="<%=path%>/exit">退出</a>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
 </header>
+
+
 <div class="admin-content clearfix">
     <div class="admin-op-list">
         <ul class="menu">
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
                 <ul class="menu-ul">
-                    <li><a href="<%=path%>/announceMagement">公告管理</a></li>
+                    <li><a href="<%=path%>/announceManagement">公告管理</a></li>
                     <li><a href="<%=path%>/announceEditor">公告编辑</a></li>
                 </ul>
             </li>
@@ -87,7 +89,7 @@
                 <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
                 <ul class="menu-ul">
                     <li class="current"><a href="<%=path%>/formManage">页面定制</a></li>
-                    <li><a href="<%=path%>/formResult">结果管理</a></li>
+                    <%--<li><a href="<%=path%>/formResult">结果管理</a></li>--%>
                 </ul>
             </li>
             <li>
@@ -99,12 +101,11 @@
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-align-left"></em>分组</h4>
                 <ul class="menu-ul">
-                    <li><a href="graph/groupManage.jsp">分组管理</a></li>
+                    <li><a href="<%=path%>/graph/groupManage.jsp">分组管理</a></li>
                 </ul>
             </li>
         </ul>
     </div>
-    
     
     
     <div class="admin-op-panel">

@@ -41,6 +41,7 @@ public class LoginRESTController {
                 jsonObj.put("res", "OK");
                 jsonObj.put("type", pp.getAuth());
                 jsonObj.put("token", token);
+                jsonObj.put("name",pp.getName());
 
 
 
@@ -70,7 +71,7 @@ public class LoginRESTController {
         }
         else if(pp.getAuth()==2)
         {
-            return "redirect:/announceMagement";
+            return "redirect:/announceManagement";
         }
         return "api";
     }

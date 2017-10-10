@@ -19,7 +19,7 @@
     <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css">
     <link href="<%=path%>/graph/css/bootstrap/bootstrap-table.min.css" rel="stylesheet" type="text/css">
     <script src="<%=path%>/resources/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="<%=path%>/graph/js/bootstrap/bootstrap-table.min.js"></script>
+    <script src="<%=path%>/graph/js/bootstrap/bootstrap-table.js"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap-table-export.js"></script>
     <script src="<%=path%>/graph/js/bootstrap/tableExport.js"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap-table-zh-CN.js"></script>
@@ -39,9 +39,10 @@
                 pageSize: 10,  //每页显示的记录数
                 pageNumber:1, //当前第几页
 //                pageList: [10, 15, 20, 25],  //记录数可选列表
-                search: false,  //是否启用查询
-                showColumns: true,  //自定义列显示
-                showRefresh: true,  //显示刷新按钮
+//                search: true,  //是否启用查询
+                showColumns: false,  //自定义列显示
+                showRefresh: false,  //显示刷新按钮
+                showToggle:false,
                 sidePagination: "server", //表示服务端请求
                 showExport: true,                     //是否显示导出
                 exportDataType: "all",
@@ -54,7 +55,8 @@
                 queryParams: function queryParams(params) {   //设置查询参数
                     var param = {
                         pageNumber: params.pageNumber,
-                        pageSize: params.pageSize
+                        pageSize: params.pageSize,
+                        roomId:$("#select_room").val()==null?"":$("#select_room").val()
                     };
                     return param;
                 },
@@ -80,6 +82,11 @@
                         align: 'center',
                         valign: 'middle'
                     },{
+                        title: '室',
+                        field: 'room',
+                        align: 'center',
+                        valign: 'middle'
+                    },{
                         title: '组别',
                         field: 'group',
                         align: 'center',
@@ -102,6 +109,7 @@
                 }
             });
             $('#personTable').bootstrapTable('hideColumn', "id");
+            getRoom(select_room);
         }
 
 
@@ -148,8 +156,8 @@
             });
         }
 
-        function getRoom() {
-            room.options.length=1;
+        function getRoom(itemName) {
+            itemName.options.length=1;
             var xmlHttp;
             if(window.XMLHttpRequest){
                 xmlHttp=new XMLHttpRequest();
@@ -161,7 +169,7 @@
                     var rooms=eval("("+xmlHttp.responseText+")");
                     for(var i=0;i<rooms.length;i++){
                         var o=rooms[i];
-                        room.options.add(new Option(o.name,o.id));
+                        itemName.options.add(new Option(o.name,o.id));
                     }
                 }
             };
@@ -200,17 +208,27 @@
             xmlHttp.onreadystatechange=function(){
                 if(xmlHttp.readyState==4 && xmlHttp.status==200){
                     var dataObj=eval("("+xmlHttp.responseText+")");
-                    getRoom();
-                    getGroup(dataObj.roomId);
+                    var groupId="";
+                    var roomId="";
+                    if(id!=null) {
+                        groupId = dataObj.groupId;
+                        roomId = dataObj.roomId;
+                    }
+                    getRoom(room);
+                    if(groupId==""){
+                        groupId = localStorage.groupId;
+                        roomId = localStorage.roomId;
+                    }
+                    getGroup(roomId);
                     var ops = group.options;
                     for(var i=0;i<ops.length; i++){
-                        if(ops[i].value == dataObj.groupId){
+                        if(ops[i].value == groupId){
                             ops[i].selected = true;
                         }
                     }
                     ops = room.options;
                     for(var i=0;i<ops.length; i++){
-                        if(ops[i].value == dataObj.roomId){
+                        if(ops[i].value == roomId){
                             ops[i].selected = true;
                         }
                     }
@@ -233,6 +251,9 @@
             var url="<%=path%>/personal/editPerson.do?num="+num+"&name="+name+"&groupId="+groupId;
             if($("#id").val()){
                 url=url+"&id="+id;
+            }else{
+                localStorage.groupId=groupId;
+                localStorage.roomId=roomId;
             }
             if(window.XMLHttpRequest){
                 xmlHttp=new XMLHttpRequest();
@@ -367,6 +388,11 @@
                         <button class="btn btn-default" onclick="delSelected()">
                             <i class="glyphicon glyphicon-trash"></i>
                         </button>
+                    </div>
+                    <div class="dropdown">
+                        室过滤：<select id="select_room" name="select_room" onchange="$('#personTable').bootstrapTable('refresh', {url: '<%=path%>/personal/list.do'});  "></select>
+                        <ul class="dropdown-menu" role="menu">
+                        </ul>
                     </div>
                 </div>
             </div>

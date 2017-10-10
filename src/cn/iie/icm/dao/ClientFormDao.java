@@ -94,14 +94,16 @@ public class ClientFormDao implements ClientFormDaoInterface {
 
     @Override
     public void updateFormRes(ClientFormPojo form) {
-        String sql="update tformsRes set time=?,json=? where formtoken=? and userid=?";
+        String sql="update tformsRes set time=?,json=?,isChecked=? where formtoken=? and userid=?";
         try {
             conn=mysql.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1, form.getTime());
             pstmt.setString(2, form.getJson());
-            pstmt.setString(3,form.getFormtoken());
-            pstmt.setString(4,form.getUserid());
+            pstmt.setInt(3,form.getIsChecked());
+            pstmt.setString(4,form.getFormtoken());
+            pstmt.setString(5,form.getUserid());
+
             pstmt.executeUpdate();
             System.out.println("修改成功！");
         } catch (SQLException e) {
@@ -139,6 +141,7 @@ public class ClientFormDao implements ClientFormDaoInterface {
             conn=mysql.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1, formToken);
+            pstmt.setString(2, userid);
             rs=pstmt.executeQuery();
             if(rs.next()){
                 form=getClientFormPojo();

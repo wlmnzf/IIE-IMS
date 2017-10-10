@@ -102,18 +102,13 @@ public class GroupController {
 
     @RequestMapping("/delGroup")
     @ResponseBody
-    private Map<String, String> delGroup(String id, int table) {
-        Map<String, String> result=new HashMap<String, String>();
-        String status="true";
+    private void delGroup(String id, int table) {
         DbDao dd = new DbDao();
         try {
             dd.modify("delete from "+tables[table]+" where id=? ", id);
         } catch (Exception e) {
-
-            status="false";
+            e.printStackTrace();
         }
-        result.put("isok", status);
-        return result;
     }
 
     @RequestMapping("/moveGroup")

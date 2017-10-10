@@ -19,7 +19,7 @@
     <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
     <script src="<%=path%>/resources/jquery-1.9.1.min.js"></script>
-    <script src="<%=path%>/graph/js/jstree.js"></script>
+    <script src="<%=path%>/graph/js/jstreee.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $(document).ready(
@@ -61,18 +61,10 @@
                         "state" : { "key" : "demo3" },
                         "plugins" : [ "contextmenu", "state", "types", "dnd"]
                     })
-                    .bind("create_node.jstree",function(event,data){
-                    addNode(data);
-                }).bind("rename_node.jstree",function(event,data){
-                    renameNode(data);
-                }).bind("delete_node.jstree",function(event,data){
-                    removeNode(data);
-                }).bind('dblclick.jstree',function(event){
-                    alert("this is dbclick");
-                })
                 .on('move_node.jstree', function(e,data){
                     moveNode(data);
-                }).on("load_node.jstree",function(e,d){
+                })
+                    .on("load_node.jstree",function(e,d){
                     var nodes=d.node.children_d;
                     for(var i in nodes){
                         var node=d.instance.get_node(nodes[i]);
@@ -103,56 +95,6 @@
                     $(data.node).attr("id",result.id);
                     $("#jstree_div").jstree().refresh(true);
                 }
-            })
-        }
-
-
-        function addNode(data){
-            var parentId = data.parent.split("_")[1];
-            var parentTable=data.parent.split("_")[0];
-            var name = data.node.text;
-            var params = {"parentId":parentId,"name":name,"parentTable":parentTable};
-            $.ajax({
-                url:"<%=path%>/group/addGroup",
-                type:"get",
-                dataType:'json',
-                data:params,
-                success : function(result) {
-                    $(data.node).attr("id",result.id);
-                    $("#jstree_div").jstree().refresh(true);
-                }
-            })
-        }
-
-        function renameNode(data) {
-            var tempId = data.node.id;
-            var id = tempId.split("_")[1];
-            var table=tempId.split("_")[0];
-            var name = data.text;
-            var params = {"id":id,"name":name, "table":table};
-            $.ajax({
-                'url':'<%=path%>/group/editGroup',
-                'type':'get',
-                'dataType':'json',
-                'data':params,
-            })
-        }
-
-        function removeNode(data) {
-            var tempId = data.node.id;
-            var id = tempId.split("_")[1];
-            var table=tempId.split("_")[0];
-            var params = {"id":id, "table":table};
-            $.ajax({
-                'url':"<%=path%>/group/delGroup",
-                'dataType':"json",
-                'data':params,
-                'timeout':1000*10
-            }).done(function(result){
-                 if(result.isok=="false") {
-                     alert("不能删除");
-                     $("#jstree_div").jstree().refresh(true);
-                 }
             })
         }
 
