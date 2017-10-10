@@ -135,7 +135,7 @@
                                     <span style="font-weight: normal;font-family: Arial;color: #00d449;font-size: small;" >${announceMent.level}</span>
                                 </th>
                                 <th><span style="font-weight: normal">${announceMent.author}</span></th>
-                                <th><span style="font-weight: normal">${announceMent.datestamp}</span></th>
+                                <th><span style="font-weight: normal">${announceMent.timeFormat()}</span></th>
                                 <th>
                                     <a class="op-choice" name="preview" href="showAnc?title=${announceMent.title}">预览</a>
                                     <a class="op-choice" name="preview" href="/deleteAnc?title=${announceMent.title}">删除</a>

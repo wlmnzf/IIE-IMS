@@ -19,6 +19,7 @@ public class AnnouncementMapper implements org.springframework.jdbc.core.RowMapp
         announceMent.setLevel(rs.getString("level"));
         announceMent.setDatestamp(rs.getTimestamp("datestamp"));
         announceMent.setAuthor(rs.getString("author"));
+        announceMent.setType(rs.getString("type"));
         return announceMent;
     }
 }

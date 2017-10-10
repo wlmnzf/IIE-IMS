@@ -154,19 +154,37 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div style="margin-left: 15px" >
                                             <div class="checkbox form-group" id="anc_level" name="level" aria-checked="true">
                                                 <label style="color: red">
-                                                    <input type="checkbox" name="checkbox" value="紧急">紧急
+                                                     <p style="color: #00bcd4">程度</p>
+                                                </label>
+                                                <label style="color: red">
+                                                    <input type="radio" name="checkbox" value="紧急"> 紧急
                                                 </label>
                                                 <label style="color: cornflowerblue">
-                                                    <input type="checkbox" name="checkbox" value="普通"> 普通
+                                                    <input type="radio" name="checkbox" value="普通" checked="true"> 普通
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" style="padding-top: 10px">
+                                    <div class="col-md-4">
+                                        <div style="margin-left: 15px" >
+                                            <div class="checkbox form-group" id="anc_type" name="type" aria-checked="true">
+                                                <label style="color: red">
+                                                    <p style="color: #00bcd4">类型</p>
+                                                </label>
+                                                <label style="color: red">
+                                                    <input type="radio" name="checkbox1" value="活动"> 活动
+                                                </label>
+                                                <label style="color: cornflowerblue">
+                                                    <input type="radio" name="checkbox1" value="通知" checked="true"> 通知
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="padding-top: 10px">
                                         <center>
                                         <select class="selectpicker form-control" id="anc_access" name="groupid">
                                             <option id="op1" value="0">公开</option>

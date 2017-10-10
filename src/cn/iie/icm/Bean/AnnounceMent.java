@@ -4,6 +4,8 @@ import oracle.sql.TIMESTAMP;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 //此类作为公告类
@@ -15,13 +17,13 @@ public class AnnounceMent implements Serializable{
     private Integer groupid;
     private String level;
     private Integer id;
+    private String type;
 
 
 
-    public AnnounceMent() {
-    }
+    public AnnounceMent() {}
 
-    public AnnounceMent(String title, String text, String author, Timestamp datestamp, Integer groupid, String level, Integer id) {
+    public AnnounceMent(String title, String text, String author, Timestamp datestamp, Integer groupid, String level, Integer id,String type) {
         this.title = title;
         this.text = text;
         this.author = author;
@@ -29,10 +31,9 @@ public class AnnounceMent implements Serializable{
         this.groupid = groupid;
         this.level = level;
         this.id = id;
+        this.type = type;
 
     }
-
-
 
     public Integer getId() {
         return id;
@@ -78,6 +79,7 @@ public class AnnounceMent implements Serializable{
     public String getAuthor() {
         return author;
     }
+
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -90,9 +92,26 @@ public class AnnounceMent implements Serializable{
         this.datestamp = datestamp;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
 
+    public String timeFormat(){
 
+        String timeString = "";
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            timeString = sdf.format(datestamp);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return timeString;
+    }
 
 
 }

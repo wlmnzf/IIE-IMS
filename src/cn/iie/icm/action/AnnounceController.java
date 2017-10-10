@@ -13,21 +13,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class AnnounceController {
 
     private List<AnnounceMent> datalist;
+    private List<AnnounceMent> datalist_client;
 
     //展示公告，管理公告
     @RequestMapping("/announceMagement")
@@ -44,8 +43,8 @@ public class AnnounceController {
         Pager pager = new Pager(announceMents,pageNum);
         model.addAttribute("announceMents",pager.getDatalist());
         model.addAttribute("page",pager);
-        Object text = request.getParameter("event");
-        System.out.println("****************" + text);
+       // Object text = request.getParameter("event");
+       // System.out.println("****************" + text);
 
 
         return "announceMagement";
@@ -67,14 +66,7 @@ public class AnnounceController {
         String title = request.getParameter("title");
         String text = request.getParameter("text");
         String level = request.getParameter("checkbox");
-       /* try{
-            text = new String(text.trim().getBytes("ISO-8859-1"),"UIF-8");
-            title = new String(title.trim().getBytes("ISO-8859-1"),"UIF-8");
-            level = new String(level.trim().getBytes("ISO-8859-1"),"UIF-8");
-        }catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-*/
+        String type = request.getParameter("checkbox1");
         String groupidString = request.getParameter("groupid");
         Date date = new Date();
         //获取公告发布者
@@ -82,25 +74,21 @@ public class AnnounceController {
         String announcer = null;
         for (int i = 0;i < cookies.length;i++){
             Cookie cookie = cookies[i];
-            //System.out.println("@@" + cookie.getName() + "  /  " + java.net.URLDecoder.decode(cookie.getValue()));
             if (cookie.getName().equals("login")){
-                //jsonObject = (JSONObject) com.alibaba.fastjson.JSON.parse(java.net.URLDecoder.decode(cookie.getValue()));
                 String jsonString = java.net.URLDecoder.decode(cookie.getValue());
                 JSONObject jsonObject = new JSONObject(jsonString);
                 announcer = jsonObject.getString("account");
                 break;
             }
         }
-
-        //String author = "admin";
-       // System.out.println("&&&&&&&" + announcer);
         //生成公告发布的时间
         Timestamp timestamp  = new Timestamp(date.getTime());
-        //int level = Integer.parseInt(levelString);
         int groupid = Integer.parseInt(groupidString);
-        ancJDBCTemplate.create(title,text,groupid,level,timestamp,announcer);
+        ancJDBCTemplate.create(title,text,groupid,level,timestamp,announcer,type);
         return "editSuccess";
     }
+
+
 
     //分页展示公告内容
     @RequestMapping("/pageManageMent")
@@ -188,4 +176,31 @@ public class AnnounceController {
         return "announceMagement";
 
     }
+
+
+
+    //客户端展示公告
+    @RequestMapping("/")
+    public String ancShowClient(HttpServletRequest request , ModelMap model){
+        ApplicationContext context = new ClassPathXmlApplicationContext("anc-beans.xml");
+        AncJDBCTemplate ancJDBCTemplate = (AncJDBCTemplate) context.getBean("ancJDBCTemplate");
+        List<AnnounceMent> announceMents = ancJDBCTemplate.listAnnouncements();
+        datalist_client = announceMents;
+        System.out.println("***********&&&&&&" + datalist_client.size());
+        /*int pageNum = 1;
+        String pagestr = (String)request.getParameter("currentPage_c_time");
+        if( pagestr!= null){
+            pageNum = Integer.parseInt(pagestr);
+        }
+        Pager pager = new Pager(datalist_c_time,pageNum);
+        model.addAttribute("announceMents_c_time",pager.getDatalist());
+        model.addAttribute("page_c_time",pager);*/
+        //Object text = request.getParameter("event");
+        model.addAttribute("datalist_client",datalist_client);
+        return "announceShow";
+
+    }
+
+
+
 }

@@ -36,10 +36,10 @@ public class AncJDBCTemplate implements AncDao{
      * @param level
      */
     @Override
-    public void create(String title, String text, Integer groupid, String  level,Timestamp datestamp,String author) {
-        String sql = "insert into tanc_manager (title,text,groupid,level,datestamp,author) values (?,?,?,?,?,?)";
-        jdbcTemplateObject.update(sql,title,text,groupid,level,datestamp,author);
-        System.out.println("Created record title = " + title + "  text = " + text + "  groupid = " +groupid + "  level = " + level + "time = " + datestamp + "author = " + author);
+    public void create(String title, String text, Integer groupid, String  level,Timestamp datestamp,String author,String type) {
+        String sql = "insert into tanc_manager (title,text,groupid,level,datestamp,author,type) values (?,?,?,?,?,?,?)";
+        jdbcTemplateObject.update(sql,title,text,groupid,level,datestamp,author,type);
+        System.out.println("Created record title = " + title + "  text = " + text + "  groupid = " +groupid + "  level = " + level + "time = " + datestamp + "author = " + author + "type = " + type);
 
 
     }
@@ -105,4 +105,13 @@ public class AncJDBCTemplate implements AncDao{
         jdbcTemplateObject.update(sql,title);
 
     }
+
+    /**
+     * 根据用户名查找所在组
+     * @param usr*/
+    public int groupAccess(String usr){
+        return 0;
+    }
+
+
 }

@@ -10,7 +10,7 @@ public interface AncDao {
 
     public void setDataSource(DataSource ds);
 
-    public void create(String title, String text, Integer groupid, String level, Timestamp datestamp,String author);
+    public void create(String title, String text, Integer groupid, String level, Timestamp datestamp,String author,String type);
 
     public AnnounceMent getAnnouncement(Integer id);
 
@@ -21,4 +21,7 @@ public interface AncDao {
     public void deleteByTitle(String title);
 
     public void update(String title,String text,Integer groupid,String level,Integer id);
+
+    public int groupAccess(String usr);
+
 }

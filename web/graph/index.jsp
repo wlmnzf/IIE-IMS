@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%@ page isELIgnored="false"%>
 <%
     String path = request.getContextPath();
@@ -24,6 +25,8 @@
     <script src="<%=path%>/graph/js/jquery.cookie.js" type="text/javascript"></script>
     <!--<script type="text/javascript" src="js/index.js"></script>-->
 </head>
+
+
 <body>
 <div class="alert alert-warning alert-dismissible" role="alert" style="    margin-bottom: 10px;">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -81,73 +84,32 @@
             <div role="tabpanel" class="tab-pane active" id="informs">
                 <div class="inform-block inform-left col-sm-12 col-md-6">
                     <h3 class="title">通知</h3>
-                    <ul>
-                        <li>
+                    <ul id="u1">
+
+                        <li id="load">
                             <p class="clearfix">
-                                <span class="label label-warning inform-label">置顶</span>
-                                <span class="inform-name"><a href="#">计算机系统结构需要一些人计算机系统结构需要一些人计算机系统结构需要一些人计算机系统结构需要一些人</a></span>
-                                <span class="inform-time">2017-9-8</span>
-                            </p>
-                        </li>
-                        <li>
-                            <p class="clearfix">
-                                <span class="label label-warning inform-label">置顶</span>
-                                <span class="inform-name"><a href="#">计算机系统结构需</a></span>
-                                <span class="inform-time">2017-9-8</span>
-                            </p>
-                        </li>
-                        <li>
-                            <p class="clearfix">
-                                <span class="label label-warning inform-label">置顶</span>
-                                <span class="inform-name"><a href="#">计算机系统结构需要一些人计算机系</a></span>
-                                <span class="inform-time">2017-9-8</span>
+                                <span class="inform-name">数据加载中……</span>
                             </p>
                         </li>
                     </ul>
                 </div>
                 <div class="inform-block inform-right col-sm-12 col-md-6">
                     <h3 class="title">活动</h3>
-                    <ul>
-                        <li>
-                            <p class="clearfix">
-                                <span class="label label-warning inform-label">置顶</span>
-                                <span class="inform-name"><a href="#">计算机系统结构一些人</a></span>
-                                <span class="inform-time">2017-9-8</span>
-                            </p>
-                        </li>
-                        <li>
-                            <p class="clearfix">
-                                <span class="label label-danger inform-label">置顶</span>
-                                <span class="inform-name"><a href="#">结构需要一些人计算机系统结构需要一些人计算机系统结构需要一些人计算机系统结构需要一些人</a></span>
-                                <span class="inform-time">2017-9-8</span>
-                            </p>
-                        </li>
+                    <ul id="u2">
                     </ul>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="activities">
                 <div class="inform-block inform-left col-sm-12 col-md-6">
                     <h3 class="title">通知</h3>
-                    <ul>
-                        <li>
-                            <p class="clearfix">
-                                <span class="label label-danger inform-label">置顶</span>
-                                <span class="inform-name"><a href="#">计算机系统结构需要一些人计算机系统结构需要一些人计算机系统结构需要一些人计算机系统结构需要一些人</a></span>
-                                <span class="inform-time">2017-9-8</span>
-                            </p>
-                        </li>
+                    <ul id="u3">
+
                     </ul>
                 </div>
                 <div class="inform-block inform-right col-sm-12 col-md-6">
                     <h3 class="title">活动</h3>
-                    <ul>
-                        <li>
-                            <p class="clearfix">
-                                <span class="label label-danger inform-label">置顶</span>
-                                <span class="inform-name"><a href="#">结构需要一些人计算机系统结构需要一些人计算机系统结构需要一些人计算机系统结构需要一些人</a></span>
-                                <span class="inform-time">2017-9-8</span>
-                            </p>
-                        </li>
+                    <ul id="u4">
+
                     </ul>
                 </div>
             </div>
@@ -165,6 +127,78 @@
         ©2017 中国科学院 信息工程研究所
     </p>
 </footer>
+<script>
+
+    function timeStampString(time){
+        var datetime = new Date();
+        datetime.setTime(time);
+        var year = datetime.getFullYear();
+        var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+        var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+        return year + "-" + month + "-" + date;
+    }
+</script>
+
+<script>
+
+    $.ajax({
+        url:"${path}/indexShow1",
+        type:"POST",
+        dataType:"json",
+        success:function (data) {
+            document.getElementById("load").style.display = "none";
+            for(var i = 0 ; i < data.length; i++){
+                var title1 = data[i].title;
+                $("#u1").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title1+'\"  >" +
+                    data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+
+            }
+
+        }
+
+    });
+
+   $.ajax({
+        url:"${path}/indexShow2",
+        type:"POST",
+        dataType:"json",
+        success:function (data) {
+            for(var i = 0 ; i < data.length; i++){
+                var title2 = data[i].title;
+                $("#u2").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title2+'\">" +
+                    data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+            }
+        }
+    });
+
+    $.ajax({
+        url:"${path}/indexShow3",
+        type:"POST",
+        dataType:"json",
+        success:function (data) {
+            for(var i = 0 ; i < data.length; i++){
+                var title3 = data[i].title;
+                $("#u3").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title3+'\">" +
+                    data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+            }
+        }
+    });
+
+    $.ajax({
+        url:"${path}/indexShow4",
+        type:"POST",
+        dataType:"json",
+        success:function (data) {
+            for(var i = 0 ; i < data.length; i++){
+                var title4 = data[i].title;
+                $("#u4").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title4+'\">" +
+                    data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+            }
+        }
+    });
+
+</script>
+
 
 <input type="hidden" id="basepath" value="<%=path%>"/>
 </body>
