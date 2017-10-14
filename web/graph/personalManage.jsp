@@ -36,7 +36,7 @@
                 url: '<%=path%>/personal/list.do', //获取数据的Servlet地址
                 striped: true,  //表格显示条纹
                 pagination: true, //启动分页
-                pageSize: 10,  //每页显示的记录数
+                pageSize: 2,  //每页显示的记录数
                 pageNumber:1, //当前第几页
 //                pageList: [10, 15, 20, 25],  //记录数可选列表
 //                search: true,  //是否启用查询
@@ -48,7 +48,7 @@
                 exportDataType: "all",
                 exportTypes:['excel'],
                 exportOptions:{
-                    ignoreColumn: [0, 4]  //忽略某一列的索引
+                    ignoreColumn: [0, 6]  //忽略某一列的索引
                 },
                 //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
                 //设置为limit可以获取limit, offset, search, sort, order
@@ -80,6 +80,11 @@
                     }, {
                         title: '姓名',
                         field: 'name',
+                        align: 'center',
+                        valign: 'middle'
+                    },{
+                        title: '帐号',
+                        field: 'num',
                         align: 'center',
                         valign: 'middle'
                     },{
@@ -162,7 +167,9 @@
         }
 
         function getRoom(itemName) {
-            itemName.options.length=1;
+            itemName.options.length=0;
+            if(itemName==select_room)
+                itemName.options.add(new Option("全部", ""));
             var xmlHttp;
             if(window.XMLHttpRequest){
                 xmlHttp=new XMLHttpRequest();
@@ -404,8 +411,7 @@
                     <%--</div>--%>
                     <div class="dropdown">
                         室过滤：<select id="select_room" name="select_room" onchange="$('#personTable').bootstrapTable('refresh', {url: '<%=path%>/personal/list.do'});  "></select>
-                        <ul class="dropdown-menu" role="menu">
-                        </ul>
+                        <ul class="dropdown-menu" role="menu">全部</ul>
                     </div>
                 </div>
             </div>
