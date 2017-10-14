@@ -115,51 +115,51 @@
                     <tbody>
                     <tr  data-sh="1">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>1</td>
+                        <td></td>
 
                     </tr>
                     <tr data-sh="2">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>2</td>
+                        <td></td>
                     </tr>
                     <tr data-sh="3">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>3</td>
+                        <td></td>
 
                     </tr>
                     <tr data-sh="4">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>4</td>
+                        <td></td>
 
                     </tr>
                     <tr data-sh="5">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>5</td>
+                        <td></td>
 
                     </tr>
                     <tr data-sh="6">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>6</td>
+                        <td></td>
 
                     </tr>
                     <tr data-sh="7">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>7</td>
+                        <td></td>
 
                     </tr>
                     <tr data-sh="8">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>8</td>
+                        <td></td>
 
                     </tr>
                     <tr data-sh="9">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>9</td>
+                        <td></td>
 
                     </tr>
                     <tr data-sh="10">
                         <th scope="row"><input name="event" type="checkbox" value="" /></th>
-                        <td>10</td>
+                        <td></td>
 
                     </tr>
 

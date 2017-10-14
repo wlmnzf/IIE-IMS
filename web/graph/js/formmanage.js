@@ -28,8 +28,14 @@ var  timestamp2time=function (timestamp)
 var initInfo=function(info,types)
 {
 	var ths=$("table tbody tr");
+	ths.each(function(){
+	    $(this).find("th input").hide();
+    })
+    var index=0;
     for(var cuKey in info )
     {
+        $(ths[cuKey]).find("th input").show();
+       $($(ths[cuKey]).find("td")[0]).html(index+1);
     	$(ths[cuKey]).attr("data-sh",	info[cuKey]["formToken"]);
 		$(ths[cuKey]).find(".event-title a").html(info[cuKey]["title"]);
         $(ths[cuKey]).find(".event-title a").attr("href",_BASE_PATH+"/formResult/"+info[cuKey]["formToken"]+"/1/");
@@ -45,8 +51,11 @@ var initInfo=function(info,types)
 			}
 		}
 
+		index++;
     }
-
+    ths.each(function(){
+        $(this).css("height","39px");
+    })
 }
 
 var initPage=function(page)
@@ -168,8 +177,8 @@ var init=function()
 
 $(document).ready(function(){
 	_BASE_PATH=$("#base_path").val();
-	var userid="ww";
-	var usertoken="wwww";
+	// var userid="ww";
+	// var usertoken="wwww";
 
 	init();
 
@@ -234,10 +243,39 @@ $(document).ready(function(){
 		 var isDel = confirm("确认删除");
 			if (isDel) 
 			  {
-				 alert("删除成功");
+			      var formToken=$(this).parents("tr").attr("data-sh");
+                  $.ajax({
+                      type:"POST",
+                      url:_BASE_PATH+"/delForm/",
+                      async:true,
+                      data:{"formToken":formToken},
+                      dataType:"json",
+                      success:function(data){
+                          console.log(data);
+                          layer.closeAll('loading');
+                          if(data["res"]=="OK")
+                          {
+                              layer.closeAll('loading');
+                              alert("删除成功");
+                              location.reload(true);
+                          }
+                          else
+                          {
+                              layer.closeAll('loading');
+                              alert("连接失败");
+                          }
+
+                      },
+                      error:function(msg){
+                          alert("与服务器连接断开...."+JSON.stringify(msg));
+                      }
+                  })
+
+
+				 // alert("删除成功");
 			  } 
-			else
-			  alert("再见啦！");
+			// else
+			//   alert("再见啦！");
 		
 	})
 	
@@ -267,7 +305,47 @@ $(document).ready(function(){
 			if (isDel) 
 			  {
 			  	//循环删除所有
-				 alert("删除成功");
+                  var formToken={}
+                  var index=0;
+                  $(".table tbody tr").each(function(index,o){
+                      var token=$(o).attr("data-sh");
+                      if(token.length>=5&&$(o).find("th input")[0].checked)
+                      {
+                          formToken[index]=token;
+                          index++;
+                      }
+
+                  })
+
+
+                  $.ajax({
+                      type:"POST",
+                      url:_BASE_PATH+"/delForm/m",
+                      async:true,
+                      data:{"formToken":JSON.stringify(formToken)},
+                      dataType:"json",
+                      success:function(data){
+                          console.log(data);
+                          layer.closeAll('loading');
+                          if(data["res"]=="OK")
+                          {
+                              layer.closeAll('loading');
+                              alert("删除成功");
+                              location.reload(true);
+                          }
+                          else
+                          {
+                              layer.closeAll('loading');
+                              alert("连接失败");
+                          }
+
+                      },
+                      error:function(msg){
+                          alert("与服务器连接断开...."+JSON.stringify(msg));
+                      }
+                  })
+
+                  // alert("删除成功");
 				//刷新页面
 			  } 
 	

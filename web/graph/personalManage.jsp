@@ -15,7 +15,7 @@
 <html lang="en">
 <head>
     <title>信息录入系统persontest</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" >
     <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css">
     <link href="<%=path%>/graph/css/bootstrap/bootstrap-table.min.css" rel="stylesheet" type="text/css">
     <script src="<%=path%>/resources/jquery-1.9.1.min.js" type="text/javascript"></script>
@@ -23,7 +23,7 @@
     <script src="<%=path%>/graph/js/bootstrap/bootstrap-table-export.js"></script>
     <script src="<%=path%>/graph/js/bootstrap/tableExport.js"></script>
     <script src="<%=path%>/graph/js/bootstrap/bootstrap-table-zh-CN.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>
 
     <script type="text/javascript">
         function initTable() {
@@ -46,6 +46,7 @@
                 sidePagination: "server", //表示服务端请求
                 showExport: true,                     //是否显示导出
                 exportDataType: "all",
+                exportTypes:['excel'],
                 exportOptions:{
                     ignoreColumn: [0, 4]  //忽略某一列的索引
                 },
@@ -102,7 +103,11 @@
                         }
                     }],
                 onLoadSuccess: function(){  //加载成功时执行
-                    alert("加载成功");
+                    if( $(".export .dropdown-toggle i").length>0) {
+                        $(".export .dropdown-toggle i").remove();
+                        $(".export .dropdown-toggle .caret").before("导出");
+                    }
+//                    alert("加载成功");
                 },
                 onLoadError: function(){  //加载失败时执行
                     alert("加载失败");
@@ -280,7 +285,6 @@
 </head>
 <body>
 <header>
-
     <div class="container-fluid">
         <div class="navbar-header">
             <img class="brand" src="<%=path%>/img/logo.png" alt="">
@@ -296,7 +300,7 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading" data-type="${_TYPE}"><span class="label label-primary">${_TYPE_TEXT}</span></h4>
-                            <p class="login-name" data-token="${_TOKEN}">${_USER_NAME}</p>
+                            <p class="login-name" data-token="${_TOKEN}" data-username="${_USER_NAME}">${_NAME}</p>
                         </div>
                     </div>
                 </li>
@@ -309,6 +313,7 @@
             </ul>
         </div>
     </div>
+
 
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -339,21 +344,21 @@
 
 </header>
 
+
 <div class="admin-content clearfix">
     <div class="admin-op-list">
         <ul class="menu">
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
                 <ul class="menu-ul">
-                    <li><a href="<%=path%>/announceMagement">公告管理</a></li>
+                    <li><a href="<%=path%>/announceManagement">公告管理</a></li>
                     <li><a href="<%=path%>/announceEditor">公告编辑</a></li>
                 </ul>
             </li>
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
                 <ul class="menu-ul">
-                    <li><a href="<%=path%>/formManage">页面定制</a></li>
-                    <li><a href="<%=path%>/formResult">结果管理</a></li>
+                    <li ><a href="<%=path%>/formManage">页面定制</a></li>
                 </ul>
             </li>
             <li>
@@ -370,8 +375,21 @@
             </li>
         </ul>
     </div>
+
+
     <div class="admin-op-panel">
         <div class="panel-content">
+            <div class="op-buttons">
+                <%--<div class="btn-group">--%>
+                <button class="btn btn-default" onclick="personEdit();">
+                    新增
+                    <%--<i class="glyphicon glyphicon-plus"></i>--%>
+                </button>
+                <button class="btn btn-default" onclick="delSelected()">
+                    <%--<i class="glyphicon glyphicon-trash"></i>--%>
+                    删除
+                </button>
+            </div>
             <div class="op-content">
                 <table class="table table-hover" id="personTable"
                        data-pagination="true"
@@ -380,15 +398,10 @@
                        data-showColumns="true"
                        data-toolbar="#toolbar">
                 </table>
+
                 <div id="toolbar">
-                    <div class="btn-group">
-                        <button class="btn btn-default" onclick="personEdit();">
-                            <i class="glyphicon glyphicon-plus"></i>
-                        </button>
-                        <button class="btn btn-default" onclick="delSelected()">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </button>
-                    </div>
+
+                    <%--</div>--%>
                     <div class="dropdown">
                         室过滤：<select id="select_room" name="select_room" onchange="$('#personTable').bootstrapTable('refresh', {url: '<%=path%>/personal/list.do'});  "></select>
                         <ul class="dropdown-menu" role="menu">

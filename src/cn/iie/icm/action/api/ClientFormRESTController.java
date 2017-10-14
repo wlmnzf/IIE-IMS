@@ -9,19 +9,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+
 
 @Controller
 public class ClientFormRESTController {
 
     @RequestMapping(value="saveClientForm")
     public String form(Map<String, Object> map, HttpServletRequest request) {
-//        String userid=request.getParameter("UserId");
-//        String usertoken=request.getParameter("UserToken");
-//        String name=request.getParameter("name");
+
         String formToken=request.getParameter("formToken");
         String Json=request.getParameter("Json");
         String Block=request.getParameter("block");
@@ -229,5 +234,121 @@ public class ClientFormRESTController {
 
         return "api";
     }
+
+    @RequestMapping(value="export/{formToken}/")
+    public void exportExcel(Map<String, Object> map, @PathVariable("formToken") String formToken, HttpServletRequest request, HttpServletResponse res) {
+
+        formDao fd=new formDao();
+        ClientFormDao cfd=new ClientFormDao();
+
+        FormPojo fp= fd.getFormById(formToken);
+        List<ClientFormPojo>  cfp=cfd.getFormResByFormToken(formToken);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+        String date=df.format(new Date()).toString();
+
+        String fileName = fp.getTitle()+date;
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        comm.Excel.writeExcel(os,cfp,fp);
+        byte[] content = os.toByteArray();
+        InputStream is = new ByteArrayInputStream(content);
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+        ServletOutputStream out=null;
+        // 设置response参数，可以打开下载页面
+        try {
+            res.reset();
+            res.setContentType("application/vnd.ms-excel;charset=utf-8");
+            res.setHeader("Content-Disposition", "attachment;filename="
+                    + new String((fileName + ".xls").getBytes(), "iso-8859-1"));
+            out = res.getOutputStream();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        try {
+            bis = new BufferedInputStream(is);
+            bos = new BufferedOutputStream(out);
+            byte[] buff = new byte[2048];
+            int bytesRead;
+            // Simple read/write loop.
+            while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+                bos.write(buff, 0, bytesRead);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bis != null)
+                    bis.close();
+                if (bos != null)
+                    bos.close();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+//        return "api";
+    }
+
+
+    @RequestMapping(value = "delRes/")
+    public String delForm(Map<String, Object> map, HttpServletRequest request)
+    {
+        String formToken=request.getParameter("formToken");
+        String userId=request.getParameter("userId");
+        JSONObject json=new JSONObject();
+        if(comm.Login.validCheck(request,2)==0) {
+            ClientFormDao cfd=new ClientFormDao();
+            cfd.deleteFormRes(formToken,userId);
+            json.put("res","OK");
+        }
+        else
+        {
+            json.put("res","Login Error");
+        }
+
+        map.put("json",json.toString());
+        return "api";
+    }
+
+    @RequestMapping(value = "delRes/m")
+    public String delFormMulti(Map<String, Object> map, HttpServletRequest request)
+    {
+        String data=request.getParameter("data");
+        JSONObject json=new JSONObject();
+        if(comm.Login.validCheck(request,2)==0) {
+            try {
+                ClientFormDao cfd = new ClientFormDao();
+                JSONObject tokens = new JSONObject(data);
+                String formToken = tokens.get("formToken").toString();
+                for (String o : tokens.getJSONObject("res").keySet()) {
+                    cfd.deleteFormRes(formToken, tokens.getJSONObject("res").get(o).toString());
+                }
+
+                json.put("res", "OK");
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+                json.put("res", "Error");
+            }
+        }
+        else
+        {
+            json.put("res","Login Error");
+        }
+
+        map.put("json",json.toString());
+        return "api";
+    }
+
+
 
 }

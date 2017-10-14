@@ -15,12 +15,12 @@
 <html lang="en">
 <head>
     <title>信息录入系统</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
     <script src="<%=path%>/resources/jquery-1.9.1.min.js"></script>
     <script src="<%=path%>/graph/js/jstreee.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(
             function () {
@@ -117,7 +117,7 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading" data-type="${_TYPE}"><span class="label label-primary">${_TYPE_TEXT}</span></h4>
-                            <p class="login-name" data-token="${_TOKEN}">${_USER_NAME}</p>
+                            <p class="login-name" data-token="${_TOKEN}" data-username="${_USER_NAME}">${_NAME}</p>
                         </div>
                     </div>
                 </li>
@@ -131,33 +131,34 @@
         </div>
     </div>
 </header>
+
 <div class="admin-content clearfix">
     <div class="admin-op-list">
         <ul class="menu">
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
                 <ul class="menu-ul">
-                    <li><a href="">公告管理</a></li>
-                    <li><a href="">公告编辑</a></li>
+                    <li><a href="<%=path%>/announceManagement">公告管理</a></li>
+                    <li><a href="<%=path%>/announceEditor">公告编辑</a></li>
                 </ul>
             </li>
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
                 <ul class="menu-ul">
-                    <li><a href="">页面定制</a></li>
-                    <li><a href="">结果管理</a></li>
+                    <li ><a href="<%=path%>/formManage">页面定制</a></li>
+                    <li ><a href="javascript:void(0)">结果管理</a></li>
                 </ul>
             </li>
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-user"></em>人员</h4>
                 <ul class="menu-ul">
-                    <li><a href="">人员管理</a></li>
+                    <li><a href="<%=path%>/graph/personalManage.jsp">人员管理</a></li>
                 </ul>
             </li>
             <li>
                 <h4 class="menu-title"><em class="glyphicon glyphicon-align-left"></em>分组</h4>
                 <ul class="menu-ul">
-                    <li><a href="">分组管理</a></li>
+                    <li class="current"><a href="<%=path%>/graph/groupManage.jsp">分组管理</a></li>
                 </ul>
             </li>
         </ul>
