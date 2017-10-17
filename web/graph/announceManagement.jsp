@@ -134,15 +134,28 @@
                                         ${announceMent.title}
                                     </a>
                                 </th>
-                                <th >
-                                    <span style="font-weight: normal;font-family: Arial;color: #00d449;font-size: small;" >${announceMent.level}</span>
+                                <th>
+                                    <c:if test="${announceMent.stickly == 1}">
+                                        <div style="margin-left: 25%"><span class="label label-danger">置顶</span></div>
+                                    </c:if>
+
+                                    <c:if test="${announceMent.stickly == 0 || announceMent.stickly == null}">
+                                        <div style="margin-left: 25%"><span class="label label-danger">${announceMent.level}</span></div>
+                                    </c:if>
+                                    <%--<p class="clearfix"><span class="label label-danger inform-label" style="font-weight: normal;font-family: Arial;color: #00d449;font-size: small;" >${announceMent.level}</span></p>--%>
+                                    <%--<div style="margin-left: 25%"><span class="label label-danger">${announceMent.stickly}</span></div>--%>
                                 </th>
                                 <th><span style="font-weight: normal">${announceMent.author}</span></th>
                                 <th><span style="font-weight: normal">${announceMent.timeFormat()}</span></th>
                                 <th>
-                                    <a class="op-choice" name="preview" href="showAnc?title=${announceMent.title}">预览</a>
-                                    <a class="op-choice" name="preview" href="/deleteAnc?title=${announceMent.title}">删除</a>
-                                    <a class="op-choice" name="del" href="/upperShow?title=${announceMent.title}">置顶</a>
+                                    <c:if test="${announceMent.stickly == 1}">
+                                        <a class="op-choice" name="del" href="<%=path%>/cancelStickly?title=${announceMent.title}&currentPage=${page.currentPage}">取消置顶</a>
+                                    </c:if>
+                                    <c:if test="${announceMent.stickly == 0 || announceMent.stickly == null}">
+                                        <a class="op-choice" name="del" href="/upperShow?title=${announceMent.title}&currentPage=${page.currentPage}">置顶</a>
+                                    </c:if>
+                                    <a class="op-choice" name="preview" href="/deleteAnc?title=${announceMent.title}&currentPage=${page.currentPage}">删除</a>
+
                                 </th>
                             </tr>
                         </c:forEach>
@@ -193,20 +206,20 @@
                     </script>
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                            <li class="disabled">
+                            <%--<li class="disabled">
                             <span aria-hidden="true">总页数</span>
                             <span>${page.totalPage}</span>
-                            </li>
+                            </li>--%>
                             <li>
                                 <a href="#" aria-label="Previous" onclick="up()" id="up">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li><a href="#" id="page1" onclick="clickPage('page1')"></a></li>
-                            <li><a href="#" id="page2" onclick="clickPage('page2')"></a></li>
-                            <li><a href="#" id="page3" onclick="clickPage('page3')"></a></li>
-                            <li><a href="#" id="page4" onclick="clickPage('page4')"></a></li>
-                            <li><a href="#" id="page5" onclick="clickPage('page5')"></a></li>
+                            <li id="pg1"><a href="#" id="page1" onclick="clickPage('page1')" ></a></li>
+                            <li id="pg2"><a href="#" id="page2" onclick="clickPage('page2')"></a></li>
+                            <li id="pg3"><a href="#" id="page3" onclick="clickPage('page3')"></a></li>
+                            <li id="pg4"><a href="#" id="page4" onclick="clickPage('page4')"></a></li>
+                            <li id="pg5"><a href="#" id="page5" onclick="clickPage('page5')"></a></li>
                             <script>
                                 //此部分实现动态分页
                                 //var totalPages = ${page.totalPage};
@@ -257,7 +270,9 @@
                                 //此段代码设置分页符选中效果
                                 for(var pp = 1 ; pp <= 5 ; pp++){
                                     if(document.getElementById("page" + pp).innerHTML == currentPage){
-                                        document.getElementById("page" + pp).style.background = "#BCD2EE";
+                                       // document.getElementById("page" + pp).style.background = "#7b68ee";
+                                        //document.getElementById("page" + pp).setAttribute("class","current");
+                                        document.getElementById("pg" + pp).className = "active";
                                     }
                                 }
                             </script>

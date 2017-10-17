@@ -24,4 +24,5 @@ public interface AncDao {
 
     public int groupAccess(String usr);
 
+    public void updateStickly(Integer stickly , String title);
 }

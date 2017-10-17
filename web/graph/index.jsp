@@ -75,8 +75,11 @@
 <div class="inform-content">
     <div class="container">
         <ul class="nav nav-tabs cate-tabs" role="tablist">
-            <li role="presentation"><a href="#informs" aria-controls="home" role="tab" data-toggle="tab">紧急</a></li>
-            <li role="presentation" class="active"><a href="#activities" aria-controls="profile" role="tab" data-toggle="tab">时间</a></li>
+            <%--<li role="presentation"><a href="#activities" aria-controls="home" role="tab" data-toggle="tab">紧急</a></li>
+            <li role="presentation" class="active"><a href="#informs" aria-controls="profile" role="tab" data-toggle="tab">时间</a></li>--%>
+                <li role="presentation"><a href="#activities" aria-controls="profile" role="tab" data-toggle="tab">紧急</a></li>
+                <li role="presentation" class="active"><a href="#informs" aria-controls="home" role="tab" data-toggle="tab">时间</a></li>
+
         </ul>
 
         <!-- Tab panes -->
@@ -85,7 +88,6 @@
                 <div class="inform-block inform-left col-sm-12 col-md-6">
                     <h3 class="title">通知</h3>
                     <ul id="u1">
-
                         <li id="load">
                             <p class="clearfix">
                                 <span class="inform-name">数据加载中……</span>
@@ -104,12 +106,12 @@
                     <h3 class="title">通知</h3>
                     <ul id="u3">
 
+
                     </ul>
                 </div>
                 <div class="inform-block inform-right col-sm-12 col-md-6">
                     <h3 class="title">活动</h3>
                     <ul id="u4">
-
                     </ul>
                 </div>
             </div>
@@ -149,8 +151,14 @@
             document.getElementById("load").style.display = "none";
             for(var i = 0 ; i < data.length; i++){
                 var title1 = data[i].title;
-                $("#u1").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title1+'\"  >" +
-                    data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                if (data[i].stickly == 1){
+                    $("#u1").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title1+'\"  >" +
+                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                }else {
+                    $("#u1").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title1+'\"  >" +
+                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                }
+
 
             }
 
@@ -165,8 +173,13 @@
         success:function (data) {
             for(var i = 0 ; i < data.length; i++){
                 var title2 = data[i].title;
-                $("#u2").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title2+'\">" +
-                    data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                if (data[i].stickly == 1){
+                    $("#u2").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title2+'\"  >" +
+                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                }else {
+                    $("#u2").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title2+'\"  >" +
+                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                }
             }
         }
     });
@@ -178,8 +191,13 @@
         success:function (data) {
             for(var i = 0 ; i < data.length; i++){
                 var title3 = data[i].title;
-                $("#u3").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title3+'\">" +
-                    data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                if (data[i].stickly == 1){
+                    $("#u3").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title3+'\"  >" +
+                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                }else {
+                    $("#u3").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title3+'\"  >" +
+                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                }
             }
         }
     });
@@ -191,8 +209,14 @@
         success:function (data) {
             for(var i = 0 ; i < data.length; i++){
                 var title4 = data[i].title;
-                $("#u4").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title4+'\">" +
-                    data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+
+                if (data[i].stickly == 1){
+                    $("#u4").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title4+'\"  >" +
+                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                }else {
+                    $("#u4").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title4+'\"  >" +
+                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                }
             }
         }
     });

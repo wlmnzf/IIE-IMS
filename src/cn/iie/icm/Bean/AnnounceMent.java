@@ -18,12 +18,11 @@ public class AnnounceMent implements Serializable{
     private String level;
     private Integer id;
     private String type;
-
-
+    private Integer stickly;
 
     public AnnounceMent() {}
 
-    public AnnounceMent(String title, String text, String author, Timestamp datestamp, Integer groupid, String level, Integer id,String type) {
+    public AnnounceMent(String title, String text, String author, Timestamp datestamp, Integer groupid, String level, Integer id,String type,Integer stickly) {
         this.title = title;
         this.text = text;
         this.author = author;
@@ -32,6 +31,8 @@ public class AnnounceMent implements Serializable{
         this.level = level;
         this.id = id;
         this.type = type;
+        this.stickly = stickly;
+
 
     }
 
@@ -100,6 +101,13 @@ public class AnnounceMent implements Serializable{
         this.type = type;
     }
 
+    public Integer getStickly() {
+        return stickly;
+    }
+
+    public void setStickly(Integer stickly) {
+        this.stickly = stickly;
+    }
 
     public String timeFormat(){
 

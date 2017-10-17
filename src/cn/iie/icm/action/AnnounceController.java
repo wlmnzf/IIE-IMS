@@ -15,19 +15,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-<<<<<<< HEAD
 import java.util.*;
-=======
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
->>>>>>> 2926c4835e0dc287c572dfdb3a313ebe32afd90c
 
 @Controller
 public class AnnounceController {
 
     private List<AnnounceMent> datalist;
-    private List<AnnounceMent> datalist_client;
 
     //展示公告，管理公告
     @RequestMapping("/announceManagement")
@@ -35,19 +31,15 @@ public class AnnounceController {
         ApplicationContext context = new ClassPathXmlApplicationContext("anc-beans.xml");
         AncJDBCTemplate ancJDBCTemplate = (AncJDBCTemplate) context.getBean("ancJDBCTemplate");
         List<AnnounceMent> announceMents = ancJDBCTemplate.listAnnouncements();
-        datalist = announceMents;
+        datalist = tinyAncList(announceMents);
         int pageNum = 1;
         String pagestr = (String)request.getParameter("currentPage");
         if( pagestr!= null){
             pageNum = Integer.parseInt(pagestr);
         }
-        Pager pager = new Pager(announceMents,pageNum);
+        Pager pager = new Pager(datalist,pageNum);
         model.addAttribute("announceMents",pager.getDatalist());
         model.addAttribute("page",pager);
-       // Object text = request.getParameter("event");
-       // System.out.println("****************" + text);
-
-
         return "announceManagement";
     }
 
@@ -61,7 +53,10 @@ public class AnnounceController {
      * @param request
      */
     @RequestMapping("/addAnc")
-    public String addAnc(HttpServletRequest request){
+    @ResponseBody
+    public void addAnc(HttpServletRequest request){
+
+        System.out.println("come in hhhh");
         ApplicationContext context = new ClassPathXmlApplicationContext("anc-beans.xml");
         AncJDBCTemplate ancJDBCTemplate = (AncJDBCTemplate) context.getBean("ancJDBCTemplate");
         String title = request.getParameter("title");
@@ -73,6 +68,7 @@ public class AnnounceController {
         //获取公告发布者
         Cookie[] cookies = request.getCookies();
         String announcer = null;
+        int status = 0;
         for (int i = 0;i < cookies.length;i++){
             Cookie cookie = cookies[i];
             if (cookie.getName().equals("login")){
@@ -86,7 +82,9 @@ public class AnnounceController {
         Timestamp timestamp  = new Timestamp(date.getTime());
         int groupid = Integer.parseInt(groupidString);
         ancJDBCTemplate.create(title,text,groupid,level,timestamp,announcer,type);
-        return "editSuccess";
+
+        //return status;
+       // return "editSuccess";
     }
 
 
@@ -133,13 +131,27 @@ public class AnnounceController {
         String title = request.getParameter("title");
         ApplicationContext context = new ClassPathXmlApplicationContext("anc-beans.xml");
         AncJDBCTemplate ancJDBCTemplate = (AncJDBCTemplate) context.getBean("ancJDBCTemplate");
+        try {
+            title = new String(title.trim().getBytes("ISO-8859-1"),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         ancJDBCTemplate.deleteByTitle(title);
-        datalist = ancJDBCTemplate.listAnnouncements();
-        int pageNum = 1;
+        //datalist = ancJDBCTemplate.listAnnouncements();
+        datalist = tinyAncList(ancJDBCTemplate.listAnnouncements());
+        /*int pageNum = 1;
         String pagestr = (String)request.getParameter("currentPage");
         if( pagestr!= null){
             pageNum = Integer.parseInt(pagestr);
         }
+        Pager pager = new Pager(datalist,pageNum);
+        model.addAttribute("announceMents",pager.getDatalist());
+        model.addAttribute("page",pager);*/
+        String pagestr = (String)request.getParameter("currentPage");
+
+        int pageNum = Integer.parseInt(pagestr);
+        System.out.println("/////////" + pageNum);
         Pager pager = new Pager(datalist,pageNum);
         model.addAttribute("announceMents",pager.getDatalist());
         model.addAttribute("page",pager);
@@ -153,6 +165,11 @@ public class AnnounceController {
     public String upperShow(HttpServletRequest request,ModelMap model){
         String title = request.getParameter("title");
         int index = 0;
+        try {
+            title = new String (title.trim().getBytes("ISO-8859-1"),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         for(int i = 0; i < datalist.size();i++){
             if (datalist.get(i).getTitle().equals(title)){
                 index = i;
@@ -160,11 +177,12 @@ public class AnnounceController {
             }
         }
 
-        Collections.swap(datalist,0,index);
-        for (int j = 1;j < index - 1;j++){
-            Collections.swap(datalist,j,index);
-        }
-
+        //设置置顶信息为true
+       // datalist.get(index).setStickly(1);
+        ApplicationContext context = new ClassPathXmlApplicationContext("anc-beans.xml");
+        AncJDBCTemplate ancJDBCTemplate = (AncJDBCTemplate) context.getBean("ancJDBCTemplate");
+        ancJDBCTemplate.updateStickly(1,title);
+        datalist = tinyAncList(ancJDBCTemplate.listAnnouncements());
         int pageNum = 1;
         String pagestr = (String)request.getParameter("currentPage");
         if( pagestr!= null){
@@ -180,28 +198,70 @@ public class AnnounceController {
 
 
 
-    //客户端展示公告
+  /*  //客户端展示公告
     @RequestMapping("/")
     public String ancShowClient(HttpServletRequest request , ModelMap model){
         ApplicationContext context = new ClassPathXmlApplicationContext("anc-beans.xml");
         AncJDBCTemplate ancJDBCTemplate = (AncJDBCTemplate) context.getBean("ancJDBCTemplate");
         List<AnnounceMent> announceMents = ancJDBCTemplate.listAnnouncements();
         datalist_client = announceMents;
-        System.out.println("***********&&&&&&" + datalist_client.size());
-        /*int pageNum = 1;
+       // System.out.println("***********&&&&&&" + datalist_client.size());
+        *//*int pageNum = 1;
         String pagestr = (String)request.getParameter("currentPage_c_time");
         if( pagestr!= null){
             pageNum = Integer.parseInt(pagestr);
         }
         Pager pager = new Pager(datalist_c_time,pageNum);
         model.addAttribute("announceMents_c_time",pager.getDatalist());
-        model.addAttribute("page_c_time",pager);*/
+        model.addAttribute("page_c_time",pager);*//*
         //Object text = request.getParameter("event");
         model.addAttribute("datalist_client",datalist_client);
         return "announceShow";
 
+    }*/
+
+
+    //取消置顶
+    @RequestMapping("/cancelStickly")
+    public String cancelStickly(HttpServletRequest request , ModelMap model){
+        String title = request.getParameter("title");
+        ApplicationContext context = new ClassPathXmlApplicationContext("anc-beans.xml");
+        AncJDBCTemplate ancJDBCTemplate = (AncJDBCTemplate) context.getBean("ancJDBCTemplate");
+        try {
+            title = new String(title.trim().getBytes("ISO-8859-1"),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        ancJDBCTemplate.updateStickly(0,title);
+        List<AnnounceMent> announceMents = ancJDBCTemplate.listAnnouncements();
+        datalist = tinyAncList(announceMents);
+        String pagestr = (String)request.getParameter("currentPage");
+        int pageNum = Integer.parseInt(pagestr);
+        Pager pager = new Pager(datalist,pageNum);
+        model.addAttribute("announceMents",pager.getDatalist());
+        model.addAttribute("page",pager);
+
+        return "announceManagement";
     }
 
-
+    //此函数用于整理置顶公告的排列顺序
+    public List<AnnounceMent> tinyAncList(List<AnnounceMent> announceMents){
+        List<AnnounceMent> temp = new ArrayList<AnnounceMent>();
+        List<AnnounceMent> datalist = new ArrayList<AnnounceMent>();
+        if(announceMents == null){
+            return  null;
+        }
+        for (int i = 0 ; i < announceMents.size() ; i++){
+            if(announceMents.get(i).getStickly() == 1){
+                System.out.println("i = " + i + "title = " + announceMents.get(i).getTitle() + " stickly = " + announceMents.get(i).getStickly());
+                datalist.add(announceMents.get(i));
+            }else {
+                temp.add(announceMents.get(i));
+            }
+        }
+        datalist.addAll(temp);
+        return datalist;
+    }
 
 }

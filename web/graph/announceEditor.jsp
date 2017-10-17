@@ -27,6 +27,8 @@
     <script type="text/javascript"   src="<%=path%>/graph/js/jquery.sticky.js"></script>
     <script type="text/javascript"   src="<%=path%>/graph/js/layer/layer.js"></script>
 
+    <script type="text/javascript" src="<%=path%>/resources/jquery-form.js"></script>
+
     <link rel="stylesheet" href="<%=path%>/graph/css/customForm_h5.css"/>
 
 
@@ -138,8 +140,8 @@
 
 
                         <div>
-                         <form method="post" action="<%=path%>/addAnc">
-
+                         <%--<form id="anc_form" method="post" action="<%=path%>/addAnc">--%>
+                             <form id="anc_form">
 
                                 <div class="form-group">
                                     <label for="anc_title" class="col-sm-2 control-label">标题</label>
@@ -148,7 +150,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="anc_text" class="col-sm-2 control-label">正文</label>
+                                    <label for="anc_text" class="col-sm-2 control-label" style="padding-top: 10px">正文</label>
                                     <div class="col-sm-10">
                                         <textarea id="anc_text" class="form-control" style="width: 700px;height: 500px"  name="text"><%=htmlspecialchars(htmlData)%></textarea>
                                     </div>
@@ -192,16 +194,41 @@
                                             <option id="op2" value="1">第一组可见</option>
                                             <option id="op3" value="2">第二组可见</option>
                                             <option id="op4" value="3">第三组可见</option>
+                                            <option id="op4" value="3">第三组可见</option>
                                         </select>
                                         </center>
                                     </div>
 
                                 </div>
 
+
                                 <div style="margin-top: 20px;padding-left: 15px">
-                                    <button style="width: 80px" type="submit" class="btn btn-info">发布</button>
+                                    <%--<button style="width: 80px" type="submit" class="btn btn-info" onclick="ancSubmit()">发布</button>--%>
+                                    <button style="width: 80px" class="btn btn-info" onclick="ancSubmit()">发布</button>
                                 </div>
                             </form>
+
+                             <script>
+                                 function ancSubmit(){
+                                     alert("come in");
+                                     var options = {
+                                         url:"<%=path%>/addAnc",
+                                         type:"POST",
+                                         success:function (data) {
+                                             alert(data);
+                                             $("#modal").modal();
+                                         },
+                                         error:function () {
+                                             alert("wrong");
+                                         }
+                                     };
+                                     $("#anc_form").submit(function () {
+                                         $(this).ajaxSubmit(options);
+                                         return false;
+
+                                     });
+                                 }
+                             </script>
                         </div>
                     </div>
                 </div>
@@ -209,6 +236,33 @@
             </div>
         </div>
     </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">提交成功啦！</h4>
+            </div>
+            <div class="modal-body">
+                <center><img style="width: 100px;height: 150px;padding-top: 10px" src="/graph/img/rocket.png"></center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="refresh()">Close</button>
+                <%--<button type="button" class="btn btn-primary">Save changes</button>--%>
+            </div>
+            <script>
+                function refresh() {
+                    window.location.reload();
+                }
+            </script>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
 
 </body>
 </html>

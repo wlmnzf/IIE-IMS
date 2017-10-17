@@ -63,7 +63,7 @@ public class AncJDBCTemplate implements AncDao{
      */
     @Override
     public List<AnnounceMent> listAnnouncements() {
-        String sql = "select * from tanc_manager order by datestamp ASC ";
+        String sql = "select * from tanc_manager order by datestamp DESC ";
         List<AnnounceMent> announceMents = jdbcTemplateObject.query(sql,new AnnouncementMapper());
         return announceMents;
     }
@@ -89,10 +89,20 @@ public class AncJDBCTemplate implements AncDao{
      */
     @Override
     public void update(String title, String text, Integer groupid, String level,Integer id) {
-        String sql = "update tanc_manger set title = ? text = ? groupid = ? level = ? where id = ?";
+        String sql = "update tanc_manager set title = ? text = ? groupid = ? level = ? where id = ?";
         jdbcTemplateObject.update(sql,title,text,groupid,level);
         System.out.println("Updated Record with Id = " + id);
 
+    }
+
+    /**
+     * 更新置顶信息
+     * @param stickly
+     * */
+    @Override
+    public void updateStickly(Integer stickly , String title){
+        String sql = "update tanc_manager set stickly = ? where title = ?";
+        jdbcTemplateObject.update(sql,stickly,title);
     }
 
 
@@ -110,7 +120,8 @@ public class AncJDBCTemplate implements AncDao{
      * 根据用户名查找所在组
      * @param usr*/
     public int groupAccess(String usr){
-        return 0;
+        String sql = "select tgroup_id from tperson where name = ?";
+        return jdbcTemplateObject.queryForInt(sql,usr);
     }
 
 

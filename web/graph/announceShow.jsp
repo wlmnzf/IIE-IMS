@@ -29,7 +29,7 @@
                     document.getElementById(page5).style.display = "none";
                     break;
                 case 3:
-                    document.getElementById("t_info_p1").innerHTML = 1;
+                    document.getElementById(page1).innerHTML = 1;
                     document.getElementById(page2).innerHTML = 2;
                     document.getElementById(page3).innerHTML = 3;
                     document.getElementById(page4).style.display = "none";
@@ -85,7 +85,13 @@
             }
         }
     }
+
+
 </script>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -206,7 +212,13 @@
 
                                     <c:forEach items="${anc_c_t_info}" var="tInfo" >
                                         <tr>
-                                            <td><span class="label label-warning">置顶</span></td>
+                                            <c:if test="${tInfo.stickly == 1}">
+                                                <td><span class="label label-warning">置顶</span></td>
+                                            </c:if>
+                                            <c:if test="${tInfo.stickly == 0}">
+                                                <td><span class="label label-warning">${tInfo.level}</span></td>
+                                            </c:if>
+
                                             <td>
                                                 <p><a href="showIndex?c_title=${tInfo.title}"><span class="event-title">${tInfo.title}</span></a></p>
                                             </td>
@@ -220,18 +232,18 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
+                                        <a href="#" aria-label="Previous" onclick="up(1)">&laquo;
+                                            <%--<span aria-hidden="true">&laquo;</span>--%>
                                         </a>
                                     </li>
-                                    <li><a href="#" id="t_info_p1" onclick="turnPage(1,'t_info_p1')"></a></li>
-                                    <li><a href="#" id="t_info_p2" onclick="turnPage(1,'t_info_p2')"></a></li>
-                                    <li><a href="#" id="t_info_p3" onclick="turnPage(1,'t_info_p3')"></a></li>
-                                    <li><a href="#" id="t_info_p4" onclick="turnPage(1,'t_info_p4')"></a></li>
-                                    <li><a href="#" id="t_info_p5" onclick="turnPage(1,'t_info_p5')"></a></li>
+                                    <li id="pg_t_info_p1"><a href="#" id="t_info_p1" onclick="turnPage(1,'t_info_p1')"></a></li>
+                                    <li id="pg_t_info_p2"><a href="#" id="t_info_p2" onclick="turnPage(1,'t_info_p2')"></a></li>
+                                    <li id="pg_t_info_p3"><a href="#" id="t_info_p3" onclick="turnPage(1,'t_info_p3')"></a></li>
+                                    <li id="pg_t_info_p4"><a href="#" id="t_info_p4" onclick="turnPage(1,'t_info_p4')"></a></li>
+                                    <li id="pg_t_info_p5"><a href="#" id="t_info_p5" onclick="turnPage(1,'t_info_p5')"></a></li>
                                     <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
+                                        <a href="#" aria-label="Next" onclick="next(1)">&raquo;
+                                            <%--<span aria-hidden="true" onclick="nextPage(1)">&raquo;</span>--%>
                                         </a>
                                     </li>
                                 </ul>
@@ -251,7 +263,13 @@
                                     </tr>--%>
                                     <c:forEach items="${anc_c_t_act}" var="tInfo" >
                                         <tr>
-                                            <td><span class="label label-warning">置顶</span></td>
+                                            <c:if test="${tInfo.stickly == 1}">
+                                                <td><span class="label label-warning">置顶</span></td>
+                                            </c:if>
+                                            <c:if test="${tInfo.stickly == 0}">
+                                                <td><span class="label label-warning">${tInfo.level}</span></td>
+                                            </c:if>
+
                                             <td>
                                                 <p><a href="showIndex?c_title=${tInfo.title}"><span class="event-title">${tInfo.title}</span></a></p>
                                             </td>
@@ -265,18 +283,18 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
+                                        <a href="#" aria-label="Previous" onclick="up(2)">&laquo;
+                                            <%--<span aria-hidden="true">&laquo;</span>--%>
                                         </a>
                                     </li>
-                                    <li><a href="#" id="t_act_p1" onclick="turnPage(2,'t_act_p1')"></a></li>
-                                    <li><a href="#" id="t_act_p2" onclick="turnPage(2,'t_act_p2')"></a></li>
-                                    <li><a href="#" id="t_act_p3" onclick="turnPage(2,'t_act_p3')"></a></li>
-                                    <li><a href="#" id="t_act_p4" onclick="turnPage(2,'t_act_p4')"></a></li>
-                                    <li><a href="#" id="t_act_p5" onclick="turnPage(2,'t_act_p5')"></a></li>
+                                    <li id="pg_t_act_p1"><a href="#" id="t_act_p1" onclick="turnPage(2,'t_act_p1')"></a></li>
+                                    <li id="pg_t_act_p2"><a href="#" id="t_act_p2" onclick="turnPage(2,'t_act_p2')"></a></li>
+                                    <li id="pg_t_act_p3"><a href="#" id="t_act_p3" onclick="turnPage(2,'t_act_p3')"></a></li>
+                                    <li id="pg_t_act_p4"><a href="#" id="t_act_p4" onclick="turnPage(2,'t_act_p4')"></a></li>
+                                    <li id="pg_t_act_p5"><a href="#" id="t_act_p5" onclick="turnPage(2,'t_act_p5')"></a></li>
                                     <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
+                                        <a href="#" aria-label="Next" onclick="next(2)">&raquo;
+                                            <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a>
                                     </li>
                                 </ul>
@@ -307,7 +325,13 @@
 
                                     <c:forEach items="${anc_c_u_info}" var="uInfo" >
                                         <tr>
-                                            <td><span class="label label-warning">置顶</span></td>
+                                            <c:if test="${uInfo.stickly == 1}">
+                                                <td><span class="label label-warning">置顶</span></td>
+                                            </c:if>
+                                            <c:if test="${uInfo.stickly == 0}">
+                                                <td><span class="label label-warning">${uInfo.level}</span></td>
+                                            </c:if>
+
                                             <td>
                                                 <p><a href="showIndex?c_title=${uInfo.title}"><span class="event-title">${uInfo.title}</span></a></p>
                                             </td>
@@ -321,18 +345,18 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
+                                        <a href="#" aria-label="Previous" onclick="up(3)">&laquo;
+                                            <%--<span aria-hidden="true">&laquo;</span>--%>
                                         </a>
                                     </li>
-                                    <li><a href="#" id="u_info_p1" onclick="turnPage(3,'u_info_p1')"></a></li>
-                                    <li><a href="#" id="u_info_p2" onclick="turnPage(3,'u_info_p2')"></a></li>
-                                    <li><a href="#" id="u_info_p3" onclick="turnPage(3,'u_info_p3')"></a></li>
-                                    <li><a href="#" id="u_info_p4" onclick="turnPage(3,'u_info_p4')"></a></li>
-                                    <li><a href="#" id="u_info_p5" onclick="turnPage(3,'u_info_p5')"></a></li>
+                                    <li id="pg_u_info_p1"><a href="#" id="u_info_p1" onclick="turnPage(3,'u_info_p1')"></a></li>
+                                    <li id="pg_u_info_p2"><a href="#" id="u_info_p2" onclick="turnPage(3,'u_info_p2')"></a></li>
+                                    <li id="pg_u_info_p3"><a href="#" id="u_info_p3" onclick="turnPage(3,'u_info_p3')"></a></li>
+                                    <li id="pg_u_info_p4"><a href="#" id="u_info_p4" onclick="turnPage(3,'u_info_p4')"></a></li>
+                                    <li id="pg_u_info_p5"><a href="#" id="u_info_p5" onclick="turnPage(3,'u_info_p5')"></a></li>
                                     <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
+                                        <a href="#" aria-label="Next" onclick="next(3)">&raquo;
+                                            <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a>
                                     </li>
                                 </ul>
@@ -342,17 +366,15 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tbody id="tb4">
-                                    <%--<tr>
-                                        <td><span class="label label-danger">置顶</span></td>
-                                        <td>
-                                            <p><a href=""><span class="event-title">计算机系统结构需要2</span></a></p>
-                                        </td>
-                                        <td>张慧慧</td>
-                                        <td>2017-08-01</td>
-                                    </tr>--%>
                                     <c:forEach items="${anc_c_u_act}" var="uInfo" >
                                         <tr>
-                                            <td><span class="label label-warning">置顶</span></td>
+                                            <c:if test="${uInfo.stickly == 1}">
+                                                <td><span class="label label-warning">置顶</span></td>
+                                            </c:if>
+                                            <c:if test="${uInfo.stickly == 0}">
+                                                <td><span class="label label-warning">${uInfo.level}</span></td>
+                                            </c:if>
+
                                             <td>
                                                 <p><a href="showIndex?c_title=${uInfo.title}"><span class="event-title">${uInfo.title}</span></a></p>
                                             </td>
@@ -366,18 +388,18 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
+                                        <a href="#" aria-label="Previous" onclick="up(4)">&laquo;
+                                            <%--<span aria-hidden="true">&laquo;</span>--%>
                                         </a>
                                     </li>
-                                    <li><a href="#" id="u_act_p1" onclick="turnPage(4,'u_act_p1')"></a></li>
-                                    <li><a href="#" id="u_act_p2" onclick="turnPage(4,'u_act_p2)"></a></li>
-                                    <li><a href="#" id="u_act_p3" onclick="turnPage(4,'u_act_p3')"></a></li>
-                                    <li><a href="#" id="u_act_p4" onclick="turnPage(4,'u_act_p4')"></a></li>
-                                    <li><a href="#" id="u_act_p5" onclick="turnPage(4,'u_act_p5')"></a></li>
+                                    <li id="pg_u_act_p1"><a href="#" id="u_act_p1" onclick="turnPage(4,'u_act_p1')"></a></li>
+                                    <li id="pg_u_act_p2"><a href="#" id="u_act_p2" onclick="turnPage(4,'u_act_p2')"></a></li>
+                                    <li id="pg_u_act_p3"><a href="#" id="u_act_p3" onclick="turnPage(4,'u_act_p3')"></a></li>
+                                    <li id="pg_u_act_p4"><a href="#" id="u_act_p4" onclick="turnPage(4,'u_act_p4')"></a></li>
+                                    <li id="pg_u_act_p5"><a href="#" id="u_act_p5" onclick="turnPage(4,'u_act_p5')"></a></li>
                                     <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
+                                        <a href="#" aria-label="Next" onclick="next(4)">&raquo;
+                                            <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a>
                                     </li>
                                 </ul>
@@ -437,6 +459,10 @@
 <script>
     //此函数初始化页面中的所有分页符
     function pageInit() {
+        document.getElementById("pg_t_info_p1").className = "active";
+        document.getElementById("pg_t_act_p1").className = "active";
+        document.getElementById("pg_u_info_p1").className = "active";
+        document.getElementById("pg_u_act_p1").className = "active";
         autoPage("t_info_p1","t_info_p2","t_info_p3","t_info_p4","t_info_p5",${p_c_t_info.totalPage},${p_c_t_info.currentPage});
         autoPage("t_act_p1","t_act_p2","t_act_p3","t_act_p4","t_act_p5",${p_c_t_act.totalPage},${p_c_t_act.currentPage});
         autoPage("u_info_p1","u_info_p2","u_info_p3","u_info_p4","u_info_p5",${p_c_u_info.totalPage},${p_c_u_info.currentPage});
@@ -455,9 +481,341 @@
     pageInit();
 </script>
 
+
 <script>
+    function next(aid) {
+        var cp = 1;
+        var index = null;
+        var totalpg;
+        switch (aid){
+            case 1:
+                totalpg = ${p_c_t_info.totalPage};
+                if(document.getElementById("pg_t_info_p1").className == "active"){
+                    cp = document.getElementById("t_info_p1").innerHTML;
+                    index = "t_info_p2";
+                }
+                if(document.getElementById("pg_t_info_p2").className == "active"){
+                    cp = document.getElementById("t_info_p2").innerHTML;
+                    index = "t_info_p3";
+                }
+                if(document.getElementById("pg_t_info_p3").className == "active"){
+                    cp = document.getElementById("t_info_p3").innerHTML;
+                    index = "t_info_p4";
+                }
+                if(document.getElementById("pg_t_info_p4").className == "active"){
+                    cp = document.getElementById("t_info_p4").innerHTML;
+                    index = "t_info_p5";
+                }
+                if(document.getElementById("pg_t_info_p5").className == "active"){
+                    cp = document.getElementById("t_info_p5").innerHTML;
+                    index = "t_info_p5";
+                }
+                break;
+            case 2:
+                totalpg = ${p_c_t_act.totalPage};
+                if(document.getElementById("pg_t_act_p1").className == "active"){
+                    cp = document.getElementById("t_act_p1").innerHTML;
+                    index = "t_act_p2";
+                }
+                if(document.getElementById("pg_t_act_p2").className == "active"){
+                    cp = document.getElementById("t_act_p2").innerHTML;
+                    index = "t_act_p3";
+                }
+                if(document.getElementById("pg_t_act_p3").className == "active"){
+                    cp = document.getElementById("t_act_p3").innerHTML;
+                    index = "t_act_p4";
+                }
+                if(document.getElementById("pg_t_act_p4").className == "active"){
+                    cp = document.getElementById("t_act_p4").innerHTML;
+                    index = "t_act_p5";
+                }
+                if(document.getElementById("pg_t_act_p5").className == "active"){
+                    cp = document.getElementById("t_act_p5").innerHTML;
+                    index = "t_act_p5";
+                }
+                break;
+            case 3:
+                totalpg = ${p_c_u_info.totalPage};
+                if(document.getElementById("pg_u_info_p1").className == "active"){
+                    cp = document.getElementById("u_info_p1").innerHTML;
+                    index = "u_info_p2";
+                }
+                if(document.getElementById("pg_u_info_p2").className == "active"){
+                    cp = document.getElementById("u_info_p2").innerHTML;
+                    index = "u_info_p3";
+                }
+                if(document.getElementById("pg_u_info_p3").className == "active"){
+                    cp = document.getElementById("u_info_p3").innerHTML;
+                    index = "u_info_p4";
+                }
+                if(document.getElementById("pg_u_info_p4").className == "active"){
+                    cp = document.getElementById("u_info_p4").innerHTML;
+                    index = "u_info_p5";
+                }
+                if(document.getElementById("pg_u_info_p5").className == "active"){
+                    cp = document.getElementById("u_info_p5").innerHTML;
+                    index = "u_info_p5";
+                }
+                break;
+            case 4:
+                totalpg = ${p_c_u_act.totalPage};
+                if(document.getElementById("pg_u_act_p1").className == "active"){
+                    cp = document.getElementById("u_act_p1").innerHTML;
+                    index = "u_act_p2";
+                }
+                if(document.getElementById("pg_u_act_p2").className == "active"){
+                    cp = document.getElementById("u_act_p2").innerHTML;
+                    index = "u_act_p3";
+                }
+                if(document.getElementById("pg_u_act_p3").className == "active"){
+                    cp = document.getElementById("u_act_p3").innerHTML;
+                    index = "u_act_p4";
+                }
+                if(document.getElementById("pg_u_act_p4").className == "active"){
+                    cp = document.getElementById("u_act_p4").innerHTML;
+                    index = "u_act_p5";
+                }
+                if(document.getElementById("pg_u_act_p5").className == "active"){
+                    cp = document.getElementById("u_act_p5").innerHTML;
+                    index = "u_act_p5";
+                }
+                break;
+        }
+
+        clearClass(aid);
+        cp = parseInt("10",cp);
+        cp = cp + 1;
+        if(cp > totalpg){
+            document.getElementById("pg_" + index).className = "active";
+            alert("已是最后一页");
+        }else {
+            document.getElementById("pg_" + index).className = "active";
+            $.ajax({
+                url:"${path}/pagePro?aid=" + aid + "&index=" + document.getElementById(index).innerHTML,
+                type:"POST",
+                dataType:"json",
+                success:function (data) {
+                    switch(aid){
+                        case 1:
+                            autoPage("t_info_p1","t_info_p2","t_info_p3","t_info_p4","t_info_p5",${p_c_t_info.totalPage},cp);
+
+                            break;
+                        case 2:
+                            autoPage("t_act_p1","t_act_p2","t_act_p3","t_act_p4","t_act_p5",${p_c_t_act.totalPage},cp);
+                            break;
+                        case 3:
+                            autoPage("u_info_p1","u_info_p2","u_info_p3","u_info_p4","u_info_p5",${p_c_u_info.totalPage},cp);
+                            break;
+                        case 4:
+                            autoPage("u_act_p1","u_act_p2","u_act_p3","u_act_p4","u_act_p5",${p_c_u_act.totalPage},cp);
+                            break;
+                    }
+                    $("#tb" + aid).html("");
+                    for (var i = 0; i < data.length;i++){
+                        var title = data[i].title;
+                        if (data[i].sticky == 1){
+                            $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">置顶</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                        }else{
+                            $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                        }
+
+                    }
+
+                }
+            });
+
+        }
+
+
+    }
+
+    function up(aid) {
+        var cp = 1;
+        var index = null;
+        switch (aid){
+            case 1:
+                if(document.getElementById("pg_t_info_p1").className == "active"){
+                    cp = document.getElementById("t_info_p1").innerHTML;
+                    index = "t_info_p1";
+                }
+                if(document.getElementById("pg_t_info_p2").className == "active"){
+                    cp = document.getElementById("t_info_p2").innerHTML;
+                    index = "t_info_p1";
+                }
+                if(document.getElementById("pg_t_info_p3").className == "active"){
+                    cp = document.getElementById("t_info_p3").innerHTML;
+                    index = "t_info_p2";
+                }
+                if(document.getElementById("pg_t_info_p4").className == "active"){
+                    cp = document.getElementById("t_info_p4").innerHTML;
+                    index = "t_info_p3";
+                }
+                if(document.getElementById("pg_t_info_p5").className == "active"){
+                    cp = document.getElementById("t_info_p5").innerHTML;
+                    index = "t_info_p4";
+                }
+                break;
+            case 2:
+                if(document.getElementById("pg_t_act_p1").className == "active"){
+                    cp = document.getElementById("t_act_p1").innerHTML;
+                    index = "t_act_p2";
+                }
+                if(document.getElementById("pg_t_act_p2").className == "active"){
+                    cp = document.getElementById("t_act_p2").innerHTML;
+                    index = "t_act_p3";
+                }
+                if(document.getElementById("pg_t_act_p3").className == "active"){
+                    cp = document.getElementById("t_act_p3").innerHTML;
+                    index = "t_act_p4";
+                }
+                if(document.getElementById("pg_t_act_p4").className == "active"){
+                    cp = document.getElementById("t_act_p4").innerHTML;
+                    index = "t_act_p5";
+                }
+                if(document.getElementById("pg_t_act_p5").className == "active"){
+                    cp = document.getElementById("t_act_p5").innerHTML;
+                    index = "t_act_p5";
+                }
+                break;
+            case 3:
+                if(document.getElementById("pg_u_info_p1").className == "active"){
+                    cp = document.getElementById("u_info_p1").innerHTML;
+                    index = "u_info_p2";
+                }
+                if(document.getElementById("pg_u_info_p2").className == "active"){
+                    cp = document.getElementById("u_info_p2").innerHTML;
+                    index = "u_info_p3";
+                }
+                if(document.getElementById("pg_u_info_p3").className == "active"){
+                    cp = document.getElementById("u_info_p3").innerHTML;
+                    index = "u_info_p4";
+                }
+                if(document.getElementById("pg_u_info_p4").className == "active"){
+                    cp = document.getElementById("u_info_p4").innerHTML;
+                    index = "u_info_p5";
+                }
+                if(document.getElementById("pg_u_info_p5").className == "active"){
+                    cp = document.getElementById("u_info_p5").innerHTML;
+                    index = "u_info_p5";
+                }
+                break;
+            case 4:
+                if(document.getElementById("pg_u_act_p1").className == "active"){
+                    cp = document.getElementById("u_act_p1").innerHTML;
+                    index = "u_act_p2";
+                }
+                if(document.getElementById("pg_u_act_p2").className == "active"){
+                    cp = document.getElementById("u_act_p2").innerHTML;
+                    index = "u_act_p3";
+                }
+                if(document.getElementById("pg_u_act_p3").className == "active"){
+                    cp = document.getElementById("u_act_p3").innerHTML;
+                    index = "u_act_p4";
+                }
+                if(document.getElementById("pg_u_act_p4").className == "active"){
+                    cp = document.getElementById("u_act_p4").innerHTML;
+                    index = "u_act_p5";
+                }
+                if(document.getElementById("pg_u_act_p5").className == "active"){
+                    cp = document.getElementById("u_act_p5").innerHTML;
+                    index = "u_act_p5";
+                }
+                break;
+        }
+
+        clearClass(aid);
+        cp = parseInt("10",cp);
+        cp = cp - 1;
+        alert(cp);
+        if(cp == NaN){
+            document.getElementById("pg_" + index).className = "active";
+            alert("已是第一页");
+        }else {
+            document.getElementById("pg_" + index).className = "active";
+            $.ajax({
+                url:"${path}/pagePro?aid=" + aid + "&index=" + document.getElementById(index).innerHTML,
+                type:"POST",
+                dataType:"json",
+                success:function (data) {
+                    switch(aid){
+                        case 1:
+                            autoPage("t_info_p1","t_info_p2","t_info_p3","t_info_p4","t_info_p5",${p_c_t_info.totalPage},cp);
+
+                            break;
+                        case 2:
+                            autoPage("t_act_p1","t_act_p2","t_act_p3","t_act_p4","t_act_p5",${p_c_t_act.totalPage},cp);
+                            break;
+                        case 3:
+                            autoPage("u_info_p1","u_info_p2","u_info_p3","u_info_p4","u_info_p5",${p_c_u_info.totalPage},cp);
+                            break;
+                        case 4:
+                            autoPage("u_act_p1","u_act_p2","u_act_p3","u_act_p4","u_act_p5",${p_c_u_act.totalPage},cp);
+                            break;
+                    }
+                    $("#tb" + aid).html("");
+                    for (var i = 0; i < data.length;i++){
+                        var title = data[i].title;
+                        if (data[i].sticky == 1){
+                            $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">置顶</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                        }else{
+                            $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                        }
+
+                    }
+
+                }
+            });
+        }
+    }
+
+
+</script>
+
+
+<script>
+
+
+    function clearClass(aid) {
+
+        switch (aid){
+            case 1:
+                document.getElementById("pg_t_info_p1").className = "";
+                document.getElementById("pg_t_info_p2").className = "";
+                document.getElementById("pg_t_info_p3").className = "";
+                document.getElementById("pg_t_info_p4").className = "";
+                document.getElementById("pg_t_info_p5").className = "";
+                break;
+            case 2:
+                document.getElementById("pg_t_act_p1").className = "";
+                document.getElementById("pg_t_act_p2").className = "";
+                document.getElementById("pg_t_act_p3").className = "";
+                document.getElementById("pg_t_act_p4").className = "";
+                document.getElementById("pg_t_act_p5").className = "";
+                break;
+            case 3:
+                document.getElementById("pg_u_info_p1").className = "";
+                document.getElementById("pg_u_info_p2").className = "";
+                document.getElementById("pg_u_info_p3").className = "";
+                document.getElementById("pg_u_info_p4").className = "";
+                document.getElementById("pg_u_info_p5").className = "";
+                break;
+            case 4:
+                document.getElementById("pg_u_act_p1").className = "";
+                document.getElementById("pg_u_act_p2").className = "";
+                document.getElementById("pg_u_act_p3").className = "";
+                document.getElementById("pg_u_act_p4").className = "";
+                document.getElementById("pg_u_act_p5").className = "";
+                break;
+        }
+    }
     function turnPage(aid , index) {
         var cp = document.getElementById(index).innerHTML;
+        clearClass(aid);
+        document.getElementById("pg_" + index).className = "active";
         $.ajax({
             url:"${path}/pagePro?aid=" + aid + "&index=" + document.getElementById(index).innerHTML,
             type:"POST",
@@ -477,19 +835,30 @@
                         autoPage("u_act_p1","u_act_p2","u_act_p3","u_act_p4","u_act_p5",${p_c_u_act.totalPage},cp);
                         break;
                 }
-
                 $("#tb" + aid).html("");
                 for (var i = 0; i < data.length;i++){
                     var title = data[i].title;
-                    $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">置顶</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
-                        + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                    if (data[i].sticky == 1){
+                        $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">置顶</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                            + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                    }else{
+                        $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                            + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                    }
+
                 }
 
             }
         });
         
     }
+
+
+
+
 </script>
+
+
 
 
 
