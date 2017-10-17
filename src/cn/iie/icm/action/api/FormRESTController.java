@@ -218,5 +218,49 @@ public class FormRESTController {
     }
 
 
+    @RequestMapping(value = "delForm/")
+    public String delForm(Map<String, Object> map, HttpServletRequest request)
+    {
+        String formToken=request.getParameter("formToken");
+        JSONObject json=new JSONObject();
+        if(comm.Login.validCheck(request,2)==0) {
+            formDao fd = new formDao();
+            fd.deleteForm(formToken);
+            json.put("res","OK");
+        }
+        else
+        {
+            json.put("res","Login Error");
+        }
+
+        map.put("json",json.toString());
+       return "api";
+    }
+
+    @RequestMapping(value = "delForm/m")
+    public String delFormMulti(Map<String, Object> map, HttpServletRequest request)
+    {
+        String formToken=request.getParameter("formToken");
+        JSONObject json=new JSONObject();
+        if(comm.Login.validCheck(request,2)==0) {
+            formDao fd = new formDao();
+            JSONObject tokens=new JSONObject(formToken);
+            for(String o:tokens.keySet()){
+                fd.deleteForm(tokens.get(o).toString());
+            }
+
+            json.put("res","OK");
+        }
+        else
+        {
+            json.put("res","Login Error");
+        }
+
+        map.put("json",json.toString());
+        return "api";
+    }
+
+
+
 
     }

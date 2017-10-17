@@ -32,6 +32,11 @@ public class LoginRESTController {
         try {
             pp = pd.getPerson(userid);
             password=comm.MD5_32(password).toLowerCase();
+            if(pp==null)
+            {
+                request.setAttribute("info","账号不存在");
+                request.getRequestDispatcher("/index").forward(request, response);
+            }
 
             if (password.equals(pp.getPassword())) {
                 SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -56,7 +61,9 @@ public class LoginRESTController {
 //                jsonObj.put("res", "Password error");
 //                attr.addFlashAttribute("info", "账号密码错误！");
 //                return "redirect:/index";
-               return comm.Login.setErrInfo(attr,"账号密码错误！");
+//               return comm.Login.setErrInfo(attr,"账号密码错误！");
+                request.setAttribute("info","密码认证错误");
+                request.getRequestDispatcher("/index").forward(request, response);
             }
         }
         catch(Exception e){
@@ -72,6 +79,17 @@ public class LoginRESTController {
         else if(pp.getAuth()==2)
         {
             return "redirect:/announceManagement";
+        }
+        else
+        {
+            request.setAttribute("info","未知错误");
+            try {
+                request.getRequestDispatcher("/index").forward(request, response);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
         return "api";
     }

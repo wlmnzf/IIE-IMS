@@ -27,6 +27,8 @@ interface ClientFormDaoInterface {
 
     public ClientFormPojo getFormResById(String formToken,String userid);
 
+    public List<ClientFormPojo> getFormResByFormToken(String formToken);
+
        public List<ClientFormPojo> getFormsResWithLimit(int from,int cnt,String formToken);
 
     public int getTotal();
@@ -153,6 +155,29 @@ public class ClientFormDao implements ClientFormDaoInterface {
         }
         return form;
     }
+
+    @Override
+    public List<ClientFormPojo> getFormResByFormToken(String formToken) {
+//        ClientFormPojo form=null;
+        List<ClientFormPojo> forms=new ArrayList<ClientFormPojo>();
+        String sql="select * from tformsRes where formtoken=?";
+        try {
+            conn=mysql.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, formToken);
+            rs=pstmt.executeQuery();
+            while(rs.next()){
+                ClientFormPojo form=getClientFormPojo();
+                forms.add(form);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            mysql.closeAll(rs, pstmt, conn);
+        }
+        return forms;
+    }
+
 
     @Override
     public List<ClientFormPojo> getFormsResWithLimit(int from,int cnt,String formToken) {

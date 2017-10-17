@@ -693,6 +693,9 @@
           downloadFile(defaults.fileName + '.' + MSDocExt,
                        'data:application/vnd.ms-' + MSDocType + ';base64,',
                        docFile);
+            // downloadFile(defaults.fileName + '.xlsx',
+            //     'data:application/vnd.ms-' + MSDocType + ';base64,',
+            //     docFile);
         }
 
       } else if ( defaults.type == 'xlsx' ) {

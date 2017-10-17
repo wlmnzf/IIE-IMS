@@ -37,7 +37,7 @@ public class PersonalController {
             if(pageSize!=null)
                 rs = dd.query("select tperson.id, num, tperson.name, troom.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id inner join troom on troom_id=troom.id "+selectSql+" order by id limit ?, ?", (pageNumber - 1) * pageSize, pageSize);
             else
-                rs = dd.query("select tperson.id, num, tperson.name, troom.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id inner join troom on troom_id=troom.id "+selectSql+"order by id");
+                rs = dd.query("select tperson.id, num, tperson.name, troom.name, tgroup.name from tperson inner join tgroup on tgroup_id=tgroup.id inner join troom on troom_id=troom.id "+selectSql+" order by id");
             while (rs.next()) {
                 person=new HashMap<String, Object>();
                 if(pageSize!=null)

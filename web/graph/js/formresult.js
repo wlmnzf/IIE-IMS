@@ -31,6 +31,10 @@ var initInfo=function(info)
 {
 	var ths=$("table tbody tr");
     var cuKey=-1;
+    ths.each(function(){
+        $(this).find("th input").hide();
+    })
+    var index=0;
     // var opCnt=0;
     // var cnt=0;
 
@@ -38,6 +42,8 @@ var initInfo=function(info)
 
     for(cuKey in info )
     {
+        $(ths[cuKey]).find("th input").show();
+        $($(ths[cuKey]).find("td")[0]).html(index+1);
     	$(ths[cuKey]).attr("data-userid",	info[cuKey]["userid"]);
 		var node="<td></td>";
         $(ths[cuKey]).append($(node).html(info[cuKey]["name"]))
@@ -71,7 +77,7 @@ var initInfo=function(info)
             // {
             //     cnt++;
             // }
-
+           index++;
         }
         //
         // $(ths[cuKey]).find(".time").html(timestamp2time(info[cuKey]["time"]));
@@ -101,7 +107,9 @@ var initInfo=function(info)
         $(ths[cuKey]).append(node);
         cuKey++;
     }
-
+    ths.each(function(){
+        $(this).css("height","39px");
+    })
 }
 
 var initPage=function(page)
@@ -362,7 +370,10 @@ $(document).ready(function(){
 
     })
 
-
+    $("#export").click(function(){
+        var formToken=$("#formToken").val();
+        window.open(_BASE_PATH+"/export/"+formToken+"/");
+    })
 
 	$("[name='preview']").click(function(){
         layer.load(2);
@@ -421,16 +432,54 @@ $(document).ready(function(){
 	})
 	
 	
-	$("[name='del']").click(function(){
-		 var isDel = confirm("确认删除");
-			if (isDel) 
-			  {
-				 alert("删除成功");
-			  } 
-			else
-			  alert("再见啦！");
-		
-	})
+	// $("[name='del']").click(function(){
+	// 	 var isDel = confirm("确认删除");
+	// 		if (isDel)
+	// 		  {
+	// 			 alert("删除成功");
+	// 		  }
+	// 		else
+	// 		  alert("再见啦！");
+	//
+	// })
+    $("[name='del']").click(function(){
+        var isDel = confirm("确认删除");
+        if (isDel)
+        {
+            var formToken=$(this).parents("tr").attr("data-sh");
+            $.ajax({
+                type:"POST",
+                url:_BASE_PATH+"/delRes/",
+                async:true,
+                data:{"formToken":formToken,"userId":userId},
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    layer.closeAll('loading');
+                    if(data["res"]=="OK")
+                    {
+                        layer.closeAll('loading');
+                        alert("删除成功");
+                    }
+                    else
+                    {
+                        layer.closeAll('loading');
+                        alert("连接失败");
+                    }
+
+                },
+                error:function(msg){
+                    alert("与服务器连接断开...."+JSON.stringify(msg));
+                }
+            })
+
+
+            // alert("删除成功");
+        }
+        // else
+        //     alert("再见啦！");
+
+    })
 	
 	
 	$(".table .all").click(function(){
@@ -452,19 +501,61 @@ $(document).ready(function(){
 		}
 		
 	})
-	
-	$("#delAll").click(function(){
- 		var isDel = confirm("确认删除");
-			if (isDel) 
-			  {
-			  	//循环删除所有
-				 alert("删除成功");
-				//刷新页面
-			  } 
-	
-	})
-	
-	$("#addNew").click(function(){
+
+    $("#delAll").click(function(){
+        var isDel = confirm("确认删除");
+        if (isDel)
+        {
+            //循环删除所有
+            var data={}
+            var index=0;
+            data["formToken"]=$("#formToken").val();
+            data["res"]={};
+            $(".table tbody tr").each(function(index,o){
+                var token=$(o).attr("data-userid");
+                if(token!=undefined&&$(o).find("th input")[0].checked)
+                {
+                    data["res"][index]=token;
+                    index++;
+                }
+
+            })
+
+
+            $.ajax({
+                type:"POST",
+                url:_BASE_PATH+"/delRes/m",
+                async:true,
+                data:{"data":JSON.stringify(data)},
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    layer.closeAll('loading');
+                    if(data["res"]=="OK")
+                    {
+                        layer.closeAll('loading');
+                        alert("删除成功");
+                        location.reload(true);
+                    }
+                    else
+                    {
+                        layer.closeAll('loading');
+                        alert("连接失败");
+                    }
+
+                },
+                error:function(msg){
+                    alert("与服务器连接断开...."+JSON.stringify(msg));
+                }
+            })
+
+            // alert("删除成功");
+            //刷新页面
+        }
+
+    })
+
+    $("#addNew").click(function(){
 		//获取token，跳转
 		var UserId="wlm";
 		var UserToken="www";
