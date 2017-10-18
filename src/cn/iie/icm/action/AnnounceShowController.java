@@ -260,7 +260,7 @@ public class AnnounceShowController {
         c_u_info = new ArrayList<AnnounceMent>();
         c_u_act = new ArrayList<AnnounceMent>();
         for (int i = 0 ; i < datalist_client.size() ; i++){
-            if(datalist_client.get(i).getGroupid() == group_id){
+            if(datalist_client.get(i).getGroupid() == group_id || datalist_client.get(i).getGroupid() == 0){
                 if(datalist_client.get(i).getType().equals("通知")){
                     c_t_info.add(datalist_client.get(i));
                 }else {
@@ -269,7 +269,7 @@ public class AnnounceShowController {
             }
         }
         for (int j = 0 ; j < datalist_client.size() ; j++){
-            if(datalist_client.get(j).getGroupid() == group_id){
+            if(datalist_client.get(j).getGroupid() == group_id || datalist_client.get(j).getGroupid() == 0){
                 if(datalist_client.get(j).getLevel().equals("紧急")){
                     if(datalist_client.get(j).getType().equals("通知")){
                         c_u_info.add(datalist_client.get(j));
