@@ -686,67 +686,67 @@
             case 2:
                 if(document.getElementById("pg_t_act_p1").className == "active"){
                     cp = document.getElementById("t_act_p1").innerHTML;
-                    index = "t_act_p2";
+                    index = "t_act_p1";
                 }
                 if(document.getElementById("pg_t_act_p2").className == "active"){
                     cp = document.getElementById("t_act_p2").innerHTML;
-                    index = "t_act_p3";
+                    index = "t_act_p1";
                 }
                 if(document.getElementById("pg_t_act_p3").className == "active"){
                     cp = document.getElementById("t_act_p3").innerHTML;
-                    index = "t_act_p4";
+                    index = "t_act_p2";
                 }
                 if(document.getElementById("pg_t_act_p4").className == "active"){
                     cp = document.getElementById("t_act_p4").innerHTML;
-                    index = "t_act_p5";
+                    index = "t_act_p3";
                 }
                 if(document.getElementById("pg_t_act_p5").className == "active"){
                     cp = document.getElementById("t_act_p5").innerHTML;
-                    index = "t_act_p5";
+                    index = "t_act_p4";
                 }
                 break;
             case 3:
                 if(document.getElementById("pg_u_info_p1").className == "active"){
                     cp = document.getElementById("u_info_p1").innerHTML;
-                    index = "u_info_p2";
+                    index = "u_info_p1";
                 }
                 if(document.getElementById("pg_u_info_p2").className == "active"){
                     cp = document.getElementById("u_info_p2").innerHTML;
-                    index = "u_info_p3";
+                    index = "u_info_p1";
                 }
                 if(document.getElementById("pg_u_info_p3").className == "active"){
                     cp = document.getElementById("u_info_p3").innerHTML;
-                    index = "u_info_p4";
+                    index = "u_info_p2";
                 }
                 if(document.getElementById("pg_u_info_p4").className == "active"){
                     cp = document.getElementById("u_info_p4").innerHTML;
-                    index = "u_info_p5";
+                    index = "u_info_p3";
                 }
                 if(document.getElementById("pg_u_info_p5").className == "active"){
                     cp = document.getElementById("u_info_p5").innerHTML;
-                    index = "u_info_p5";
+                    index = "u_info_p4";
                 }
                 break;
             case 4:
                 if(document.getElementById("pg_u_act_p1").className == "active"){
                     cp = document.getElementById("u_act_p1").innerHTML;
-                    index = "u_act_p2";
+                    index = "u_act_p1";
                 }
                 if(document.getElementById("pg_u_act_p2").className == "active"){
                     cp = document.getElementById("u_act_p2").innerHTML;
-                    index = "u_act_p3";
+                    index = "u_act_p1";
                 }
                 if(document.getElementById("pg_u_act_p3").className == "active"){
                     cp = document.getElementById("u_act_p3").innerHTML;
-                    index = "u_act_p4";
+                    index = "u_act_p2";
                 }
                 if(document.getElementById("pg_u_act_p4").className == "active"){
                     cp = document.getElementById("u_act_p4").innerHTML;
-                    index = "u_act_p5";
+                    index = "u_act_p3";
                 }
                 if(document.getElementById("pg_u_act_p5").className == "active"){
                     cp = document.getElementById("u_act_p5").innerHTML;
-                    index = "u_act_p5";
+                    index = "u_act_p4";
                 }
                 break;
         }
