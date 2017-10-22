@@ -216,7 +216,12 @@
                                                 <td><span class="label label-warning">置顶</span></td>
                                             </c:if>
                                             <c:if test="${tInfo.stickly == 0}">
-                                                <td><span class="label label-warning">${tInfo.level}</span></td>
+                                                <c:if test="${tInfo.level == '紧急'}">
+                                                    <td><span class="label label-danger">${tInfo.level}</span></td>
+                                                </c:if>
+                                                <c:if test="${tInfo.level == '普通'}">
+                                                    <td><span class="label label-info">${tInfo.level}</span></td>
+                                                </c:if>
                                             </c:if>
 
                                             <td>
@@ -267,7 +272,12 @@
                                                 <td><span class="label label-warning">置顶</span></td>
                                             </c:if>
                                             <c:if test="${tInfo.stickly == 0}">
-                                                <td><span class="label label-warning">${tInfo.level}</span></td>
+                                                <c:if test="${tInfo.level == '紧急'}">
+                                                    <td><span class="label label-danger">${tInfo.level}</span></td>
+                                                </c:if>
+                                                <c:if test="${tInfo.level == '普通'}">
+                                                    <td><span class="label label-info">${tInfo.level}</span></td>
+                                                </c:if>
                                             </c:if>
 
                                             <td>
@@ -329,7 +339,12 @@
                                                 <td><span class="label label-warning">置顶</span></td>
                                             </c:if>
                                             <c:if test="${uInfo.stickly == 0}">
-                                                <td><span class="label label-warning">${uInfo.level}</span></td>
+                                                <c:if test="${uInfo.level == '紧急'}">
+                                                    <td><span class="label label-danger">${uInfo.level}</span></td>
+                                                </c:if>
+                                                <c:if test="${uInfo.level == '普通'}">
+                                                    <td><span class="label label-info">${uInfo.level}</span></td>
+                                                </c:if>
                                             </c:if>
 
                                             <td>
@@ -372,7 +387,12 @@
                                                 <td><span class="label label-warning">置顶</span></td>
                                             </c:if>
                                             <c:if test="${uInfo.stickly == 0}">
-                                                <td><span class="label label-warning">${uInfo.level}</span></td>
+                                                <c:if test="${uInfo.level == '紧急'}">
+                                                    <td><span class="label label-danger">${uInfo.level}</span></td>
+                                                </c:if>
+                                                <c:if test="${uInfo.level == '普通'}">
+                                                    <td><span class="label label-info">${uInfo.level}</span></td>
+                                                </c:if>
                                             </c:if>
 
                                             <td>
@@ -617,8 +637,14 @@
                             $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">置顶</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
                                 + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
                         }else{
-                            $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
-                                + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                            if(data[i].level == "紧急"){
+                                $("#tb" + aid).append("<tr><td><span class=\"label label-danger\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                    + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                            }else{
+                                $("#tb" + aid).append("<tr><td><span class=\"label label-info\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                    + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                            }
+
                         }
 
                     }
@@ -761,8 +787,14 @@
                             $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">置顶</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
                                 + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
                         }else{
-                            $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
-                                + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                            if(data[i].level == "紧急"){
+                                $("#tb" + aid).append("<tr><td><span class=\"label label-danger\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                    + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                            }else {
+                                $("#tb" + aid).append("<tr><td><span class=\"label label-info\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                    + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                            }
+
                         }
 
                     }
@@ -842,8 +874,14 @@
                         $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">置顶</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
                             + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
                     }else{
-                        $("#tb" + aid).append("<tr><td><span class=\"label label-warning\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
-                            + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                        if(data[i].level == "紧急"){
+                            $("#tb" + aid).append("<tr><td><span class=\"label label-danger\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                        }else {
+                            $("#tb" + aid).append("<tr><td><span class=\"label label-info\">" + data[i].level + "</span></td><td><p><a href=\"showIndex?c_title='+title+'\"><span class=\"event-title\">"
+                                + data[i].title + "</span></a></p></td><td>"+ data[i].author +"</td>" + "<td>" + timeStampString(data[i].datestamp)+"</td></tr>");
+                        }
+
                     }
 
                 }
