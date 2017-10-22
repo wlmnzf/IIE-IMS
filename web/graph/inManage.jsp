@@ -96,9 +96,17 @@
                         <li><a href=""  class="active">信息录入</a></li>
                     </ul>
                 </li>
+                <li>
+                    <h4 class="menu-title"><em class="glyphicon glyphicon-user"></em>个人信息</h4>
+                    <ul class="menu-ul">
+                        <li><a href="<%=path%>/clientInfo"  >个人信息</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
+
+
     <div class="admin-op-panel">
         <div class="panel-content">
               <div class="tab-content">
