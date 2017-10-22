@@ -109,6 +109,33 @@
     <!--<script type="text/javascript" src="js/index.js"></script>-->
 </head>
 
+<script>
+    $(document).ready(function(){
+        $("#urgentT a").click(function(e){
+            e.preventDefault()
+            var type=($(".panel-content >.tab-content >.active ul >.active a").attr("href"));
+//            try {
+                $(this).tab('show')
+//            }
+//            catch(e)
+//            {}
+            if(type=="#activities-2"||type=="#activities-1")
+                $('#urgent a[href="#activities-2"]').tab('show') // Select tab by name
+            else
+                $('#urgent a[href="#informs-2"]').tab('show') // Select tab by name
+        })
+
+        $("#timeT a").click(function(e){
+            e.preventDefault()
+            var type=($(".panel-content >.tab-content >.active ul >.active a").attr("href"));
+            $(this).tab('show')
+            if(type=="#activities-2"||type=="#activities-1")
+                $('#time a[href="#activities-1"]').tab('show') // Select tab by name
+            else
+                $('#time a[href="#informs-1"]').tab('show') // Select tab by name
+        })
+    })
+    </script>
 
 <body>
 <header>
@@ -185,9 +212,10 @@
     <div class="admin-op-panel">
         <div class="panel-content">
             <ul class="nav nav-tabs cate-tabs" role="tablist">
-                <li role="presentation"><a href="#urgent" aria-controls="profile" role="tab" data-toggle="tab">紧急</a></li>
-                <li role="presentation" class="active"><a href="#time" aria-controls="home" role="tab" data-toggle="tab">时间</a></li>
+                <li  id="urgentT" role="presentation"><a href="#urgent" aria-controls="profile" role="tab" data-toggle="tab">紧急</a></li>
+                <li  id="timeT" role="presentation" class="active"><a href="#time" aria-controls="home" role="tab" data-toggle="tab">时间</a></li>
             </ul>
+
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="time">
                     <ul class="nav nav-tabs underline-tabs" role="tablist">
@@ -196,20 +224,11 @@
                     </ul>
 
                     <!-- Tab panes -->
-                    <div class="tab-content">
+             <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="informs-1">
                             <div class="table-responsive">
                                 <table class="table table-striped" >
                                     <tbody id="tb1">
-                                    <%--<tr>
-                                        <td><span class="label label-warning">置顶</span></td>
-                                        <td>
-                                            <p><a href="user-input.html"><span class="event-title">个人信息统计</span></a></p>
-                                        </td>
-                                        <td>张慧慧</td>
-                                        <td>2017-08-01</td>
-                                    </tr>--%>
-
                                     <c:forEach items="${anc_c_t_info}" var="tInfo" >
                                         <tr>
                                             <c:if test="${tInfo.stickly == 1}">
@@ -254,18 +273,12 @@
                                 </ul>
                             </nav>
                         </div>
+
+
                         <div role="tabpanel" class="tab-pane" id="activities-1">
                             <div class="table-responsive">
                                 <table class="table table-striped" >
                                     <tbody id="tb2">
-                                    <%--<tr>
-                                        <td><span class="label label-danger">置顶</span></td>
-                                        <td>
-                                            <p><a href=""><span class="event-title">计算机系统结构需要1</span></a></p>
-                                        </td>
-                                        <td>张慧慧</td>
-                                        <td>2017-08-01</td>
-                                    </tr>--%>
                                     <c:forEach items="${anc_c_t_act}" var="tInfo" >
                                         <tr>
                                             <c:if test="${tInfo.stickly == 1}">
@@ -290,6 +303,11 @@
                                     </tbody>
                                 </table>
                             </div>
+
+
+
+
+
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     <li>
@@ -312,6 +330,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div role="tabpanel" class="tab-pane" id="urgent">
                     <ul class="nav nav-tabs underline-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#informs-2" aria-controls="home" role="tab" data-toggle="tab">通知</a></li>
@@ -324,14 +344,7 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tbody id="tb3">
-                                    <%--<tr>
-                                        <td><span class="label label-warning">置顶</span></td>
-                                        <td>
-                                            <p><a href=""><span class="event-title">计算机系统结构需要2</span></a></p>
-                                        </td>
-                                        <td>张慧慧</td>
-                                        <td>2017-08-01</td>
-                                    </tr>--%>
+
 
                                     <c:forEach items="${anc_c_u_info}" var="uInfo" >
                                         <tr>

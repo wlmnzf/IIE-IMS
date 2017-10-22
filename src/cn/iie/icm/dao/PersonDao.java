@@ -81,7 +81,21 @@ public class PersonDao  implements personDaoInterface {
     @Override
     public void updatePerson( PersonPojo person)
     {
+        String sql="update tperson set password=?,headurl=? where num=?";
+        try {
+            conn=mysql.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, person.getPassword());
+            pstmt.setString(2, person.getHeadUrl());
+            pstmt.setString(3, person.getNum());
 
+            pstmt.executeUpdate();
+            System.out.println("修改成功！");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            mysql.closeAll(rs, pstmt, conn);
+        }
     }
 
     @Override

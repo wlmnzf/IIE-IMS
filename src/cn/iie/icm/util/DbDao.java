@@ -6,7 +6,7 @@ public class DbDao
 {
 	private Connection conn;
 	private String driver="com.mysql.jdbc.Driver";
-	private String url="jdbc:mysql://db.csuncle.com:3306/db_ims";
+	private String url="jdbc:mysql://db.csuncle.com:3306/db_ims?useUnicode=true&characterEncoding=utf8";
 	private String username="root";
 	private String pass="iie.ac.cn";
 

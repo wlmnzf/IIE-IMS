@@ -1,9 +1,11 @@
 package cn.iie.icm.action.api;
 
 import cn.iie.icm.dao.ClientFormDao;
+import cn.iie.icm.dao.PersonDao;
 import cn.iie.icm.dao.formDao;
 import cn.iie.icm.pojo.ClientFormPojo;
 import cn.iie.icm.pojo.FormPojo;
+import cn.iie.icm.pojo.PersonPojo;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -349,6 +351,80 @@ public class ClientFormRESTController {
         return "api";
     }
 
+
+    @RequestMapping(value = "alterInfo")
+    public String alterInfo(Map<String, Object> map, HttpServletRequest request)
+    {
+        JSONObject  info=comm.Login.getLoginInfo(request);
+        JSONObject json=new JSONObject();
+        if(comm.Login.validCheck(request,1)==0) {
+            String stuName=request.getParameter("stuName");
+            String stuNumber=request.getParameter("stuNumber");
+            String stuHead=request.getParameter("stuHead");
+            String prePassword=request.getParameter("stuPassword");
+            String stuNewPassword=request.getParameter("stuNewPassword");
+
+            PersonDao pd=new PersonDao();
+            PersonPojo pp=new PersonPojo();
+            pp=pd.getPerson(info.get("account").toString());
+
+            if(pp!=null)
+            {
+                if(stuHead==null)
+                    stuHead=pp.getHeadUrl();
+                if((pp.getHeadUrl()==null&&stuHead!=null)||!pp.getHeadUrl().equals(stuHead))
+                {
+                    pp.setHeadUrl(stuHead);
+                }
+
+                json.put("res","修改成功");
+
+                boolean flag=false;
+                if(!(prePassword==null||stuNewPassword==null||prePassword.isEmpty()||stuNewPassword.isEmpty())) {
+                    try {
+                        if (comm.MD5_32(prePassword).toLowerCase().equals(pp.getPassword())) {
+                            pp.setPassword(comm.MD5_32(stuNewPassword).toLowerCase());
+                            flag=true;
+                        }
+                        else
+                        {
+                            json.put("res","原密码错误");
+                        }
+                    }
+                    catch(Exception err)
+                    {
+                        err.printStackTrace();
+                        json.put("res","编码出错");
+                    }
+                }
+
+                try {
+                    pd.updatePerson(pp);
+
+                    if (flag) {
+                        pd.updateToken(info.get("account").toString(), "-1");
+                    }
+                }
+                catch(Exception err){
+                    json.put("res","修改错误");
+                }
+
+            }
+            else
+            {
+                json.put("res","Login Error");
+            }
+
+        }
+        else
+        {
+            json.put("res","不存在用户");
+        }
+
+        map.put("json",json.toString());
+        return "clientInfo";
+
+    }
 
 
 }
