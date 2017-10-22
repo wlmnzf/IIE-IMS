@@ -754,7 +754,6 @@
         clearClass(aid);
         cp = parseInt("10",cp);
         cp = cp - 1;
-        alert(cp);
         if(cp == NaN){
             document.getElementById("pg_" + index).className = "active";
             alert("已是第一页");
