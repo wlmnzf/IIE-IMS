@@ -136,11 +136,17 @@
                                 </th>
                                 <th>
                                     <c:if test="${announceMent.stickly == 1}">
-                                        <div style="margin-left: 25%"><span class="label label-danger">置顶</span></div>
+                                        <div style="margin-left: 25%"><span class="label label-warning">置顶</span></div>
                                     </c:if>
 
                                     <c:if test="${announceMent.stickly == 0 || announceMent.stickly == null}">
-                                        <div style="margin-left: 25%"><span class="label label-danger">${announceMent.level}</span></div>
+                                        <c:if test="${announceMent.level == '紧急'}">
+                                            <div style="margin-left: 25%"><span class="label label-danger">${announceMent.level}</span></div>
+                                        </c:if>
+                                        <c:if test="${announceMent.level == '普通'}">
+                                            <div style="margin-left: 25%"><span class="label label-info">${announceMent.level}</span></div>
+                                        </c:if>
+
                                     </c:if>
                                     <%--<p class="clearfix"><span class="label label-danger inform-label" style="font-weight: normal;font-family: Arial;color: #00d449;font-size: small;" >${announceMent.level}</span></p>--%>
                                     <%--<div style="margin-left: 25%"><span class="label label-danger">${announceMent.stickly}</span></div>--%>

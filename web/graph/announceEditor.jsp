@@ -152,7 +152,7 @@
                                 <div class="form-group">
                                     <label for="anc_text" class="col-sm-2 control-label" style="padding-top: 10px">正文</label>
                                     <div class="col-sm-10">
-                                        <textarea id="anc_text" class="form-control" style="width: 700px;height: 500px"  name="text"><%=htmlspecialchars(htmlData)%></textarea>
+                                        <textarea id="anc_text" class="form-control" style="width: 700px;height: 500px;overflow-y: auto"  name="text"><%=htmlspecialchars(htmlData)%></textarea>
                                     </div>
                                 </div>
 
@@ -210,12 +210,11 @@
 
                              <script>
                                  function ancSubmit(){
-                                     alert("come in");
                                      var options = {
                                          url:"<%=path%>/addAnc",
                                          type:"POST",
                                          success:function (data) {
-                                             alert(data);
+                                             //alert(data);
                                              $("#modal").modal();
                                          },
                                          error:function () {
@@ -245,7 +244,7 @@
                 <h4 class="modal-title">提交成功啦！</h4>
             </div>
             <div class="modal-body">
-                <center><img style="width: 100px;height: 150px;padding-top: 10px" src="/graph/img/rocket.png"></center>
+                <center><img style="width: 100px;height: 150px;padding-top: 10px" src="/graph/img/ok.png"></center>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="refresh()">Close</button>
@@ -253,7 +252,7 @@
             </div>
             <script>
                 function refresh() {
-                    window.location.reload();
+                    window.location.href = "<%=path%>/announceManagement";
                 }
             </script>
         </div>

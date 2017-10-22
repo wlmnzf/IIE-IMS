@@ -152,11 +152,17 @@
             for(var i = 0 ; i < data.length; i++){
                 var title1 = data[i].title;
                 if (data[i].stickly == 1){
-                    $("#u1").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title1+'\"  >" +
+                    $("#u1").append("<li><p class=\"clearfix\"><span class=\"label label-warning inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title1+'\"  >" +
                         data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
                 }else {
-                    $("#u1").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title1+'\"  >" +
-                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    if(data[i].level == "紧急"){
+                        $("#u1").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title1+'\"  >" +
+                            data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    }else {
+                        $("#u1").append("<li><p class=\"clearfix\"><span class=\"label label-info inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title1+'\"  >" +
+                            data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    }
+
                 }
 
 
@@ -174,11 +180,17 @@
             for(var i = 0 ; i < data.length; i++){
                 var title2 = data[i].title;
                 if (data[i].stickly == 1){
-                    $("#u2").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title2+'\"  >" +
+                    $("#u2").append("<li><p class=\"clearfix\"><span class=\"label label-warning inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title2+'\"  >" +
                         data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
                 }else {
-                    $("#u2").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title2+'\"  >" +
-                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    if(data[i].level == "紧急"){
+                        $("#u2").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title2+'\"  >" +
+                            data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    }else {
+                        $("#u2").append("<li><p class=\"clearfix\"><span class=\"label label-info inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title2+'\"  >" +
+                            data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    }
+
                 }
             }
         }
@@ -192,11 +204,17 @@
             for(var i = 0 ; i < data.length; i++){
                 var title3 = data[i].title;
                 if (data[i].stickly == 1){
-                    $("#u3").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title3+'\"  >" +
+                    $("#u3").append("<li><p class=\"clearfix\"><span class=\"label label-warning inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title3+'\"  >" +
                         data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
                 }else {
-                    $("#u3").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title3+'\"  >" +
-                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    if(data[i].level == "紧急"){
+                        $("#u3").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title3+'\"  >" +
+                            data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    }else {
+                        $("#u3").append("<li><p class=\"clearfix\"><span class=\"label label-info inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title3+'\"  >" +
+                            data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    }
+
                 }
             }
         }
@@ -211,11 +229,17 @@
                 var title4 = data[i].title;
 
                 if (data[i].stickly == 1){
-                    $("#u4").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title4+'\"  >" +
+                    $("#u4").append("<li><p class=\"clearfix\"><span class=\"label label-warning inform-label\">置顶</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title4+'\"  >" +
                         data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
                 }else {
-                    $("#u4").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title4+'\"  >" +
-                        data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    if(data[i].level == "紧急"){
+                        $("#u4").append("<li><p class=\"clearfix\"><span class=\"label label-danger inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title4+'\"  >" +
+                            data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    }else {
+                        $("#u4").append("<li><p class=\"clearfix\"><span class=\"label label-info inform-label\">" + data[i].level + "</span><span class=\"inform-name\"><a href=\"showIndex?c_title='+title4+'\"  >" +
+                            data[i].title + "</a></span><span class=\"inform-time\">" + timeStampString(data[i].datestamp) + "</span></p></li>");
+                    }
+
                 }
             }
         }
