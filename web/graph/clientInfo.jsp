@@ -25,6 +25,7 @@
     <script src="<%=path%>/graph/js/clientInfo.js"></script>
     <script src="<%=path%>/graph/js/layer/layer.js"></script>
     <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/fileinput/fileinput.min.css" />
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/clientinfo.css" />
     <script type="text/javascript" src="<%=path%>/graph/js/fileinput/fileinput.min.js"></script>
     <script type="text/javascript" src="<%=path%>/graph/js/fileinput/locales/zh.js"></script>
 
@@ -129,7 +130,7 @@
                             <label for="stuNumber">学号</label>
                             <input type="text" class="form-control" name="stuNumber" id="stuNumber" placeholder="学号" disabled value="${stuNumber}">
                         </div>
-                        <div class="form-group">
+                        <div  id ="password" class="form-group">
                             <label for="stuPassword">密码修改</label>
                             <input type="password" class="form-control" name="stuPassword" id="stuPassword" placeholder="请输入原始密码">
                             <input type="password" class="form-control" name="stuNewPassword" id="stuNewPassword" placeholder="请输入新密码">

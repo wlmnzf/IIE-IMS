@@ -48,27 +48,34 @@ public class ClientInfoController {
         String oldFileName=img.getOriginalFilename();
 //        String savePath=getClass().getClassLoader().getResource("").getPath();//"\\headurl";
         String savePath=request.getSession().getServletContext().getRealPath("")+"graph\\headurl";//"\\headurl";
-        java.io.
+        File pathDir = new File(savePath);
+        if(!pathDir.exists())
+            pathDir.mkdirs();
+
         File newfile=null;
 //        newfile.mkdir();
         String newFileName="";
+        JSONObject json=new JSONObject();
         if(img!=null&&oldFileName!=null&&oldFileName.length()>0)
         {
             newFileName= UUID.randomUUID()+oldFileName.substring(oldFileName.lastIndexOf('.'));
             newfile=new File(savePath+"\\"+newFileName);
+
+
             try {
-                newfile.mkdir();
+               // newfile.mkdir();
                 img.transferTo(newfile);
+                json.put("res","OK");
+                json.put("file",newFileName);
             }
             catch(Exception err)
             {
                 err.printStackTrace();
+                json.put("res","Error");
             }
 
         }
-        JSONObject json=new JSONObject();
-        json.put("res","OK");
-        json.put("file",newFileName);
+
 
         map.put("json",json.toString());
         return "api";

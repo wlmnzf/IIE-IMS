@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,12 +17,14 @@
     <meta charset="utf-8"/>
     <!--<link rel="Shortcut Icon" href="images/logo.jpg" type="image/x-icon">-->
     <title>投票结果</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="css/all-common.css">
-    <link type="text/css" rel="stylesheet" href="css/user-vote.css">
-    <script src="resources/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!--<script type="text/javascript" src="js/index.js"></script>-->
+    <link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <%--<link rel="stylesheet" href="<%=path%>/graph/css/bootstrap/bootstrap-theme.min.css" crossorigin="anonymous">--%>
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/all-common.css">
+    <%--<link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/admin.css">--%>
+    <link type="text/css" rel="stylesheet" href="<%=path%>/graph/css/user-vote.css">
+    <script src="<%=path%>/graph/js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="<%=path%>/graph/js/bootstrap/bootstrap.min.js"></script>
+    <script src="<%=path%>/graph/js/clientVoteRes.js"></script>
 </head>
 <body>
 <header>
@@ -70,58 +75,56 @@
 </header>
 
 
+
 <div class="admin-content clearfix">
     <div class="admin-op-list">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
-                <i class="glyphicon glyphicon-th-list"></i>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="main-menu" aria-expanded="false">
-            <ul class="menu">
-                <li>
-                    <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
-                    <ul class="menu-ul">
-                        <li><a href="">公告</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>信息录入</h4>
-                    <ul class="menu-ul">
-                        <li><a href="">信息录入</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+        <ul class="menu">
+            <li>
+                <h4 class="menu-title"><em class="glyphicon glyphicon-tags"></em>公告</h4>
+                <ul class="menu-ul">
+                    <li><a href="<%=path%>/announceManagement">公告管理</a></li>
+                    <li><a href="<%=path%>/announceEditor">公告编辑</a></li>
+                </ul>
+            </li>
+            <li>
+                <h4 class="menu-title"><em class="glyphicon glyphicon-inbox"></em>录入</h4>
+                <ul class="menu-ul">
+                    <li ><a href="<%=path%>/formManage">页面定制</a></li>
+                    <li><a href="javascript:void(0)" class="active">结果管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <h4 class="menu-title"><em class="glyphicon glyphicon-user"></em>人员</h4>
+                <ul class="menu-ul">
+                    <li><a href="<%=path%>/graph/personalManage.jsp">人员管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <h4 class="menu-title"><em class="glyphicon glyphicon-align-left"></em>分组</h4>
+                <ul class="menu-ul">
+                    <li><a href="<%=path%>/graph/groupManage.jsp">分组管理</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
+
+
+
     <div class="admin-op-panel">
         <div class="panel-content">
             <h3 class="form-title">这周去哪里玩？</h3>
             <div class="inform-form">
-                <div class="vote-result">
-                    <div class="vote-choice">雁栖湖</div>
-                    <div class="progress vote-progress">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
 
-                        </div>
-                    </div>
-                </div>
-                <div class="vote-result">
-                    <div class="vote-choice">密云水库</div>
-                    <div class="progress vote-progress">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                <%--<div class="vote-result">--%>
+                    <%--<div class="vote-choice">雁栖湖</div>--%>
+                    <%--<div class="progress vote-progress">--%>
+                        <%--<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">--%>
 
-                        </div>
-                    </div>
-                </div>
-                <div class="vote-result">
-                    <div class="vote-choice">青龙峡</div>
-                    <div class="progress vote-progress">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
 
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -131,5 +134,6 @@
         ©2017 中国科学院 信息工程研究所
     </p>
 </footer>
+<input type="hidden" value='${data}' id="cnt"/>
 </body>
 </html>
